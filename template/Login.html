@@ -29,6 +29,7 @@
             },
         }
     </script>
+    <script type="module" src="/public/js/login.js"></script>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-x-hidden selection:bg-primary selection:text-white">
 <div class="relative min-h-screen w-full flex items-center justify-center p-4 lg:p-8">
@@ -113,7 +114,7 @@
 <div class="flex flex-col gap-2">
 <div class="flex justify-between items-center ml-2">
 <label class="text-sm font-bold text-slate-700 dark:text-pink-100" for="password">Mật khẩu</label>
-<a class="text-sm font-semibold text-primary hover:text-primary-hover transition-colors" href="#">Quên mật khẩu?</a>
+<a class="text-sm font-semibold text-primary hover:text-primary-hover transition-colors" href="/template/Forgot-Password.html">Quên mật khẩu?</a>
 </div>
 <div class="relative group">
 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -125,7 +126,7 @@
 </button>
 </div>
 </div>
-<button class="mt-4 w-full h-14 bg-gradient-to-r from-primary to-primary-hover hover:from-primary-hover hover:to-primary text-white text-base font-bold rounded-full shadow-lg shadow-primary/30 transform transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group">
+                <button type="submit" class="mt-4 w-full h-14 bg-gradient-to-r from-primary to-primary-hover hover:from-primary-hover hover:to-primary text-white text-base font-bold rounded-full shadow-lg shadow-primary/30 transform transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group">
 <span>Đăng nhập</span>
 <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
 </button>
@@ -157,7 +158,7 @@
 <div class="mt-8 text-center">
 <p class="text-sm text-gray-500 dark:text-pink-200/60">
                         Chưa có tài khoản? 
-                        <a class="text-primary font-bold hover:underline ml-1" href="#">Đăng ký ngay</a>
+                        <a class="text-primary font-bold hover:underline ml-1" href="/template/Register.html">Đăng ký ngay</a>
 </p>
 </div>
 </div>
