@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx http-server . -p 3000 -o",
+    "dev": "npx http-server . -p 3000 -o"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
