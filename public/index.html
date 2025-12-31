@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>HLE Fan Club - Peanut Countdown</title>
+    <title>Peanut Birthday Celebration</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
@@ -82,17 +82,18 @@
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col">
-<header class="w-full z-50 border-b border-pink-900/20 backdrop-blur-md bg-[#1f0f16]/80 fixed top-0 left-0">
+<body class="text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col relative">
+<div class="fixed inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/img/background.svg'); z-index: -1;"></div>
+<!-- Banner with text.svg -->
+<div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;">
+    <img src="/assets/img/text.svg" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;"/>
+</div>
+
+<!-- Navbar below banner -->
+<header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 fixed top-32 left-0" >
     <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
-            <div class="flex items-center gap-3">
-                <div class="size-8 text-primary bg-white/10 rounded-full flex items-center justify-center p-1.5">
-                    <span class="material-symbols-outlined text-xl">temp_preferences_custom</span>
-                </div>
-                <span class="text-white text-lg font-bold tracking-tight font-serif">HLE Fan Club</span>
-            </div>
-            <nav class="hidden md:flex items-center gap-8">
+            <nav class="hidden md:flex items-center gap-8 mx-auto">
                 <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/">Trang chủ</a>
                 <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="#">Thư viện</a>
                 <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="#">Lời nhắn</a>
@@ -102,7 +103,7 @@
                     <span>Quản lý</span>
                 </a>
             </nav>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-4 ml-auto">
                 <div class="hidden sm:block text-right">
                     <p class="text-xs text-white/60">Đăng nhập bởi</p>
                     <p class="text-sm font-semibold text-white" id="username">Fan Member</p>
@@ -117,114 +118,85 @@
     </div>
 </header>
 
-<main class="flex-grow relative flex items-center justify-center pt-24 pb-12">
-    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30 mix-blend-screen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCBbQh1OClBsiMSBGMMzqEDN-LpMpq1u6fa6KlM4mLuSbzW45_dabvHPYebPwegFol0qZgl6GoFsSqzVEKwYpuezTseqVaXmNVRxrHkrrSZHjXKljQpyKZFcmn2EIAPj-LfbRwEjfKkt6LtmHgQa8es9ti5JtE3sGVFjwmFE66RU7NRrZo-6MhBbK7W1XRtyL2SK32Ntn_M1pEFV0iDjYB-ftR8nPOoVuMG29inLAuyVuekVgbCUwfowFyLzdmPlmr3qBPoF_M4mg");'>
-        </div>
-        <div class="absolute inset-0 bg-gradient-radial from-transparent via-[#2d0e1c]/80 to-[#1f0f16]"></div>
-        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
-        <div class="absolute bottom-1/3 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px]"></div>
-        <div class="absolute top-10 left-10 text-primary/10 animate-float-slow text-6xl select-none">🌸</div>
-        <div class="absolute top-1/2 right-10 text-primary/10 animate-float-slow text-4xl select-none" style="animation-delay: 2s">🌸</div>
-        <div class="absolute bottom-20 left-1/3 text-primary/10 animate-float-slow text-5xl select-none" style="animation-delay: 4s">❀</div>
-    </div>
-
-    <div class="relative z-10 w-full max-w-4xl px-4 flex flex-col items-center gap-10">
-        <div class="text-center space-y-4 floating-element">
-            <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-primary/20 border border-primary/30 backdrop-blur-sm mb-2 shadow-[0_0_15px_rgba(236,72,153,0.3)]">
-                <span class="material-symbols-outlined text-primary text-sm mr-2">military_tech</span>
-                <span class="text-primary-light text-xs font-bold uppercase tracking-wider">Đếm ngược chính thức</span>
-            </div>
+<main class="flex-grow relative flex items-center justify-center pt-48 pb-12" style="
+    padding-top: 13rem;
+">
+    <div class="relative z-10 w-full max-w-4xl px-4 flex flex-col items-center gap-10" bis_skin_checked="1" style="
+    gap: 0rem;
+">
+        <div class="text-center space-y-4 floating-element" bis_skin_checked="1">
             <h1 id="countdown-title" class="text-5xl md:text-7xl font-extrabold tracking-tight text-white shimmer-text leading-tight font-serif">
-                Chờ đợi <br class="hidden md:block"/> Peanut Trở Về
+                Happy Peanut Day
             </h1>
             <p class="text-lg md:text-xl text-pink-100/70 font-light max-w-lg mx-auto font-body">
-                Đếm ngược từng giây cho đến ngày "Vua Rừng Xanh" trở lại Summoner's Rift.
+                Đếm ngược đến ngày sinh nhật đặc biệt của Peanut! 🎉
             </p>
         </div>
 
-        <div class="relative w-full max-w-3xl group mt-4">
-            <a href="/birthday-wishes.html" id="birthday-week-badge" class="hidden absolute -top-6 left-1/2 -translate-x-1/2 z-30 bg-gradient-to-r from-gold via-yellow-200 to-gold text-amber-900 text-xs font-bold px-4 py-1 rounded-full shadow-lg flex items-center gap-1 animate-bounce hover:scale-105 transition-transform">
-                <span class="material-symbols-outlined text-sm">cake</span>
-                <span>Tuần lễ Sinh nhật Peanut</span>
-            </a>
-            <div class="absolute -inset-1.5 bg-gradient-to-r from-primary via-pink-400 to-primary rounded-2xl opacity-60 blur-md group-hover:opacity-80 transition duration-1000 group-hover:duration-200"></div>
-            <div class="relative bg-[#2d1b24]/90 backdrop-blur-xl border border-pink-500/30 rounded-2xl p-8 md:p-12 overflow-hidden special-frame-active shadow-2xl">
-                <!-- Decorative flowers -->
-                <div class="absolute -top-4 -left-4 p-4 text-primary/60 rotate-12 flower-spin" style="animation-duration: 25s;">
-                    <span class="material-symbols-outlined text-[80px]">local_florist</span>
-                </div>
-                <div class="absolute -top-4 -right-4 p-4 text-primary/60 -rotate-12 flower-spin" style="animation-duration: 30s;">
-                    <span class="material-symbols-outlined text-[80px]">filter_vintage</span>
-                </div>
-                <div class="absolute -bottom-4 -left-4 p-4 text-primary/60 rotate-45 flower-spin" style="animation-duration: 28s;">
-                    <span class="material-symbols-outlined text-[80px]">filter_vintage</span>
-                </div>
-                <div class="absolute -bottom-4 -right-4 p-4 text-primary/60 -rotate-45 flower-spin" style="animation-duration: 22s;">
-                    <span class="material-symbols-outlined text-[80px]">local_florist</span>
-                </div>
-                
-                <div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-                    <span class="material-symbols-outlined text-[300px] text-pink-500 animate-pulse">favorite</span>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 relative z-10">
-                    <div class="flex flex-col items-center justify-center gap-3 group/item">
-                        <div class="w-full aspect-square md:aspect-[3/4] md:h-32 bg-[#3f2530] rounded-2xl flex items-center justify-center border border-pink-500/20 shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] group-hover/item:border-primary/50 transition-colors">
-                            <span id="countdown-months" class="text-3xl md:text-5xl font-black text-white font-serif">00</span>
+        <div class="relative w-full max-w-3xl group mt-4" bis_skin_checked="1">
+            <div class="relative p-8 md:p-12" style="/* background-image: url('/assets/img/frame.svg'); *//* background-size: 100% 100%; *//* background-repeat: no-repeat; */min-height: 300px;" bis_skin_checked="1">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 relative z-10" bis_skin_checked="1">
+                    <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
+                        <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg" bis_skin_checked="1" style="padding-bottom: 1.5rem;">
+                            <span id="countdown-days" class="text-3xl md:text-5xl font-black text-white font-serif" style="font-size: 5rem;">32</span>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.2em] text-pink-200/60 font-medium">Tháng</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Ngày</span>
                     </div>
-                    <div class="flex flex-col items-center justify-center gap-3 group/item">
-                        <div class="w-full aspect-square md:aspect-[3/4] md:h-32 bg-[#3f2530] rounded-2xl flex items-center justify-center border border-pink-500/20 shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] group-hover/item:border-primary/50 transition-colors">
-                            <span id="countdown-days" class="text-3xl md:text-5xl font-black text-white font-serif">00</span>
+                    <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
+                        <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg" bis_skin_checked="1" style="padding-bottom: 1.5rem;">
+                            <span id="countdown-hours" class="text-3xl md:text-5xl font-black text-white font-serif" style="font-size: 5rem;">04</span>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.2em] text-pink-200/60 font-medium">Ngày</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Giờ</span>
                     </div>
-                    <div class="flex flex-col items-center justify-center gap-3 group/item">
-                        <div class="w-full aspect-square md:aspect-[3/4] md:h-32 bg-[#3f2530] rounded-2xl flex items-center justify-center border border-pink-500/20 shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] group-hover/item:border-primary/50 transition-colors">
-                            <span id="countdown-hours" class="text-3xl md:text-5xl font-black text-white font-serif">00</span>
+                    <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
+                        <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg" bis_skin_checked="1" style="padding-bottom: 1.5rem;">
+                            <span id="countdown-minutes" class="text-3xl md:text-5xl font-black text-white font-serif" style="font-size: 5rem;">27</span>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.2em] text-pink-200/60 font-medium">Giờ</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Phút</span>
                     </div>
-                    <div class="flex flex-col items-center justify-center gap-3 group/item">
-                        <div class="w-full aspect-square md:aspect-[3/4] md:h-32 bg-[#3f2530] rounded-2xl flex items-center justify-center border border-pink-500/20 shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] group-hover/item:border-primary/50 transition-colors">
-                            <span id="countdown-minutes" class="text-3xl md:text-5xl font-black text-white font-serif">00</span>
+                    <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
+                        <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg" bis_skin_checked="1" style="padding-bottom: 1.5rem;">
+                            <span id="countdown-seconds" class="text-3xl md:text-5xl font-black text-white font-serif" style="font-size: 5rem;">10</span>
                         </div>
-                        <span class="text-xs uppercase tracking-[0.2em] text-pink-200/60 font-medium">Phút</span>
-                    </div>
-                    <div class="flex flex-col items-center justify-center gap-3 group/item">
-                        <div class="w-full aspect-square md:aspect-[3/4] md:h-32 bg-[#3f2530] rounded-2xl flex items-center justify-center border border-pink-500/20 shadow-[inset_0_2px_10px_rgba(0,0,0,0.3)] group-hover/item:border-primary/50 transition-colors">
-                            <span id="countdown-seconds" class="text-3xl md:text-5xl font-black text-white font-serif">00</span>
-                        </div>
-                        <span class="text-xs uppercase tracking-[0.2em] text-pink-200/60 font-medium">Giây</span>
+                        <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Giây</span>
                     </div>
                 </div>
-            </div>
+            <img src="/assets/img/frame.svg" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;position: absolute;bottom: 0rem;"></div>
         </div>
 
-        <button class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-primary to-pink-600 text-white font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(236,72,153,0.5)]">
+        <a href="/birthday-wishes.html" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-gold via-yellow-200 to-gold text-amber-900 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] shadow-lg" bis_skin_checked="1">
             <span class="relative z-10 flex items-center gap-2">
-                <span>Gửi lời nhắn động viên</span>
-                <span class="material-symbols-outlined text-[20px] animate-bounce">favorite</span>
+                <span class="material-symbols-outlined text-[24px] animate-bounce">cake</span>
+                <span>Gửi lời chúc Sinh nhật Peanut</span>
             </span>
-            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-        </button>
+            <div class="absolute inset-0 bg-white/30 translate-y-full group-hover:translate-y-0 transition-transform duration-300" bis_skin_checked="1"></div>
+        </a>
     </div>
 </main>
 
-<footer class="w-full border-t border-pink-900/30 bg-[#150a0f] py-10 relative z-20">
-    <div class="max-w-[960px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-        <div class="flex flex-col gap-2">
-            <span class="text-white font-bold text-lg font-serif">HLE Fan Club</span>
-            <p class="text-pink-200/50 text-sm">© 2024 HLE Fan Club. All rights reserved.</p>
+<footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-1 relative z-20">
+    <div class="max-w-[960px] mx-auto px-6 flex flex-col items-center gap-6 text-center" bis_skin_checked="1" style="
+    flex-direction: row;
+">
+        <div class="flex flex-col gap-2" bis_skin_checked="1">
+            <span class="text-white font-bold text-xl font-serif">Follow Peanut</span>
+            <p class="text-pink-200/70 text-sm">Theo dõi Peanut trên các nền tảng</p>
         </div>
-        <div class="flex flex-col gap-4 items-center md:items-end">
-            <div class="flex gap-6">
-                <a class="text-pink-200/60 hover:text-white transition-colors text-sm" href="#">Chính sách bảo mật</a>
-                <a class="text-pink-200/60 hover:text-white transition-colors text-sm" href="#">Điều khoản dịch vụ</a>
-            </div>
+        <div class="flex gap-8 items-center" bis_skin_checked="1">
+            <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group" href="https://youtube.com/@lolpeanuttv?si=V1kHJhWFrZ4Raw_c" target="_blank" rel="noopener noreferrer" bis_skin_checked="1">
+                <svg class="w-8 h-8 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                </svg>
+                <span>YouTube</span>
+            </a>
+            <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group" href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer" bis_skin_checked="1">
+                <svg class="w-8 h-8 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
+                </svg>
+                <span>Soop</span>
+            </a>
         </div>
+        <p class="text-pink-200/40 text-xs mt-4">© 2026 Peanut Birthday Celebration. Made with 💖 by fans</p>
     </div>
 </footer>
 

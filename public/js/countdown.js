@@ -95,7 +95,6 @@ function calculateCountdown(targetDate) {
   
   if (distance < 0) {
     return {
-      months: 0,
       days: 0,
       hours: 0,
       minutes: 0,
@@ -104,15 +103,13 @@ function calculateCountdown(targetDate) {
     }
   }
   
-  // Calculate months, days, hours, minutes, seconds
-  const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30))
-  const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24))
+  // Calculate total days, hours, minutes, seconds
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24))
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((distance % (1000 * 60)) / 1000)
   
   return {
-    months,
     days,
     hours,
     minutes,
@@ -123,13 +120,11 @@ function calculateCountdown(targetDate) {
 
 // Update countdown display
 function updateCountdownDisplay(countdown) {
-  const monthsElement = document.getElementById('countdown-months')
   const daysElement = document.getElementById('countdown-days')
   const hoursElement = document.getElementById('countdown-hours')
   const minutesElement = document.getElementById('countdown-minutes')
   const secondsElement = document.getElementById('countdown-seconds')
   
-  if (monthsElement) monthsElement.textContent = String(countdown.months).padStart(2, '0')
   if (daysElement) daysElement.textContent = String(countdown.days).padStart(2, '0')
   if (hoursElement) hoursElement.textContent = String(countdown.hours).padStart(2, '0')
   if (minutesElement) minutesElement.textContent = String(countdown.minutes).padStart(2, '0')
@@ -138,14 +133,13 @@ function updateCountdownDisplay(countdown) {
   if (countdown.finished) {
     const titleElement = document.getElementById('countdown-title')
     if (titleElement) {
-      titleElement.innerHTML = 'Peanut Đã Trở Về! <br class="hidden md:block"/> 🎉'
+      titleElement.innerHTML = 'Happy Peanut Day! 🎉'
     }
   }
 }
 // Initialize
 loadUserProfile()
 startCountdown()
-updateBirthdayWeekBadge()
 checkAdminAccess()
 async function startCountdown() {
   const settings = await loadCountdownSettings()

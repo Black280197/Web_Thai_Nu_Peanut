@@ -249,7 +249,7 @@ async function loadWishes() {
     // Load wishes with user info
     const { data: wishes, error } = await supabase
       .from('wishes')
-      .select('id, content, sticker, status, created_at, users!wishes_user_id_fkey(username)')
+      .select('id, content, sticker, image_url, status, created_at, users!wishes_user_id_fkey(username)')
       .order('created_at', { ascending: false })
     
     if (error) throw error
@@ -295,6 +295,12 @@ function renderWishesList(wishes) {
     const card = document.createElement('div')
     card.className = 'p-4 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors'
     
+    const imageHtml = wish.image_url 
+      ? `<div class="mt-3">
+           <img src="${wish.image_url}" alt="Wish image" class="max-w-xs max-h-48 rounded-lg border border-white/10 object-cover" />
+         </div>`
+      : ''
+    
     card.innerHTML = `
       <div class="flex items-start justify-between gap-4">
         <div class="flex-1">
@@ -304,6 +310,7 @@ function renderWishesList(wishes) {
             <span class="text-xs text-slate-400">${new Date(wish.created_at).toLocaleString('vi-VN')}</span>
           </div>
           <p class="text-sm text-slate-300 leading-relaxed">${wish.content}</p>
+          ${imageHtml}
         </div>
         <div class="flex flex-col gap-2">
           <button onclick="moderateWish('${wish.id}', 'approved')" class="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg text-sm font-semibold hover:bg-green-500/30 transition-colors">

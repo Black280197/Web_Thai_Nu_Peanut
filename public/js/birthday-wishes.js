@@ -5,6 +5,43 @@ import { supabase } from './supabase-client.js'
 // Check if user is logged in
 const user = await requireAuth()
 
+// Initialize image slideshow
+function initSlideshow() {
+  const images = [
+    '/assets/img_peanuts/0fe8f6cbebafe8e545d053dcf3ee9380.jpg',
+    '/assets/img_peanuts/2c340752e66f620443a72b46f630ece5.jpg',
+    '/assets/img_peanuts/2db4366d6cc53f84237209e982ef7c19.jpg',
+    '/assets/img_peanuts/3a51444fe53f876c0d9f39953cb0c7a4.jpg',
+    '/assets/img_peanuts/72a24ffdeb8497e51f0b43464e6beb2f.jpg',
+    '/assets/img_peanuts/99c6043ff6b60466e0e368654135621f.jpg',
+    '/assets/img_peanuts/b1dfe44bb3cbcf0921e6236a53ef6446.jpg',
+    '/assets/img_peanuts/caf563a1020e1716156c4585e90d4b42.jpg'
+  ]
+  
+  const container = document.getElementById('slideshow-container')
+  if (!container) return
+  
+  let currentIndex = 0
+  
+  // Create img element
+  const img = document.createElement('img')
+  img.src = images[0]
+  img.alt = 'Peanut'
+  img.className = 'w-full h-full object-cover transition-opacity duration-1000'
+  container.appendChild(img)
+  
+  // Rotate images every 5 seconds
+  setInterval(() => {
+    img.style.opacity = '0'
+    
+    setTimeout(() => {
+      currentIndex = (currentIndex + 1) % images.length
+      img.src = images[currentIndex]
+      img.style.opacity = '1'
+    }, 1000)
+  }, 5000)
+}
+
 // Birthday date (January 4th)
 const BIRTHDAY_DATE = new Date(new Date().getFullYear(), 0, 4)
 
@@ -116,6 +153,7 @@ async function loadRecentWishes() {
 const form = document.getElementById('wishes-form')
 const nicknameInput = document.getElementById('nickname')
 const contentInput = document.getElementById('content')
+const imageUpload = document.getElementById('image-upload')
 const charCount = document.getElementById('char-count')
 const submitButton = document.getElementById('submit-button')
 
@@ -160,11 +198,53 @@ if (form) {
       return
     }
     
+    // Validate image size if uploaded
+    const imageFile = imageUpload?.files?.[0]
+    if (imageFile && imageFile.size > 5 * 1024 * 1024) {
+      alert('Ảnh không được vượt quá 5MB')
+      return
+    }
+    
     // Disable button
     submitButton.disabled = true
     submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Đang gửi...'
     
     try {
+      let imageUrl = null
+      
+      // Upload image if provided
+      if (imageFile) {
+        try {
+          const fileExt = imageFile.name.split('.').pop()
+          const fileName = `${user.id}-${Date.now()}.${fileExt}`
+          const filePath = `birthday-wishes/${fileName}`
+          
+          const { error: uploadError } = await supabase.storage
+            .from('wishes-images')
+            .upload(filePath, imageFile)
+          
+          if (uploadError) {
+            console.warn('Image upload failed:', uploadError)
+            // Continue without image if bucket doesn't exist
+            if (uploadError.message.includes('Bucket not found')) {
+              alert('Chức năng upload ảnh chưa được kích hoạt. Lời chúc sẽ được gửi không kèm ảnh.')
+            } else {
+              throw uploadError
+            }
+          } else {
+            // Get public URL
+            const { data: { publicUrl } } = supabase.storage
+              .from('wishes-images')
+              .getPublicUrl(filePath)
+            
+            imageUrl = publicUrl
+          }
+        } catch (imgError) {
+          console.error('Image upload error:', imgError)
+          // Continue without image
+        }
+      }
+      
       // Insert wish
       const { error } = await supabase
         .from('wishes')
@@ -173,6 +253,7 @@ if (form) {
           type: 'birthday',
           content: `${nickname}: ${content}`,
           sticker: sticker,
+          image_url: imageUrl,
           status: 'pending'
         }])
       
@@ -193,12 +274,18 @@ if (form) {
       alert('Có lỗi xảy ra. Vui lòng thử lại.')
     } finally {
       submitButton.disabled = false
-      submitButton.innerHTML = '<span>Gửi Lời chúc Sinh nhật</span><span class="material-symbols-outlined transition-transform group-hover:translate-x-1">send</span>'
+      submitButton.innerHTML = `
+        <div class="relative flex items-center justify-center gap-2 font-bold text-lg tracking-wide">
+          <span class="material-symbols-outlined text-2xl">cake</span>
+          <span>Gửi Lời chúc Sinh nhật</span>
+        </div>
+      `
     }
   })
 }
 
 // Initialize
+initSlideshow()
 updateCountdownDisplay()
 updateProgressBar()
 loadRecentWishes()
