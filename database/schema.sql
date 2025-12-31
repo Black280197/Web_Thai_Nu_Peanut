@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS public.wishes (
   type TEXT NOT NULL CHECK (type IN ('daily', 'birthday', 'debut')),
   content TEXT NOT NULL,
   sticker TEXT,
+  image_url TEXT,
   status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
   moderated_by UUID REFERENCES public.users(id) ON DELETE SET NULL,
   moderated_at TIMESTAMPTZ,
