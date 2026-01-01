@@ -1,10 +1,10 @@
 // Countdown page initialization
-import { requireAuth, isAdmin } from './supabase-client.js'
+import { isAdmin, getCurrentUser } from './supabase-client.js'
 import { supabase } from './supabase-client.js'
 import { handleLogout } from './auth.js'
 
-// Check if user is logged in
-const user = await requireAuth()
+// Get current user (optional - for guests)
+const user = await getCurrentUser()
 
 // Check if user is admin and show admin link
 async function checkAdminAccess() {
@@ -162,12 +162,45 @@ async function startCountdown() {
 
 // Handle logout
 const logoutButton = document.getElementById('logout-button')
-if (logoutButton) {
-  logoutButton.addEventListener('click', async () => {
-    await handleLogout()
+const loginButton = document.getElementById('login-button')
+const userSection = document.getElementById('user-section')
+
+if (user) {
+  // User is logged in - show user info and logout button
+  if (userSection) userSection.classList.remove('hidden')
+  if (logoutButton) {
+    logoutButton.classList.remove('hidden')
+    logoutButton.addEventListener('click', async () => {
+      await handleLogout()
+    })
+  }
+  if (loginButton) loginButton.classList.add('hidden')
+  
+  loadUserProfile()
+  checkAdminAccess()
+} else {
+  // Guest mode - show login button
+  if (userSection) userSection.classList.add('hidden')
+  if (logoutButton) logoutButton.classList.add('hidden')
+  if (loginButton) {
+    loginButton.classList.remove('hidden')
+    loginButton.addEventListener('click', () => {
+      window.location.href = '/login.html'
+    })
+  }
+}
+
+// Handle birthday wishes link - require auth
+const birthdayWishesLink = document.getElementById('birthday-wishes-link')
+if (birthdayWishesLink) {
+  birthdayWishesLink.addEventListener('click', (e) => {
+    if (!user) {
+      e.preventDefault()
+      alert('Vui lòng đăng nhập để gửi lời chúc sinh nhật!')
+      window.location.href = '/login.html'
+    }
   })
 }
 
 // Initialize
-loadUserProfile()
 startCountdown()

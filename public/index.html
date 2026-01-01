@@ -83,10 +83,10 @@
     </style>
 </head>
 <body class="text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col relative">
-<div class="fixed inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/img/background.svg'); z-index: -1;"></div>
-<!-- Banner with text.svg -->
-<div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;">
-    <img src="/assets/img/text.svg" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;"/>
+<div class="fixed inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
+<!-- Banner with text.png -->
+<div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;" bis_skin_checked="1">
+    <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;width: 17rem;">
 </div>
 
 <!-- Navbar below banner -->
@@ -104,14 +104,22 @@
                 </a>
             </nav>
             <div class="flex items-center gap-4 ml-auto">
-                <div class="hidden sm:block text-right">
-                    <p class="text-xs text-white/60">Đăng nhập bởi</p>
-                    <p class="text-sm font-semibold text-white" id="username">Fan Member</p>
-                </div>
-                <button id="logout-button" class="text-xs text-pink-200/60 hover:text-white transition-colors">
-                    Đăng xuất
+                <!-- Guest mode: Login button -->
+                <button id="login-button" class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                    Đăng nhập
                 </button>
-                <div id="avatar" class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsRPRtwPFPs_i83KJtH82783rzaaB4zz4cVJPiCmmITFr9Q5RY0WjMr9_zoQHXTaR-O7IrscZPR5Dd5nPsD43NcqHRT37wKL-bRiN4QlQqlPnuRuay9W79o-bjaXeNgywrlSMF54jIB18ycBLGRgbK5TyUFeoDPjdbC7sxzidKkXs-6zgfAebSGxU0u9POqILvs1hVj41sWyhl1yQUXmrLFtGEZ79eEqYUyb3yihqfDdGKdkIlwcSglXI8RIETS9mIu7u-f7QCVic");'>
+                
+                <!-- Logged in user section -->
+                <div id="user-section" class="hidden flex items-center gap-4">
+                    <div class="hidden sm:block text-right">
+                        <p class="text-xs text-white/60">Đăng nhập bởi</p>
+                        <p class="text-sm font-semibold text-white" id="username">Fan Member</p>
+                    </div>
+                    <button id="logout-button" class="hidden text-xs text-pink-200/60 hover:text-white transition-colors">
+                        Đăng xuất
+                    </button>
+                    <div id="avatar" class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsRPRtwPFPs_i83KJtH82783rzaaB4zz4cVJPiCmmITFr9Q5RY0WjMr9_zoQHXTaR-O7IrscZPR5Dd5nPsD43NcqHRT37wKL-bRiN4QlQqlPnuRuay9W79o-bjaXeNgywrlSMF54jIB18ycBLGRgbK5TyUFeoDPjdbC7sxzidKkXs-6zgfAebSGxU0u9POqILvs1hVj41sWyhl1yQUXmrLFtGEZ79eEqYUyb3yihqfDdGKdkIlwcSglXI8RIETS9mIu7u-f7QCVic");'>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,7 +142,7 @@
         </div>
 
         <div class="relative w-full max-w-3xl group mt-4" bis_skin_checked="1">
-            <div class="relative p-8 md:p-12" style="/* background-image: url('/assets/img/frame.svg'); *//* background-size: 100% 100%; *//* background-repeat: no-repeat; */min-height: 300px;" bis_skin_checked="1">
+            <div class="relative p-8 md:p-12" style="/* background-image: url('/assets/img/frame.png'); *//* background-size: 100% 100%; *//* background-repeat: no-repeat; */min-height: 300px;" bis_skin_checked="1">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 relative z-10" bis_skin_checked="1">
                     <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
                         <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg" bis_skin_checked="1" style="padding-bottom: 1.5rem;">
@@ -161,10 +169,10 @@
                         <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Giây</span>
                     </div>
                 </div>
-            <img src="/assets/img/frame.svg" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;position: absolute;bottom: 0rem;"></div>
+            <img src="/assets/img/frame.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;position: absolute;bottom: 0rem;"></div>
         </div>
 
-        <a href="/birthday-wishes.html" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-gold via-yellow-200 to-gold text-amber-900 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] shadow-lg" bis_skin_checked="1">
+        <a id="birthday-wishes-link" href="/birthday-wishes.html" class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-gold via-yellow-200 to-gold text-amber-900 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] shadow-lg" bis_skin_checked="1">
             <span class="relative z-10 flex items-center gap-2">
                 <span class="material-symbols-outlined text-[24px] animate-bounce">cake</span>
                 <span>Gửi lời chúc Sinh nhật Peanut</span>
