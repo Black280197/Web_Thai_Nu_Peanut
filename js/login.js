@@ -26,7 +26,7 @@ loginForm.addEventListener('submit', async (e) => {
   
   // Disable button
   submitButton.disabled = true
-  submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> <span>Đang đăng nhập...</span>'
+  submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> <span>Logging in...</span>'
   
   // Login
   const success = await handleLogin(email, password)
@@ -34,7 +34,7 @@ loginForm.addEventListener('submit', async (e) => {
   if (!success) {
     // Re-enable button
     submitButton.disabled = false
-    submitButton.innerHTML = '<span>Đăng nhập</span><span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>'
+    submitButton.innerHTML = '<span>Login</span><span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>'
   }
 })
 

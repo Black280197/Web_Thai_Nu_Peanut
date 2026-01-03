@@ -193,7 +193,7 @@ if (form) {
       alert('Có lỗi xảy ra. Vui lòng thử lại.')
     } finally {
       submitButton.disabled = false
-      submitButton.innerHTML = '<span>Gửi Lời chúc Sinh nhật</span><span class="material-symbols-outlined transition-transform group-hover:translate-x-1">send</span>'
+      submitButton.innerHTML = '<span>Birthday Message</span><span class="material-symbols-outlined transition-transform group-hover:translate-x-1">send</span>'
     }
   })
 }

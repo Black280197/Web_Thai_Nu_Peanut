@@ -59,9 +59,9 @@ export async function handleLogin(email, password) {
     
     if (error) {
       if (error.message.includes('Invalid login credentials')) {
-        showError('form-error', 'Email hoặc mật khẩu không đúng')
+        showError('form-error', 'Email or password is incorrect')
       } else if (error.message.includes('Email not confirmed')) {
-        showError('form-error', 'Vui lòng xác nhận email trước khi đăng nhập')
+        showError('form-error', 'Please confirm your email before logging in')
       } else {
         showError('form-error', error.message)
       }
@@ -207,7 +207,7 @@ export async function handleOAuthLogin(provider) {
     
     if (error) {
       console.error('OAuth error:', error)
-      showError('form-error', 'Đăng nhập thất bại')
+      showError('form-error', 'Login failed')
       return false
     }
     

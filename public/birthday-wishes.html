@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html class="dark" lang="vi">
+<html class="dark" lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Gửi Lời chúc Sinh nhật Peanut</title>
+    <title>Wangho's flower garden</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
@@ -92,18 +92,15 @@
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <nav class="hidden md:flex items-center gap-8 mx-auto">
-                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/">Trang
-                        chủ</a>
-                    <a class="text-sm font-bold text-primary" href="/birthday-wishes.html">Lời chúc</a>
-                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">Thư
-                        viện</a>
-                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">Giới
-                        thiệu</a>
+                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/">Home</a>
+                    <a class="text-sm font-bold text-primary" href="/birthday-wishes.html">Wishes</a>
+                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">Gallery</a>
+                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">About</a>
                 </nav>
                 <div class="flex items-center gap-4 ml-auto">
                     <a href="/"
                         class="flex h-9 items-center justify-center rounded-full bg-primary hover:bg-opacity-90 transition-all px-5 text-sm font-bold text-white shadow-[0_0_15px_rgba(251,93,165,0.5)]">
-                        Quay lại
+                        Back
                     </a>
                 </div>
             </div>
@@ -129,22 +126,22 @@
                                 <div
                                     class="glass-panel p-2 rounded-xl flex flex-col items-center justify-center border-border-dark">
                                     <span id="birthday-days" class="text-xl font-bold text-white">00</span>
-                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Ngày</span>
+                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Days</span>
                                 </div>
                                 <div
                                     class="glass-panel p-2 rounded-xl flex flex-col items-center justify-center border-border-dark">
                                     <span id="birthday-hours" class="text-xl font-bold text-white">00</span>
-                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Giờ</span>
+                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Hours</span>
                                 </div>
                                 <div
                                     class="glass-panel p-2 rounded-xl flex flex-col items-center justify-center border-border-dark">
                                     <span id="birthday-minutes" class="text-xl font-bold text-white">00</span>
-                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Phút</span>
+                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Minutes</span>
                                 </div>
                                 <div
                                     class="glass-panel p-2 rounded-xl flex flex-col items-center justify-center border-border-dark">
                                     <span id="birthday-seconds" class="text-xl font-bold text-white">00</span>
-                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Giây</span>
+                                    <span class="text-[10px] text-pink-200/70 uppercase tracking-wide">Seconds</span>
                                 </div>
                             </div>
                         </div>
@@ -194,16 +191,16 @@
                                 <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
                                     <span
                                         class="material-symbols-outlined text-primary text-3xl sm:text-4xl">edit_note</span>
-                                    Gửi Lời chúc của Bạn
+                                    Send Your Birthday Wishes
                                 </h2>
                                 <p class="text-slate-400 text-sm sm:text-base">
-                                    Tin nhắn của bạn sẽ được kiểm duyệt và hiển thị công khai.
+                                    Your message will be moderated and displayed publicly.
                                 </p>
                             </div>
 
                             <form id="wishes-form" class="flex flex-col gap-6">
                                 <div class="flex flex-col gap-2">
-                                    <label class="text-sm font-medium text-slate-300 ml-1">Từ (Biệt danh)</label>
+                                    <label class="text-sm font-medium text-slate-300 ml-1">From (nickname)</label>
                                     <div class="relative">
                                         <div
                                             class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -217,9 +214,9 @@
 
                                 <div class="flex flex-col gap-2">
                                     <div class="flex justify-between items-center ml-1">
-                                        <label class="text-sm font-medium text-slate-300">Lời nhắn gửi đến
+                                        <label class="text-sm font-medium text-slate-300">Message to
                                             Wang-ho</label>
-                                        <span id="char-count" class="text-xs text-slate-500">0/500 ký tự</span>
+                                        <span id="char-count" class="text-xs text-slate-500">0/500 characters</span>
                                     </div>
                                     <div class="relative group">
                                         <div class="absolute top-4 left-4 pointer-events-none">
@@ -228,13 +225,13 @@
                                         </div>
                                         <textarea id="content"
                                             class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-2xl focus:ring-2 focus:ring-primary focus:border-primary block pl-11 p-4 placeholder-slate-600 transition-all resize-none"
-                                            placeholder="Viết những lời chúc sinh nhật chân thành của bạn tại đây..."
+                                            placeholder="Write your sincere birthday wishes here..."
                                             rows="6" required></textarea>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col gap-3">
-                                    <label class="text-sm font-medium text-slate-300 ml-1">Đính kèm Sticker</label>
+                                    <label class="text-sm font-medium text-slate-300 ml-1">Attach Sticker</label>
                                     <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
                                         <label class="cursor-pointer">
                                             <input checked class="peer sr-only" name="sticker" type="radio" />
@@ -282,13 +279,12 @@
                                 </div>
 
                                 <div class="flex flex-col gap-2">
-                                    <label class="text-sm font-medium text-slate-300 ml-1">Đính kèm Ảnh (tùy
-                                        chọn)</label>
+                                    <label class="text-sm font-medium text-slate-300 ml-1">Attach Image (optional)</label>
                                     <div class="relative">
                                         <input id="image-upload"
                                             class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-2xl focus:ring-2 focus:ring-primary focus:border-primary block p-3 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-hover cursor-pointer"
                                             type="file" accept="image/*" />
-                                        <p class="text-xs text-slate-500 mt-2 ml-1">Chọn ảnh để gửi kèm lời chúc (tối đa
+                                        <p class="text-xs text-slate-500 mt-2 ml-1">Choose an image to send with your wishes (max
                                             5MB)</p>
                                     </div>
                                 </div>
@@ -299,12 +295,12 @@
                                     <div
                                         class="relative flex items-center justify-center gap-2 font-bold text-lg tracking-wide">
                                         <span class="material-symbols-outlined text-2xl">cake</span>
-                                        <span>Gửi Lời chúc Sinh nhật</span>
+                                        <span>Birthday Message</span>
                                     </div>
                                 </button>
 
                                 <p class="text-center text-xs text-slate-500 mt-2">
-                                    Lời chúc sẽ được kiểm duyệt trước khi hiển thị công khai.
+                                    Wishes will be moderated before being displayed publicly.
                                 </p>
                             </form>
                         </div>
@@ -320,7 +316,7 @@
 ">
             <div class="flex flex-col gap-2" bis_skin_checked="1">
                 <span class="text-white font-bold text-xl font-serif">Follow Peanut</span>
-                <p class="text-pink-200/70 text-sm">Theo dõi Peanut trên các nền tảng</p>
+                <p class="text-pink-200/70 text-sm">Follow Peanut on platforms</p>
             </div>
             <div class="flex gap-8 items-center" bis_skin_checked="1">
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
@@ -346,7 +342,7 @@
                     <span>Soop</span>
                 </a>
             </div>
-            <p class="text-pink-200/40 text-xs mt-4">© 2026 Peanut Birthday Celebration. Made with 💖 by fans</p>
+            <p class="text-pink-200/40 text-xs mt-4">© Wangho's Flower Garden by Vietnamese fans</p>
         </div>
     </footer>
 

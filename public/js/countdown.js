@@ -196,7 +196,7 @@ if (birthdayWishesLink) {
   birthdayWishesLink.addEventListener('click', (e) => {
     if (!user) {
       e.preventDefault()
-      alert('Vui lòng đăng nhập để gửi lời chúc sinh nhật!')
+      alert('Please log in to send greetings!')
       window.location.href = '/login.html'
     }
   })

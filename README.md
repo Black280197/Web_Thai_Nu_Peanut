@@ -48,7 +48,7 @@ Website cộng đồng người hâm mộ Peanut (Wang-ho) - Cựu tuyển thủ
 - Check-in reminders
 
 ### ⚙️ Admin Dashboard
-- Quản lý users (suspend, block, delete)
+- Admin users (suspend, block, delete)
 - Phân quyền admin/member
 - Kiểm duyệt wishes
 - Thống kê và analytics

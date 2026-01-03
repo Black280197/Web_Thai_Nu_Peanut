@@ -69,14 +69,14 @@ function initTabs() {
 
 function updateHeader(tabId) {
   const titles = {
-    users: 'Quản lý người dùng',
-    wishes: 'Quản lý lời chúc',
+    users: 'Admin người dùng',
+    wishes: 'Admin lời chúc',
     settings: 'Cài đặt hệ thống'
   }
   
   const subtitles = {
-    users: 'Quản lý tài khoản, phân quyền và trạng thái cho fan club',
-    wishes: 'Duyệt và quản lý lời chúc sinh nhật từ fan club',
+    users: 'Admin tài khoản, phân quyền và trạng thái cho fan club',
+    wishes: 'Duyệt và Admin lời chúc sinh nhật từ fan club',
     settings: 'Cấu hình countdown và các thiết lập hệ thống'
   }
   

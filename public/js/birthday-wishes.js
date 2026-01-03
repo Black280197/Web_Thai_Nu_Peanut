@@ -277,7 +277,7 @@ if (form) {
       submitButton.innerHTML = `
         <div class="relative flex items-center justify-center gap-2 font-bold text-lg tracking-wide">
           <span class="material-symbols-outlined text-2xl">cake</span>
-          <span>Gửi Lời chúc Sinh nhật</span>
+          <span>Birthday Message</span>
         </div>
       `
     }

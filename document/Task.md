@@ -6,7 +6,7 @@ STT	Function	Prioty
 	Chức năng đăng nhập tài khoản (email, mật khẩu).	Urgent 
 	Quên mật khẩu và lấy lại mật khẩu qua email.	Urgent 
 	Xác minh email sau khi đăng ký tài khoản.	Urgent 
-3	Trang chủ đếm ngược:	Urgent 
+3	Home đếm ngược:	Urgent 
 	Hiển thị khung hoa có thông tin đếm ngược (tháng, ngày) (Giao diện sẽ cập nhật chi tiết sau).	Urgent 
 	Vào tuần có ngày sinh nhật và kỷ niệm debut sẽ hiện thị khung hình đặc biệt ứng với ngày đặc biệt đấy.	Urgent 
 	Cài đặt để quản trị viên có thể thay đổi thời gian đếm ngược.	Urgent 
@@ -17,7 +17,7 @@ STT	Function	Prioty
 5	Mục nhập lời chúc hàng ngày:	Urgent 
 	Người dùng có thể nhập lời chúc cá nhân mỗi ngày	Urgent 
 	Lời chúc sẽ được gửi đến quản trị viên để kiểm duyệt.	Urgent 
-	Lời chúc được duyệt sẽ hiển thị trên màn hình trang chủ với hiệu ứng đặc biệt (Sẽ cập nhật chi tiết sau).	Urgent 
+	Lời chúc được duyệt sẽ hiển thị trên màn hình Home với hiệu ứng đặc biệt (Sẽ cập nhật chi tiết sau).	Urgent 
 	Quản trị viên có thể phê duyệt hoặc từ chối các lời chúc.	Urgent 
 6	Mục nhập lời chúc sinh nhật:	Urgent 
 	Người dùng có thể nhập lời chúc cá nhân.	Urgent 
@@ -35,10 +35,10 @@ STT	Function	Prioty
 	Người dùng có thể tìm kiếm và kết bạn với các tài khoản khác trên website.	Optional 
 	Cảnh báo khi có lời mời kết bạn mới và thông báo khi kết bạn thành công.	Optional 
 	Có thể gửi yêu cầu kết bạn và chấp nhận hoặc từ chối yêu cầu từ người khác.	Optional 
-10	Quản lý người dùng và quyền hạn:	Urgent 
-	Quản trị viên có quyền quản lý tài khoản người dùng, bao gồm xóa tài khoản, tạm ngưng hoặc sửa đổi thông tin.	Urgent 
+10	Admin người dùng và quyền hạn:	Urgent 
+	Quản trị viên có quyền Admin tài khoản người dùng, bao gồm xóa tài khoản, tạm ngưng hoặc sửa đổi thông tin.	Urgent 
 	Phân quyền cho người dùng (quản trị viên, người dùng bình thường).	Urgent 
-	Quản lý lời chúc đã duyệt và từ chối.	Urgent 
+	Admin lời chúc đã duyệt và từ chối.	Urgent 
 11	Thông báo và thông tin người dùng:	Urgent 
 	Gửi thông báo đến người dùng về các sự kiện, thông tin mới.	Urgent 
 	Hệ thống thông báo khi có sự kiện mới như lời chúc được duyệt, có yêu cầu kết bạn mới, hoặc khi có lời nhắc điểm danh.	Urgent 
