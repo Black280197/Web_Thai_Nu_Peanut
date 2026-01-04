@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Events - Wangho's flower garden</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                },
+            },
+        }
+    </script>
+    <style>
+        .shimmer-text {
+            background: linear-gradient(to right, #ffffff 20%, #fbcfe8 40%, #fbcfe8 60%, #ffffff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col relative">
+<div class="fixed inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
+
+<!-- Banner with text.png -->
+<div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;">
+    <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;width: 17rem;">
+</div>
+
+<!-- Navbar below banner -->
+<header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 fixed top-32 left-0">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <nav class="hidden md:flex items-center gap-8 mx-auto">
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/">Home</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/birthday-wishes.html">Birthday Message</a>
+                <a class="text-sm font-bold text-primary" href="/events.html">Events</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="#">About</a>
+                <a id="admin-nav-link" class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1" href="/admin-dashboard.html">
+                    <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+                    <span>Admin</span>
+                </a>
+            </nav>
+            <div class="flex items-center gap-4 ml-auto">
+                <!-- Guest mode: Login button -->
+                <button id="login-button" class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                    Login
+                </button>
+                
+                <!-- Logged in user section -->
+                <div id="user-section" class="hidden flex items-center gap-4">
+                    <span id="username" class="text-sm text-pink-100/80">Logged in as <strong class="text-white"></strong></span>
+                    <button id="logout-button" class="px-4 py-2 bg-pink-100/10 hover:bg-pink-100/20 text-pink-100 rounded-full text-sm font-semibold transition-all">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow relative pt-48 pb-12">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white shimmer-text leading-tight font-serif mb-4">
+                Events & News
+            </h1>
+            <p class="text-lg text-pink-100/70 font-light max-w-2xl mx-auto">
+                Stay updated with the latest news and events from Peanut's fan community
+            </p>
+        </div>
+
+        <!-- Events Grid -->
+        <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Events will be loaded here by JavaScript -->
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="flex flex-col items-center justify-center py-20">
+            <span class="material-symbols-outlined text-6xl text-primary animate-spin mb-4">refresh</span>
+            <p class="text-pink-100/70">Loading events...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden flex flex-col items-center justify-center py-20">
+            <span class="material-symbols-outlined text-6xl text-pink-100/30 mb-4">event_note</span>
+            <p class="text-xl text-pink-100/70 mb-2">No events yet</p>
+            <p class="text-sm text-pink-100/50">Check back later for updates!</p>
+        </div>
+    </div>
+</main>
+
+<footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-10 relative z-20">
+    <div class="max-w-[960px] mx-auto px-6 flex flex-col items-center gap-6 text-center" style="flex-direction: row;">
+        <div class="flex flex-col gap-2">
+            <span class="text-white font-bold text-xl font-serif">Follow Peanut</span>
+            <p class="text-pink-200/70 text-sm">Follow Peanut on platforms</p>
+        </div>
+        <div class="flex gap-8 items-center">
+            <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group" href="https://youtube.com/@lolpeanuttv?si=V1kHJhWFrZ4Raw_c" target="_blank" rel="noopener noreferrer">
+                <svg class="w-8 h-8 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                </svg>
+                <span>YouTube</span>
+            </a>
+            <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group" href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer">
+                <svg class="w-8 h-8 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
+                </svg>
+                <span>Soop</span>
+            </a>
+        </div>
+        <p class="text-pink-200/40 text-xs mt-4">© Wangho's Flower Garden by Vietnamese fans</p>
+    </div>
+</footer>
+
+<!-- Event Detail Modal -->
+<div id="event-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-pink-300/20 shadow-2xl">
+        <div class="sticky top-0 bg-gradient-to-br from-slate-900 to-slate-800 border-b border-pink-300/20 p-6 flex items-start justify-between z-10">
+            <div class="flex-1">
+                <h2 id="modal-title" class="text-3xl font-bold text-white mb-2"></h2>
+                <div id="modal-meta" class="flex items-center gap-4 text-sm text-pink-100/50"></div>
+            </div>
+            <button id="close-modal" class="text-pink-100/50 hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-3xl">close</span>
+            </button>
+        </div>
+        <div id="modal-image" class="hidden">
+            <img id="modal-img" src="" alt="" class="w-full h-64 object-cover" />
+        </div>
+        <div id="modal-content" class="p-6 prose prose-invert prose-pink max-w-none">
+            <!-- Content will be inserted here -->
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/js/events.js"></script>
+</body>
+</html>

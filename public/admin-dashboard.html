@@ -31,6 +31,39 @@
             },
         }
     </script>
+    <style>
+        /* Toast notification styles */
+        .toast {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            min-width: 300px;
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.95), rgba(219, 39, 119, 0.95));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 40px rgba(236, 72, 153, 0.4);
+            transform: translateX(400px);
+            transition: transform 0.3s ease-out;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .toast.show {
+            transform: translateX(0);
+        }
+        .toast.success {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.95), rgba(22, 163, 74, 0.95));
+        }
+        .toast.error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(220, 38, 38, 0.95));
+        }
+        .toast.warning {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.95), rgba(245, 158, 11, 0.95));
+        }
+    </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden selection:bg-primary selection:text-white">
 <div class="flex h-screen w-full relative">
@@ -60,16 +93,29 @@
                 </a>
                 <a id="nav-users" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-full bg-primary text-white shadow-lg shadow-primary/30" href="#users">
                     <span class="material-symbols-outlined fill-1">group</span>
-                    <span class="text-sm font-bold">Admin người dùng</span>
+                    <span class="text-sm font-bold">User Management</span>
                 </a>
                 <a id="nav-wishes" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-pink-50 dark:hover:bg-white/5 transition-colors group" href="#wishes">
                     <span class="material-symbols-outlined group-hover:text-primary transition-colors">favorite</span>
-                    <span class="text-sm font-medium">Lời chúc</span>
+                    <span class="text-sm font-medium">Wishes</span>
                     <span id="pending-wishes-count" class="ml-auto bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-bold hidden">0</span>
+                </a>
+                <a id="nav-events" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-pink-50 dark:hover:bg-white/5 transition-colors group" href="#events">
+                    <span class="material-symbols-outlined group-hover:text-primary transition-colors">event_note</span>
+                    <span class="text-sm font-medium">Events</span>
+                </a>
+                <a id="nav-feedback" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-pink-50 dark:hover:bg-white/5 transition-colors group" href="#feedback">
+                    <span class="material-symbols-outlined group-hover:text-primary transition-colors">mail</span>
+                    <span class="text-sm font-medium">Feedback</span>
+                    <span id="unread-feedback-count" class="ml-auto bg-primary/20 text-primary px-2 py-0.5 rounded-full text-[10px] font-bold hidden">0</span>
+                </a>
+                <a id="nav-site-settings" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-pink-50 dark:hover:bg-white/5 transition-colors group" href="#site-settings">
+                    <span class="material-symbols-outlined group-hover:text-primary transition-colors">edit_note</span>
+                    <span class="text-sm font-medium">Site Settings</span>
                 </a>
                 <a id="nav-settings" class="nav-tab flex items-center gap-3 px-4 py-3 rounded-full text-slate-600 dark:text-slate-400 hover:bg-pink-50 dark:hover:bg-white/5 transition-colors group" href="#settings">
                     <span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
-                    <span class="text-sm font-medium">Cài đặt</span>
+                    <span class="text-sm font-medium">Countdown</span>
                 </a>
             </nav>
         </div>
@@ -218,26 +264,165 @@
                     </div>
                 </div>
                 
+                <!-- Events tab -->
+                <div id="tab-events" class="tab-content hidden">
+                    <div class="flex flex-col gap-6">
+                        <!-- Add Event Button -->
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-xl font-bold">Events Management</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Create and manage events and news posts</p>
+                            </div>
+                            <button id="add-event-btn" class="flex items-center gap-2 bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-semibold transition-all">
+                                <span class="material-symbols-outlined">add</span>
+                                <span>New Event</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Events List -->
+                        <div class="bg-surface-light/50 dark:bg-surface-dark/50 backdrop-blur-sm rounded-xl border border-pink-100 dark:border-white/5 overflow-hidden">
+                            <div class="p-4 border-b border-pink-100 dark:border-white/5">
+                                <div class="flex gap-2">
+                                    <button class="event-filter-btn px-4 py-2 rounded-full text-sm font-medium bg-primary text-white" data-status="all">All</button>
+                                    <button class="event-filter-btn px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-white/5" data-status="published">Published</button>
+                                    <button class="event-filter-btn px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-white/5" data-status="draft">Draft</button>
+                                </div>
+                            </div>
+                            <div id="events-list" class="p-6 space-y-4 max-h-[600px] overflow-y-auto">
+                                <!-- Will be populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Feedback tab -->
+                <div id="tab-feedback" class="tab-content hidden">
+                    <div class="flex flex-col gap-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold">User Feedback</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">View and manage feedback from users</p>
+                            </div>
+                            <div class="text-sm text-slate-500">
+                                <span id="total-feedback-count">0</span> total submissions
+                            </div>
+                        </div>
+                        
+                        <!-- Filter buttons -->
+                        <div class="flex gap-2 flex-wrap">
+                            <button class="feedback-filter-btn active px-4 py-2 rounded-full text-sm font-medium bg-primary/20 text-primary" data-filter="all">
+                                All
+                            </button>
+                            <button class="feedback-filter-btn px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-pink-50 dark:hover:bg-white/5" data-filter="unread">
+                                Unread
+                            </button>
+                            <button class="feedback-filter-btn px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-pink-50 dark:hover:bg-white/5" data-filter="read">
+                                Read
+                            </button>
+                        </div>
+                        
+                        <!-- Feedback list -->
+                        <div class="bg-surface-light/50 dark:bg-surface-dark/50 backdrop-blur-sm rounded-xl border border-pink-100 dark:border-white/5 overflow-hidden">
+                            <div id="feedback-list" class="p-6 space-y-4 max-h-[600px] overflow-y-auto">
+                                <!-- Will be populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Site Settings tab -->
+                <div id="tab-site-settings" class="tab-content hidden">
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            <h3 class="text-xl font-bold">Site Settings</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Customize text and content across the site</p>
+                        </div>
+                        
+                        <!-- Login Page Settings -->
+                        <div class="bg-surface-light/50 dark:bg-surface-dark/50 backdrop-blur-sm rounded-xl border border-pink-100 dark:border-white/5 p-6">
+                            <h4 class="text-lg font-bold mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">login</span>
+                                Login Page
+                            </h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Welcome Title</label>
+                                    <input type="text" id="login-title" placeholder="Welcome!" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"/>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Welcome Message</label>
+                                    <textarea id="login-message" rows="2" placeholder="Log in to join the Peanut fan community" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Login Slogan (supports HTML)</label>
+                                    <textarea id="login-slogan" rows="3" placeholder="Welcome to Wangho's Flower Garden..." class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary font-mono text-sm"></textarea>
+                                    <p class="text-xs text-slate-500 mt-1">HTML is allowed but will be sanitized for security</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- About Page Settings -->
+                        <div class="bg-surface-light/50 dark:bg-surface-dark/50 backdrop-blur-sm rounded-xl border border-pink-100 dark:border-white/5 p-6">
+                            <h4 class="text-lg font-bold mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">info</span>
+                                About Page
+                            </h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">About Content (supports HTML)</label>
+                                    <textarea id="about-content" rows="6" placeholder="Welcome to Wangho's Flower Garden..." class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary font-mono text-sm"></textarea>
+                                    <p class="text-xs text-slate-500 mt-1">HTML is allowed but will be sanitized for security</p>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-white/5 rounded-lg">
+                                    <div>
+                                        <label class="block text-sm font-medium">Show About Popup on Homepage</label>
+                                        <p class="text-xs text-slate-500 mt-1">Display About popup when users first visit the homepage</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="about-popup-enabled" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="save-site-settings" class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-semibold transition-all w-fit flex items-center gap-2">
+                            <span class="material-symbols-outlined">save</span>
+                            <span>Save All Settings</span>
+                        </button>
+                    </div>
+                </div>
+                
                 <!-- Settings tab -->
                 <div id="tab-settings" class="tab-content hidden">
                     <div class="flex flex-col gap-6">
                         <div class="bg-surface-light/50 dark:bg-surface-dark/50 backdrop-blur-sm rounded-xl border border-pink-100 dark:border-white/5 p-6">
-                            <h3 class="text-lg font-bold mb-6">Countdown Settings</h3>
+                            <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">schedule</span>
+                                Countdown Settings
+                            </h3>
                             <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Return Date</label>
-                                    <input type="datetime-local" id="return-date" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"/>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Date</label>
+                                        <input type="date" id="return-date" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"/>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium mb-2">Time</label>
+                                        <input type="time" id="return-time" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"/>
+                                    </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-2">Title</label>
-                                    <input type="text" id="countdown-title" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"/>
+                                    <input type="text" id="countdown-title" placeholder="Happy Peanut Day" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"/>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-2">Description</label>
-                                    <textarea id="countdown-description" rows="3" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                                    <textarea id="countdown-description" rows="3" placeholder="Countdown to Peanut's birthday! 🎉" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
                                 </div>
-                                <button id="save-countdown-settings" class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-semibold transition-all">
-                                    Save Settings
+                                <button id="save-countdown-settings" class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-semibold transition-all flex items-center gap-2">
+                                    <span class="material-symbols-outlined">save</span>
+                                    <span>Save Settings</span>
                                 </button>
                             </div>
                         </div>
@@ -246,6 +431,103 @@
             </div>
         </div>
     </main>
+</div>
+
+<!-- Event Modal -->
+<div id="event-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl border border-pink-100 dark:border-white/5 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div class="sticky top-0 bg-surface-light dark:bg-surface-dark border-b border-pink-100 dark:border-white/5 p-6 flex items-center justify-between z-10">
+            <h3 id="event-modal-title" class="text-xl font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">event_note</span>
+                <span>New Event</span>
+            </h3>
+            <button id="close-event-modal" class="text-slate-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form id="event-form" class="p-6 space-y-6">
+            <input type="hidden" id="event-id" />
+            
+            <div>
+                <label class="block text-sm font-medium mb-2">Title *</label>
+                <input type="text" id="event-title" required placeholder="Event title..." class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary text-lg font-semibold"/>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-2">Excerpt (Short description)</label>
+                <textarea id="event-excerpt" rows="2" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Brief summary for event cards..."></textarea>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-2">Content * (supports HTML)</label>
+                <textarea id="event-content" required rows="10" class="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary font-mono text-sm" placeholder="Full event content with HTML formatting..."></textarea>
+                <p class="text-xs text-slate-500 mt-1">HTML is allowed but will be sanitized for security</p>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-2">Cover Image</label>
+                <div class="space-y-3">
+                    <div class="flex gap-2">
+                        <input type="text" id="event-image-url" class="flex-1 px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Or paste image URL..."/>
+                        <label for="event-image-file" class="px-4 py-2 bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 rounded-lg cursor-pointer transition-all flex items-center gap-2">
+                            <span class="material-symbols-outlined">upload</span>
+                            <span>Upload</span>
+                        </label>
+                        <input type="file" id="event-image-file" accept="image/*" class="hidden"/>
+                    </div>
+                    <div id="event-image-preview" class="hidden">
+                        <div class="relative w-full h-48 rounded-lg overflow-hidden border border-white/10">
+                            <img id="event-preview-img" src="" alt="Preview" class="w-full h-full object-cover"/>
+                            <button type="button" id="remove-event-image" class="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 rounded-full transition-colors">
+                                <span class="material-symbols-outlined text-white text-sm">close</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-2">Status *</label>
+                <div class="relative">
+                    <select id="event-status" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer pr-10">
+                        <option value="draft">📝 Draft - Not visible to public</option>
+                        <option value="published">✅ Published - Live on website</option>
+                        <option value="archived">📦 Archived - Hidden from public</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 justify-end pt-4 border-t border-white/5">
+                <button type="button" id="cancel-event" class="px-6 py-3 rounded-full font-semibold text-slate-600 dark:text-slate-400 hover:bg-white/5 transition-all flex items-center gap-2">
+                    <span class="material-symbols-outlined">close</span>
+                    <span>Cancel</span>
+                </button>
+                <button type="submit" id="save-event" class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-semibold transition-all flex items-center gap-2">
+                    <span class="material-symbols-outlined">save</span>
+                    <span>Save Event</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Event Detail Modal -->
+<div id="event-detail-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div class="bg-surface-light dark:bg-surface-dark rounded-2xl border border-pink-100 dark:border-white/5 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div class="sticky top-0 bg-surface-light dark:bg-surface-dark border-b border-pink-100 dark:border-white/5 p-6 flex items-center justify-between z-10">
+            <h3 class="text-xl font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">article</span>
+                <span>Event Details</span>
+            </h3>
+            <button id="close-event-detail-modal" class="text-slate-400 hover:text-white transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div id="event-detail-content" class="p-6">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
 </div>
 
 <script type="module" src="/js/admin-dashboard.js"></script>

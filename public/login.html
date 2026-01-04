@@ -41,12 +41,24 @@
                 <img src="/assets/img/text.png" alt="HLE Peanut FC" class="w-full h-auto drop-shadow-2xl" />
             </div>
             
-            <!-- Slideshow Section -->
-            <div class="relative flex-1 overflow-hidden">
-                <div id="login-slideshow" class="absolute inset-0">
-                    <!-- Images will be loaded here by JavaScript -->
+            <!-- Slogan Section -->
+            <div class="relative flex-1 flex items-center justify-center p-8 lg:p-12">
+                <div class="text-center space-y-6">
+                    <div class="relative inline-block">
+                        <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
+                        <span class="material-symbols-outlined text-8xl text-primary relative z-10 animate-pulse">favorite</span>
+                    </div>
+                    <blockquote class="relative">
+                        <p id="login-slogan" class="text-2xl lg:text-3xl font-bold text-white leading-relaxed px-4">
+                            Welcome to Wangho's Flower Garden - A special place for Peanut's fans to connect and celebrate together.
+                        </p>
+                        <div class="mt-4 flex justify-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse" style="animation-delay: 0.2s"></span>
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse" style="animation-delay: 0.4s"></span>
+                        </div>
+                    </blockquote>
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-pink-500/30 via-transparent to-pink-500/20 pointer-events-none"></div>
             </div>
         </div>
         <div class="w-full lg:w-7/12 p-8 lg:p-16 xl:p-20 bg-white/40 dark:bg-pink-950/30 backdrop-blur-xl flex flex-col justify-center relative">
@@ -57,8 +69,8 @@
             </div>
             <div class="max-w-[480px] w-full mx-auto">
                 <div class="mb-10">
-                    <h1 class="text-3xl lg:text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-white mb-3">Hello!</h1>
-                    <p class="text-slate-500 dark:text-pink-200/60 text-base font-normal">Log in</p>
+                    <h1 id="login-title" class="text-3xl lg:text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-white mb-3">Welcome!</h1>
+                    <p id="login-message" class="text-slate-500 dark:text-pink-200/60 text-base font-normal">Log in to join the Peanut fan community</p>
                 </div>
                 
                 <!-- Error message -->

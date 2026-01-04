@@ -64,8 +64,15 @@ async function loadUserProfile() {
     }
     
     const avatarElement = document.getElementById('avatar')
-    if (avatarElement && data.avatar_url) {
-      avatarElement.style.backgroundImage = `url('${data.avatar_url}')`
+    if (avatarElement) {
+      if (data.avatar_url && data.avatar_url.trim() !== '') {
+        avatarElement.style.backgroundImage = `url('${data.avatar_url}')`
+      } else {
+        // Show default avatar with first letter of username
+        const initial = (data.username || 'U')[0].toUpperCase()
+        avatarElement.style.backgroundImage = 'none'
+        avatarElement.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg">${initial}</div>`
+      }
     }
   }
 }
@@ -202,5 +209,207 @@ if (birthdayWishesLink) {
   })
 }
 
+// Handle About modal
+const aboutLink = document.getElementById('about-link')
+const aboutModal = document.getElementById('about-modal')
+const closeAboutModal = document.getElementById('close-about-modal')
+const aboutContentDisplay = document.getElementById('about-content-display')
+
+// Load about content from site_settings
+async function loadAboutContent() {
+  try {
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('setting_value')
+      .eq('setting_key', 'about_content')
+      .single()
+    
+    if (error) throw error
+    
+    if (data && aboutContentDisplay) {
+      aboutContentDisplay.innerHTML = data.setting_value
+    }
+  } catch (error) {
+    console.error('Error loading about content:', error)
+    if (aboutContentDisplay) {
+      aboutContentDisplay.innerHTML = '<p>Welcome to Wangho\'s Flower Garden - A special place for Peanut\'s fans to connect and celebrate together.</p>'
+    }
+  }
+}
+
+// Show about modal on click
+if (aboutLink && aboutModal) {
+  aboutLink.addEventListener('click', (e) => {
+    e.preventDefault()
+    aboutModal.classList.remove('hidden')
+    loadAboutContent()
+  })
+}
+
+// Close modal
+if (closeAboutModal && aboutModal) {
+  closeAboutModal.addEventListener('click', () => {
+    aboutModal.classList.add('hidden')
+  })
+  
+  // Close on backdrop click
+  aboutModal.addEventListener('click', (e) => {
+    if (e.target === aboutModal) {
+      aboutModal.classList.add('hidden')
+    }
+  })
+}
+
+// Check if should show popup on load
+async function checkAboutPopup() {
+  try {
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('setting_value')
+      .eq('setting_key', 'about_popup_enabled')
+      .single()
+    
+    if (error) throw error
+    
+    if (data && data.setting_value === 'true' && aboutModal) {
+      // Show popup after a short delay
+      setTimeout(() => {
+        aboutModal.classList.remove('hidden')
+        loadAboutContent()
+      }, 1000)
+    }
+  } catch (error) {
+    console.error('Error checking about popup setting:', error)
+  }
+}
+
+// ============= FEEDBACK MANAGEMENT =============
+
+const feedbackButton = document.getElementById('feedback-button')
+const feedbackModal = document.getElementById('feedback-modal')
+const closeFeedbackModal = document.getElementById('close-feedback-modal')
+const cancelFeedback = document.getElementById('cancel-feedback')
+const feedbackForm = document.getElementById('feedback-form')
+const feedbackSubject = document.getElementById('feedback-subject')
+const feedbackMessage = document.getElementById('feedback-message')
+const charCount = document.getElementById('char-count')
+
+// Show feedback button only for logged in users
+if (user && feedbackButton) {
+  feedbackButton.classList.remove('hidden')
+}
+
+// Character counter
+if (feedbackMessage && charCount) {
+  feedbackMessage.addEventListener('input', () => {
+    charCount.textContent = feedbackMessage.value.length
+  })
+}
+
+// Open feedback modal
+if (feedbackButton && feedbackModal) {
+  feedbackButton.addEventListener('click', () => {
+    feedbackModal.classList.remove('hidden')
+    // Clear previous messages
+    document.getElementById('feedback-error')?.classList.add('hidden')
+    document.getElementById('feedback-success')?.classList.add('hidden')
+  })
+}
+
+// Close feedback modal
+function closeFeedbackModalHandler() {
+  if (feedbackModal) {
+    feedbackModal.classList.add('hidden')
+    feedbackForm?.reset()
+    charCount.textContent = '0'
+  }
+}
+
+if (closeFeedbackModal) {
+  closeFeedbackModal.addEventListener('click', closeFeedbackModalHandler)
+}
+
+if (cancelFeedback) {
+  cancelFeedback.addEventListener('click', closeFeedbackModalHandler)
+}
+
+if (feedbackModal) {
+  feedbackModal.addEventListener('click', (e) => {
+    if (e.target === feedbackModal) {
+      closeFeedbackModalHandler()
+    }
+  })
+}
+
+// Submit feedback
+if (feedbackForm) {
+  feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    
+    if (!user) {
+      showFeedbackError('Please log in to send feedback')
+      return
+    }
+    
+    const subject = feedbackSubject.value.trim()
+    const message = feedbackMessage.value.trim()
+    
+    if (!subject || !message) {
+      showFeedbackError('Please fill in all fields')
+      return
+    }
+    
+    const submitButton = document.getElementById('submit-feedback')
+    submitButton.disabled = true
+    submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Sending...'
+    
+    try {
+      const { error } = await supabase
+        .from('feedback')
+        .insert([{
+          user_id: user.id,
+          subject: subject,
+          message: message,
+          status: 'unread'
+        }])
+      
+      if (error) throw error
+      
+      showFeedbackSuccess('Thank you! Your feedback has been sent successfully.')
+      
+      // Clear form and close after 2 seconds
+      setTimeout(() => {
+        closeFeedbackModalHandler()
+      }, 2000)
+      
+    } catch (error) {
+      console.error('Error submitting feedback:', error)
+      showFeedbackError('Failed to send feedback. Please try again.')
+    } finally {
+      submitButton.disabled = false
+      submitButton.innerHTML = 'Send Feedback'
+    }
+  })
+}
+
+function showFeedbackError(message) {
+  const errorDiv = document.getElementById('feedback-error')
+  if (errorDiv) {
+    errorDiv.textContent = message
+    errorDiv.classList.remove('hidden')
+    document.getElementById('feedback-success')?.classList.add('hidden')
+  }
+}
+
+function showFeedbackSuccess(message) {
+  const successDiv = document.getElementById('feedback-success')
+  if (successDiv) {
+    successDiv.textContent = message
+    successDiv.classList.remove('hidden')
+    document.getElementById('feedback-error')?.classList.add('hidden')
+  }
+}
+
 // Initialize
 startCountdown()
+checkAboutPopup()

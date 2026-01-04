@@ -1,50 +1,39 @@
 // Login page initialization
 import { handleLogin, initPasswordToggle, handleOAuthLogin } from './auth.js'
-import { requireGuest } from './supabase-client.js'
+import { requireGuest, supabase } from './supabase-client.js'
 
 // Check if user is already logged in
 await requireGuest()
 
-// Initialize slideshow
-function initLoginSlideshow() {
-  const images = [
-    '/assets/img_peanuts/0fe8f6cbebafe8e545d053dcf3ee9380.jpg',
-    '/assets/img_peanuts/2c340752e66f620443a72b46f630ece5.jpg',
-    '/assets/img_peanuts/2db4366d6cc53f84237209e982ef7c19.jpg',
-    '/assets/img_peanuts/3a51444fe53f876c0d9f39953cb0c7a4.jpg',
-    '/assets/img_peanuts/72a24ffdeb8497e51f0b43464e6beb2f.jpg',
-    '/assets/img_peanuts/99c6043ff6b60466e0e368654135621f.jpg',
-    '/assets/img_peanuts/b1dfe44bb3cbcf0921e6236a53ef6446.jpg',
-    '/assets/img_peanuts/caf563a1020e1716156c4585e90d4b42.jpg'
-  ]
-  
-  const container = document.getElementById('login-slideshow')
-  if (!container) return
-  
-  let currentIndex = 0
-  
-  // Create img element
-  const img = document.createElement('img')
-  img.src = images[0]
-  img.alt = 'Peanut'
-  img.className = 'w-full h-full object-cover transition-opacity duration-1000 ease-in-out'
-  img.style.opacity = '1'
-  container.appendChild(img)
-  
-  // Rotate images every 4 seconds with smooth fade
-  setInterval(() => {
-    img.style.opacity = '0'
+// Load site settings for login page
+async function loadLoginSettings() {
+  try {
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('setting_key, setting_value')
+      .in('setting_key', ['login_welcome_title', 'login_welcome_message', 'login_slogan'])
     
-    setTimeout(() => {
-      currentIndex = (currentIndex + 1) % images.length
-      img.src = images[currentIndex]
-      img.style.opacity = '1'
-    }, 1000)
-  }, 4000)
+    if (error) throw error
+    
+    if (data && data.length > 0) {
+      data.forEach(setting => {
+        if (setting.setting_key === 'login_welcome_title') {
+          const titleEl = document.getElementById('login-title')
+          if (titleEl) titleEl.textContent = setting.setting_value
+        } else if (setting.setting_key === 'login_welcome_message') {
+          const messageEl = document.getElementById('login-message')
+          if (messageEl) messageEl.textContent = setting.setting_value
+        } else if (setting.setting_key === 'login_slogan') {
+          const sloganEl = document.getElementById('login-slogan')
+          if (sloganEl) sloganEl.innerHTML = setting.setting_value
+        }
+      })
+    }
+  } catch (error) {
+    console.error('Error loading login settings:', error)
+    // Keep default values if error
+  }
 }
-
-// Initialize slideshow
-initLoginSlideshow()
 
 // Initialize password toggle
 initPasswordToggle()
@@ -97,3 +86,6 @@ const passwordToggle = document.querySelector('button[type="button"]')
 if (passwordToggle) {
   passwordToggle.setAttribute('data-password-toggle', 'password')
 }
+
+// Load login settings from database
+loadLoginSettings()

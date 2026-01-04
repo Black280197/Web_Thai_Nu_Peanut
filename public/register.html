@@ -105,6 +105,28 @@
                     </div>
                 </div>
 
+                <!-- Avatar Upload (Optional) -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-bold text-slate-700 dark:text-pink-100 ml-2" for="avatar">
+                        Profile Avatar <span class="text-xs font-normal text-slate-500 dark:text-pink-200/50">(Optional)</span>
+                    </label>
+                    <div class="flex items-center gap-4">
+                        <!-- Avatar Preview -->
+                        <div id="avatar-preview" class="size-20 rounded-full bg-gradient-to-br from-primary to-pink-600 flex items-center justify-center text-white font-bold text-2xl border-2 border-primary/20">
+                            <span class="material-symbols-outlined text-3xl">person</span>
+                        </div>
+                        <!-- File Input -->
+                        <div class="flex-1">
+                            <input type="file" id="avatar" accept="image/*" class="hidden"/>
+                            <label for="avatar" class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-[#2d1b2e] border border-gray-200 dark:border-pink-500/20 rounded-full text-sm font-medium text-slate-700 dark:text-pink-100 hover:bg-gray-100 dark:hover:bg-[#3d2b3e] transition-colors">
+                                <span class="material-symbols-outlined text-lg">upload</span>
+                                Choose Image
+                            </label>
+                            <p class="text-xs text-slate-500 dark:text-pink-200/50 mt-2">Max 2MB, JPG/PNG</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex items-start gap-3 mt-2">
                     <input type="checkbox" id="terms" class="mt-1 rounded border-gray-300 text-primary focus:ring-primary" required/>
                     <label for="terms" class="text-sm text-slate-600 dark:text-pink-200/70">

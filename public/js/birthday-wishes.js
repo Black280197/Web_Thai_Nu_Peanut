@@ -42,20 +42,52 @@ function initSlideshow() {
   }, 5000)
 }
 
-// Birthday date (January 4th)
-const BIRTHDAY_DATE = new Date(new Date().getFullYear(), 0, 4)
+// Global target date (will be loaded from database)
+let TARGET_DATE = null
 
-// Calculate countdown to birthday
-function calculateBirthdayCountdown() {
-  const now = new Date().getTime()
-  let target = BIRTHDAY_DATE.getTime()
-  
-  // If birthday passed, use next year
-  if (target < now) {
-    target = new Date(new Date().getFullYear() + 1, 0, 4).getTime()
+// Load countdown settings from database
+async function loadCountdownSettings() {
+  try {
+    const { data, error } = await supabase
+      .from('countdown_settings')
+      .select('target_date, title, description')
+      .eq('event_type', 'return_date')
+      .eq('is_active', true)
+      .single()
+    
+    if (error) {
+      console.error('Error loading countdown settings:', error)
+      // Fallback to birthday date (January 4th)
+      TARGET_DATE = new Date(new Date().getFullYear(), 0, 4)
+      return
+    }
+    
+    if (data && data.target_date) {
+      TARGET_DATE = new Date(data.target_date)
+    } else {
+      // Fallback to birthday date (January 4th)
+      TARGET_DATE = new Date(new Date().getFullYear(), 0, 4)
+    }
+  } catch (err) {
+    console.error('Failed to load countdown:', err)
+    // Fallback to birthday date (January 4th)
+    TARGET_DATE = new Date(new Date().getFullYear(), 0, 4)
   }
+}
+
+// Calculate countdown to target date
+function calculateBirthdayCountdown() {
+  if (!TARGET_DATE) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  
+  const now = new Date().getTime()
+  const target = TARGET_DATE.getTime()
   
   const distance = target - now
+  
+  // If countdown has passed
+  if (distance < 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  }
   
   const days = Math.floor(distance / (1000 * 60 * 60 * 24))
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -285,16 +317,22 @@ if (form) {
 }
 
 // Initialize
-initSlideshow()
-updateCountdownDisplay()
-updateProgressBar()
-loadRecentWishes()
-
-// Update countdown every second
-setInterval(updateCountdownDisplay, 1000)
-
-// Refresh wishes every 30 seconds
-setInterval(() => {
+async function init() {
+  await loadCountdownSettings() // Load countdown target date first
+  initSlideshow()
+  updateCountdownDisplay()
   updateProgressBar()
   loadRecentWishes()
-}, 30000)
+  
+  // Update countdown every second
+  setInterval(updateCountdownDisplay, 1000)
+  
+  // Refresh wishes every 30 seconds
+  setInterval(() => {
+    updateProgressBar()
+    loadRecentWishes()
+  }, 30000)
+}
+
+// Start initialization
+init()

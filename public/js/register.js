@@ -1,6 +1,7 @@
 // Register page initialization
 import { handleRegister, initPasswordToggle } from './auth.js'
-import { requireGuest } from './supabase-client.js'
+import { requireGuest, supabase } from './supabase-client.js'
+import { uploadImage } from './utils.js'
 
 // Check if user is already logged in
 await requireGuest()
@@ -14,8 +15,41 @@ const usernameInput = document.getElementById('username')
 const emailInput = document.getElementById('email')
 const passwordInput = document.getElementById('password')
 const confirmPasswordInput = document.getElementById('confirm-password')
+const avatarInput = document.getElementById('avatar')
+const avatarPreview = document.getElementById('avatar-preview')
 const termsCheckbox = document.getElementById('terms')
 const submitButton = document.getElementById('submit-button')
+
+let selectedAvatarFile = null
+
+// Handle avatar selection
+avatarInput?.addEventListener('change', (e) => {
+  const file = e.target.files[0]
+  if (!file) return
+  
+  // Validate file size (2MB)
+  if (file.size > 2 * 1024 * 1024) {
+    document.getElementById('form-error').textContent = 'Avatar image must be less than 2MB'
+    document.getElementById('form-error').classList.remove('hidden')
+    return
+  }
+  
+  // Validate file type
+  if (!file.type.startsWith('image/')) {
+    document.getElementById('form-error').textContent = 'Please select an image file'
+    document.getElementById('form-error').classList.remove('hidden')
+    return
+  }
+  
+  selectedAvatarFile = file
+  
+  // Show preview
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    avatarPreview.innerHTML = `<img src="${e.target.result}" alt="Avatar" class="w-full h-full object-cover rounded-full">`
+  }
+  reader.readAsDataURL(file)
+})
 
 // Handle form submission
 registerForm.addEventListener('submit', async (e) => {
@@ -23,7 +57,7 @@ registerForm.addEventListener('submit', async (e) => {
   
   // Check terms
   if (!termsCheckbox.checked) {
-    document.getElementById('form-error').textContent = 'Vui lòng đồng ý với điều khoản dịch vụ'
+    document.getElementById('form-error').textContent = 'Please agree to the terms of service'
     document.getElementById('form-error').classList.remove('hidden')
     return
   }
@@ -35,15 +69,15 @@ registerForm.addEventListener('submit', async (e) => {
   
   // Disable button
   submitButton.disabled = true
-  submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> <span>Đang đăng ký...</span>'
+  submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> <span>Registering...</span>'
   
   // Register
-  const success = await handleRegister(email, password, confirmPassword, username)
+  const success = await handleRegister(email, password, confirmPassword, username, selectedAvatarFile)
   
   if (!success) {
     // Re-enable button
     submitButton.disabled = false
-    submitButton.innerHTML = '<span>Đăng ký</span><span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>'
+    submitButton.innerHTML = '<span>Register</span><span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>'
   }
 })
 

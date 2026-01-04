@@ -6,12 +6,36 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Check auth state on page load
-supabase.auth.onAuthStateChange((event, session) => {
+// Check auth state on page load and sync OAuth data
+supabase.auth.onAuthStateChange(async (event, session) => {
   console.log('Auth state changed:', event, session)
   
-  if (event === 'SIGNED_IN') {
+  if (event === 'SIGNED_IN' && session?.user) {
     console.log('User signed in:', session.user)
+    
+    // Sync OAuth avatar if available
+    if (session.user.user_metadata?.avatar_url) {
+      try {
+        const { data: existingUser } = await supabase
+          .from('users')
+          .select('id, avatar_url')
+          .eq('id', session.user.id)
+          .single()
+        
+        // Update avatar if user doesn't have one
+        if (existingUser && (!existingUser.avatar_url || existingUser.avatar_url === '')) {
+          await supabase
+            .from('users')
+            .update({ 
+              avatar_url: session.user.user_metadata.avatar_url,
+              updated_at: new Date().toISOString()
+            })
+            .eq('id', session.user.id)
+        }
+      } catch (error) {
+        console.error('Error syncing OAuth avatar:', error)
+      }
+    }
   } else if (event === 'SIGNED_OUT') {
     console.log('User signed out')
   }
