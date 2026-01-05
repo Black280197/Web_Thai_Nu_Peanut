@@ -186,7 +186,7 @@ async function init() {
     // Show user section
     userSection?.classList.remove('hidden')
     const usernameStrong = userSection?.querySelector('strong')
-    if (usernameStrong) usernameStrong.textContent = user.username || user.email
+    if (usernameStrong) usernameStrong.textContent = user.user_metadata?.username || user.email
     
     // Check if admin
     if (await isAdmin()) {

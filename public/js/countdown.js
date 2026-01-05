@@ -270,13 +270,14 @@ async function checkAboutPopup() {
       .single()
     
     if (error) throw error
-    
-    if (data && data.setting_value === 'true' && aboutModal) {
+    const showedAboutModal = sessionStorage.getItem('showedAboutModal');
+    if (data && data.setting_value === 'true' && aboutModal && !showedAboutModal) {
       // Show popup after a short delay
       setTimeout(() => {
         aboutModal.classList.remove('hidden')
         loadAboutContent()
-      }, 1000)
+        sessionStorage.setItem('showedAboutModal', 'true'); 
+      }, 2000)
     }
   } catch (error) {
     console.error('Error checking about popup setting:', error)

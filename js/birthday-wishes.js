@@ -123,7 +123,7 @@ const submitButton = document.getElementById('submit-button')
 if (contentInput && charCount) {
   contentInput.addEventListener('input', () => {
     const length = contentInput.value.length
-    charCount.textContent = `${length}/500 ký tự`
+    charCount.textContent = `${length}/2500 charactors`
     
     if (length > 500) {
       charCount.classList.add('text-red-500')
@@ -156,7 +156,7 @@ if (form) {
     }
     
     if (content.length > 500) {
-      alert('Lời chúc không được vượt quá 500 ký tự')
+      alert('Lời chúc không được vượt quá 2500 charactors')
       return
     }
     
@@ -183,7 +183,7 @@ if (form) {
       
       // Reset form
       form.reset()
-      charCount.textContent = '0/500 ký tự'
+      charCount.textContent = '0/2500 charactors'
       
       // Reload stats
       await updateProgressBar()

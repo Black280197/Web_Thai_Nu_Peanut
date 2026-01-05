@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Wangho's flower garden</title>
+    <link data-default-icon="/assets/img/peanut.png" rel="icon" sizes="192x192" href="/assets/img/peanut.png">
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -14,6 +15,7 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+    <!-- <link rel="preload" href="/assets/fonts/SyakiraDemo.woff2" as="font" type="font/woff2" crossorigin> -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -41,6 +43,14 @@
         }
     </script>
     <style>
+        @font-face {
+            font-family: 'Syakira Demo';
+            src: url('assets/fonts/SyakiraDemo.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         .shimmer-text {
             background: linear-gradient(to right, #ffffff 20%, #fbcfe8 40%, #fbcfe8 60%, #ffffff 80%);
             background-size: 200% auto;
@@ -104,6 +114,12 @@
             mask-composite: exclude;
             animation: border-rotate 4s linear infinite;
         }
+
+        .my-style {
+            font-family: 'Syakira Demo' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
     </style>
 </head>
 
@@ -111,53 +127,39 @@
     <div class="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
     <!-- Banner with text.png -->
-    <div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm"
-        style="max-height: 8.5rem;" bis_skin_checked="1">
-        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
-            style="height: 8rem;width: 17rem;">
+    <div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;" bis_skin_checked="1">
+        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;width: 17rem;">
     </div>
 
     <!-- Navbar below banner -->
-    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 fixed top-32 left-0">
-        <div class="mx-auto px-4 sm:px-6 lg:px-8" style="margin-right: unset;">
-            <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;">
+    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0" style="margin-top: 8rem;">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8" style="margin-right: unset;" bis_skin_checked="1">
+            <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;" bis_skin_checked="1">
                 <nav class="hidden md:flex items-center gap-8 mx-auto" style="margin-left: unset;">
-                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
-                        href="/">Home</a>
-                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
-                        href="/birthday-wishes.html">Birthday Message</a>
-                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
-                        href="/events.html">Events</a>
-                    <a id="about-link"
-                        class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer"
-                        href="javascript:void(0)">About</a>
-                    <a id="admin-nav-link"
-                        class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1"
-                        href="/admin-dashboard.html">
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/">Home</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/birthday-wishes.html" bis_skin_checked="1">Birthday Message</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/events.html" bis_skin_checked="1">Events</a>
+                    <a id="about-link" class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer" href="javascript:void(0)" bis_skin_checked="1">About</a>
+                    <a id="admin-nav-link" class="text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1" href="/admin-dashboard.html" bis_skin_checked="1">
                         <span class="material-symbols-outlined text-base">admin_panel_settings</span>
                         <span>Admin</span>
                     </a>
                 </nav>
-                <div class="flex items-center gap-4 ml-auto">
+                <div class="flex items-center gap-4 ml-auto" bis_skin_checked="1">
                     <!-- Guest mode: Login button -->
-                    <button id="login-button"
-                        class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                    <button id="login-button" class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
                         Login
                     </button>
 
                     <!-- Logged in user section -->
-                    <div id="user-section" class="hidden flex items-center gap-4">
-                        <div class="hidden sm:block text-right">
-                            <p class="text-sm font-semibold text-white" id="username">Fan Member</p>
+                    <div id="user-section" class="flex items-center gap-4" bis_skin_checked="1">
+                        <div class="hidden sm:block text-right" bis_skin_checked="1">
+                            <p class="text-sm font-semibold text-white" id="username">cuong5_9a</p>
                         </div>
-                        <button id="logout-button"
-                            class="hidden text-xs text-pink-200/60 hover:text-white transition-colors">
+                        <button id="logout-button" class="text-xs text-pink-200/60 hover:text-white transition-colors">
                             Logout
                         </button>
-                        <div id="avatar" hidden
-                            class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsRPRtwPFPs_i83KJtH82783rzaaB4zz4cVJPiCmmITFr9Q5RY0WjMr9_zoQHXTaR-O7IrscZPR5Dd5nPsD43NcqHRT37wKL-bRiN4QlQqlPnuRuay9W79o-bjaXeNgywrlSMF54jIB18ycBLGRgbK5TyUFeoDPjdbC7sxzidKkXs-6zgfAebSGxU0u9POqILvs1hVj41sWyhl1yQUXmrLFtGEZ79eEqYUyb3yihqfDdGKdkIlwcSglXI8RIETS9mIu7u-f7QCVic");'>
-                        </div>
+                        <div id="avatar" hidden="" class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50" style="background-image: none;" bis_skin_checked="1"><div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg" bis_skin_checked="1">C</div></div>
                     </div>
                 </div>
             </div>
@@ -165,59 +167,75 @@
     </header>
 
     <main class="flex-grow relative flex items-center justify-center pt-48 pb-12" style="
-    padding-top: 13rem;
+    padding-top: 1rem;
 ">
         <div class="relative z-10 w-full max-w-4xl px-4 flex flex-col items-center gap-10" bis_skin_checked="1" style="
     gap: 0rem;
 ">
             <div class="text-center space-y-4 floating-element" bis_skin_checked="1">
                 <h1 id="countdown-title"
-                    class="text-5xl md:text-7xl font-extrabold tracking-tight text-white shimmer-text leading-tight font-serif">
+                    class="text-5xl md:text-8xl font-extrabold tracking-tight text-white shimmer-text leading-tight my-style"
+                    style="    font-size: 9rem;height: 12rem;line-height: 1.3;">
                     Happy Peanut Day
                 </h1>
-                <p class="text-lg md:text-xl text-pink-100/70 font-light max-w-lg mx-auto font-body">
-                    Countdown to Peanut's birthday! 🎉
+                <p class="text-lg md:text-xl text-pink-100/70 font-light max-w-lg mx-auto font-body my-style" style="max-width: 38rem; font-size: 2rem;">
+                    May your path be gentle, and happiness bloom beside you! 🎉
                 </p>
             </div>
 
             <div class="relative w-full max-w-3xl group mt-4" bis_skin_checked="1">
                 <div class="relative p-8 md:p-12"
-                    style="/* background-image: url('/assets/img/frame.png'); *//* background-size: 100% 100%; *//* background-repeat: no-repeat; */min-height: 300px;"
+                    style="/* background-image: url('/assets/img/frame.png'); *//* background-size: 100% 100%; *//* background-repeat: no-repeat; */min-height: 12rem;"
                     bis_skin_checked="1">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 relative z-10" bis_skin_checked="1">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_2fr_1fr_2fr_1fr_2fr] gap-4 md:gap-6 relative z-10" bis_skin_checked="1">
                         <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
-                            <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg"
-                                bis_skin_checked="1" style="padding-bottom: 1.5rem;">
-                                <span id="countdown-days" class="text-3xl md:text-5xl font-black text-white font-serif"
-                                    style="font-size: 5rem;">32</span>
+                            <div class="flex justify-center rounded-2xl"
+                                bis_skin_checked="1">
+                                <span id="countdown-days" class="text-3xl md:text-5xl font-black text-white my-style"
+                                    style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
                             </div>
-                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Days</span>
+                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold my-style" style="font-size: 1.65rem;">Days</span>
                         </div>
                         <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
-                            <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg"
-                                bis_skin_checked="1" style="padding-bottom: 1.5rem;">
-                                <span id="countdown-hours" class="text-3xl md:text-5xl font-black text-white font-serif"
-                                    style="font-size: 5rem;">04</span>
+                            <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
+                                <span class="text-3xl md:text-5xl font-black text-white my-style" style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
                             </div>
-                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Hours</span>
                         </div>
                         <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
-                            <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg"
-                                bis_skin_checked="1" style="padding-bottom: 1.5rem;">
+                            <div class="flex justify-center rounded-2xl"
+                                bis_skin_checked="1">
+                                <span id="countdown-hours" class="text-3xl md:text-5xl font-black text-white my-style"
+                                    style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
+                            </div>
+                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold my-style" style="font-size: 1.65rem;">Hours</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
+                            <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
+                                <span class="text-3xl md:text-5xl font-black text-white my-style" style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
+                            <div class="flex justify-center rounded-2xl"
+                                bis_skin_checked="1">
                                 <span id="countdown-minutes"
-                                    class="text-3xl md:text-5xl font-black text-white font-serif"
-                                    style="font-size: 5rem;">27</span>
+                                    class="text-3xl md:text-5xl font-black text-white my-style"
+                                    style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
                             </div>
-                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Minutes</span>
+                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold my-style" style="font-size: 1.65rem;">Minutes</span>
                         </div>
                         <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
-                            <div class="w-full aspect-square bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-pink-500/30 shadow-lg"
-                                bis_skin_checked="1" style="padding-bottom: 1.5rem;">
-                                <span id="countdown-seconds"
-                                    class="text-3xl md:text-5xl font-black text-white font-serif"
-                                    style="font-size: 5rem;">10</span>
+                            <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
+                                <span class="text-3xl md:text-5xl font-black text-white my-style" style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
                             </div>
-                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold">Seconds</span>
+                        </div>
+                        <div class="flex flex-col items-center justify-center gap-3 group/item" bis_skin_checked="1">
+                            <div class="flex justify-center rounded-2xl"
+                                bis_skin_checked="1">
+                                <span id="countdown-seconds"
+                                    class="text-3xl md:text-5xl font-black text-white my-style"
+                                    style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
+                            </div>
+                            <span class="text-xs uppercase tracking-[0.2em] text-white font-bold my-style" style="font-size: 1.65rem;">Seconds</span>
                         </div>
                     </div>
                     <!-- <img src="/assets/img/frame.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
@@ -226,7 +244,7 @@
             </div>
 
             <a id="birthday-wishes-link" href="/birthday-wishes.html"
-                class="group relative inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-gold via-yellow-200 to-gold text-amber-900 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] shadow-lg"
+                class="group relative inline-flex items-center justify-center px-10 py-4 via-yellow-200 to-gold text-amber-900 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] shadow-lg backdrop-blur-sm bg-white\/10"  style="background-color: #f9bfbf82;"
                 bis_skin_checked="1">
                 <span class="relative z-10 flex items-center gap-2">
                     <span class="material-symbols-outlined text-[24px] animate-bounce">cake</span>
@@ -249,7 +267,7 @@
             <div class="flex gap-8 items-center" bis_skin_checked="1">
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://youtube.com/@lolpeanuttv?si=V1kHJhWFrZ4Raw_c" target="_blank"
-                    rel="noopener noreferrer" bis_skin_checked="1">
+                    rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.7rem;">
                     <svg xmlns="http://www.w3.org/2000/svg" id="yt-ringo2-svg_yt11" width="40" height="40"
                         viewBox="0 0 30 30" focusable="false" aria-hidden="true"
                         style="pointer-events: none;display: flex;width: 100%;height: 100%;align-items: center;align-content: center;justify-content: center;justify-items: center;">
@@ -264,16 +282,16 @@
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer"
-                    bis_skin_checked="1">
-                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP" style="opacity: 1;">
+                    bis_skin_checked="1" style="height: 1.7rem;">
+                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP" style="opacity: 1;height: 1.7rem;">
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.instagram.com/wanghohan98/" target="_blank" rel="noopener noreferrer"
-                    bis_skin_checked="1">
+                    bis_skin_checked="1" style="height: 1.7rem;">
                     <svg aria-label="Instagram" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="35"
                         role="img" viewBox="0 0 24 24" width="35" style="
-    height: 3rem;
+    height: 1.6rem;
 ">
                         <title>Instagram</title>
                         <path
@@ -283,15 +301,15 @@
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
-                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1">
+                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.7rem;">
                     <img alt="x.svg"
                         src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg"
-                        style="width: 3rem;">
+                        style="width: 1.7rem;">
                     <!-- <span>Soop</span> -->
                 </a>
             </div>
+            <p class="text-pink-200/40 text-xs text-center">© Wangho's Flower Garden by Vietnamese fans</p>
         </div>
-        <p class="text-pink-200/40 text-xs text-center">© Wangho's Flower Garden by Vietnamese fans</p>
     </footer>
 
     <!-- About Modal -->

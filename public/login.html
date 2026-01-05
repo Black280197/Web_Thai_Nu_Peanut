@@ -30,44 +30,49 @@
             },
         }
     </script>
+    <style>
+        @font-face {
+            font-family: 'Syakira Demo';
+            src: url('assets/fonts/SyakiraDemo.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        .my-style {
+            font-family: 'Syakira Demo' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-x-hidden selection:bg-primary selection:text-white">
 <div class="fixed inset-0 z-0" style="background-image: url('/assets/img/background.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
 <div class="relative min-h-screen w-full flex items-center justify-center p-4 lg:p-8">
-    <div class="relative z-10 w-full max-w-[1200px] bg-pink-500/10 backdrop-blur-2xl border border-pink-300/30 rounded-3xl shadow-[0_25px_50px_-12px_rgba(236,72,153,0.4)] flex flex-col lg:flex-row overflow-hidden min-h-[700px]">
-        <div class="relative w-full lg:w-5/12 bg-pink-500/5 backdrop-blur-md flex flex-col overflow-hidden border-r border-pink-300/20">
+    <div class="flex flex-col lg:flex-row min-h-[700px] overflow-hidden relative rounded-3xl w-full z-10">
+        <div class="flex flex-col lg:w-7/12 overflow-hidden relative w-full">
             <!-- Banner Section -->
-            <div class="relative z-10 p-8 lg:p-10 bg-gradient-to-br from-pink-500/20 via-purple-500/10 to-transparent backdrop-blur-sm">
+            <div class="from-pink-500/20 lg:p-10 p-8 relative to-transparent via-purple-500/10 z-10">
                 <img src="/assets/img/text.png" alt="HLE Peanut FC" class="w-full h-auto drop-shadow-2xl" />
             </div>
             
             <!-- Slogan Section -->
             <div class="relative flex-1 flex items-center justify-center p-8 lg:p-12">
                 <div class="text-center space-y-6">
-                    <div class="relative inline-block">
-                        <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
-                        <span class="material-symbols-outlined text-8xl text-primary relative z-10 animate-pulse">favorite</span>
-                    </div>
                     <blockquote class="relative">
-                        <p id="login-slogan" class="text-2xl lg:text-3xl font-bold text-white leading-relaxed px-4">
+                        <p id="login-slogan" class="text-2xl lg:text-3xl font-bold text-white leading-relaxed px-4 my-style">
                             Welcome to Wangho's Flower Garden - A special place for Peanut's fans to connect and celebrate together.
                         </p>
-                        <div class="mt-4 flex justify-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse" style="animation-delay: 0.2s"></span>
-                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse" style="animation-delay: 0.4s"></span>
-                        </div>
                     </blockquote>
                 </div>
             </div>
         </div>
-        <div class="w-full lg:w-7/12 p-8 lg:p-16 xl:p-20 bg-white/40 dark:bg-pink-950/30 backdrop-blur-xl flex flex-col justify-center relative">
+        <div class="w-full lg:w-5/12 p-8 lg:p-16 xl:p-20 bg-white/40 dark:bg-pink-950/30 backdrop-blur-xl flex flex-col justify-center relative">
             <div class="absolute top-0 right-0 p-6">
                 <a class="text-sm font-medium text-gray-500 hover:text-primary transition-colors flex items-center gap-1" href="#">
                     Support? <span class="material-symbols-outlined text-base">help</span>
                 </a>
             </div>
-            <div class="max-w-[480px] w-full mx-auto">
+            <div class="w-full mx-auto" style="background-color: #780e0e42;margin: 0;padding: 0.5rem 1rem 0.5rem 1rem;">
                 <div class="mb-10">
                     <h1 id="login-title" class="text-3xl lg:text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-white mb-3">Welcome!</h1>
                     <p id="login-message" class="text-slate-500 dark:text-pink-200/60 text-base font-normal">Log in to join the Peanut fan community</p>
@@ -83,7 +88,7 @@
                             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                 <span class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors">mail</span>
                             </div>
-                            <input class="w-full h-14 pl-12 pr-4 bg-white/30 dark:bg-pink-500/10 backdrop-blur-md border border-pink-300/30 dark:border-pink-500/30 rounded-full text-slate-900 dark:text-white placeholder:text-pink-500/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200" id="email" placeholder="peanut@hle.gg" type="email" required/>
+                            <input class="w-full h-14 pl-12 pr-4 bg-white/30 dark:bg-pink-500/10 backdrop-blur-md border border-pink-300/30 dark:border-pink-500/30 rounded-full text-slate-900 dark:text-white placeholder:text-pink-500/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200" id="email" placeholder="example@email.com" type="email" required/>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2">
@@ -106,7 +111,7 @@
                         <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </button>
                 </form>
-                <div class="relative my-8">
+                <div class="relative my-8" style="display:none;">
                     <div class="absolute inset-0 flex items-center">
                         <div class="w-full border-t border-gray-200 dark:border-white/10"></div>
                     </div>
@@ -114,7 +119,7 @@
                         <span class="px-4 bg-white/50 dark:bg-pink-500/10 backdrop-blur-md text-pink-600 dark:text-pink-200">Or continue with</span>
                     </div>
                 </div>
-                <div class="flex gap-4 justify-center">
+                <div class="flex gap-4 justify-center" style="display: none;">
                     <button id="google-login" type="button" class="size-12 rounded-full border border-pink-300/30 dark:border-pink-500/30 bg-white/40 dark:bg-pink-500/10 backdrop-blur-md flex items-center justify-center hover:bg-white/60 dark:hover:bg-pink-500/20 transition-all group relative overflow-hidden">
                         <svg class="size-5 group-hover:scale-110 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z" fill="#4285F4"></path>

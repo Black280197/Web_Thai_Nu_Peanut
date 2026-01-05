@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Syakira Demo';
+    src: url('SyakiraDemo.woff2') format('woff2'),
+        url('SyakiraDemo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
