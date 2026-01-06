@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Eleven out of ten</title>
     <link data-default-icon="/assets/img/peanut.png" rel="icon" sizes="192x192" href="/assets/img/peanut.png">
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -31,6 +36,7 @@
             -webkit-text-fill-color: transparent;
             animation: shine 5s linear infinite;
         }
+
         @keyframes shine {
             to {
                 background-position: 200% center;
@@ -38,80 +44,94 @@
         }
     </style>
 </head>
+
 <body class="text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col relative">
-<div class="fixed inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
+    <div class="fixed inset-0 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
 
-<!-- Banner with text.png -->
-<div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;">
-    <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;width: 50rem;">
-</div>
+    <!-- Banner with text.png -->
+    <div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm"
+        style="max-height: 8.5rem;" bis_skin_checked="1">
+        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
+            style="height: 8rem;width: 17rem;">
+    </div>
 
-<!-- Navbar below banner -->
-<header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0" style="margin-top: 8rem;">
-    <div class="mx-auto px-4 sm:px-6 lg:px-8" style="margin-right: unset;">
-        <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;">
-            <nav class="hidden md:flex items-center gap-8 mx-auto" style="margin-left: unset;">
-                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/">Home</a>
-                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/birthday-wishes.html">Birthday Message</a>
-                <a class="text-sm font-bold text-primary" href="/events.html">Eleven out of ten</a>
-                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="#">About</a>
-                <a id="admin-nav-link" class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1" href="/admin-dashboard.html">
-                    <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
-                    <span>Admin</span>
-                </a>
-            </nav>
-            <div class="flex items-center gap-4 ml-auto">
-                <!-- Guest mode: Login button -->
-                <button id="login-button" class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
-                    Login
-                </button>
-                
-                <!-- Logged in user section -->
-                <div id="user-section" class="hidden flex items-center gap-4">
-                    <span id="username" class="text-sm text-pink-100/80">Logged in as <strong class="text-white"></strong></span>
-                    <button id="logout-button" class="px-4 py-2 bg-pink-100/10 hover:bg-pink-100/20 text-pink-100 rounded-full text-sm font-semibold transition-all">
-                        Logout
+    <!-- Navbar below banner -->
+    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0"
+        style="margin-top: 8rem;">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8" style="margin-right: unset;">
+            <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;">
+                <nav class="hidden md:flex items-center gap-8 mx-auto" style="margin-left: unset;">
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/">Home</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/birthday-wishes.html">Birthday Message</a>
+                    <a class="text-sm font-bold text-primary" href="/events.html">Eleven out of ten</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="#">About</a>
+                    <a id="admin-nav-link"
+                        class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1"
+                        href="/admin-dashboard.html">
+                        <span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+                        <span>Admin</span>
+                    </a>
+                </nav>
+                <div class="flex items-center gap-4 ml-auto">
+                    <!-- Guest mode: Login button -->
+                    <button id="login-button"
+                        class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                        Login
                     </button>
+
+                    <!-- Logged in user section -->
+                    <div id="user-section" class="hidden flex items-center gap-4">
+                        <span id="username" class="text-sm text-pink-100/80">Logged in as <strong
+                                class="text-white"></strong></span>
+                        <button id="logout-button"
+                            class="px-4 py-2 bg-pink-100/10 hover:bg-pink-100/20 text-pink-100 rounded-full text-sm font-semibold transition-all">
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<main class="flex-grow relative pt-48 pb-12" style="padding-top: 0;">
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white shimmer-text leading-tight font-serif mb-4" style="font-size: 1.95rem;">
-                𝐄𝐋𝐄𝐕𝐄𝐍 𝐎𝐔𝐓 𝐎𝐅 𝐓𝐄𝐍 - 𝐅𝐎𝐑 𝐖𝐀𝐍𝐆𝐇𝐎 𝟐𝟎𝟐𝟔 - 
-                <br/>
-                𝟐𝟖𝐓𝐇 𝐁𝐈𝐑𝐓𝐇𝐃𝐀𝐘 & 𝟏𝟏𝐓𝐇 𝐃𝐄𝐁𝐔𝐓 𝐀𝐍𝐍𝐈𝐕𝐄𝐑𝐒𝐀𝐑𝐘
-            </h1>
-            <p class="text-lg text-pink-100/70 font-light max-w-2xl mx-auto">
-                Stay updated with the latest news about "Eleven out of ten". Project by Vietnamese fan
-            </p>
+    <main class="flex-grow relative pt-48 pb-12" style="padding-top: 0;">
+        <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white shimmer-text leading-tight font-serif mb-4"
+                    style="font-size: 1.95rem;">
+                    𝐄𝐋𝐄𝐕𝐄𝐍 𝐎𝐔𝐓 𝐎𝐅 𝐓𝐄𝐍 - 𝐅𝐎𝐑 𝐖𝐀𝐍𝐆𝐇𝐎 𝟐𝟎𝟐𝟔 -
+                    <br />
+                    𝟐𝟖𝐓𝐇 𝐁𝐈𝐑𝐓𝐇𝐃𝐀𝐘 & 𝟏𝟏𝐓𝐇 𝐃𝐄𝐁𝐔𝐓 𝐀𝐍𝐍𝐈𝐕𝐄𝐑𝐒𝐀𝐑𝐘
+                </h1>
+                <p class="text-lg text-pink-100/70 font-light max-w-2xl mx-auto">
+                    Stay updated with the latest news about "Eleven out of ten". Project by Vietnamese fan
+                </p>
+            </div>
+
+            <!-- Events Grid -->
+            <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Events will be loaded here by JavaScript -->
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="flex flex-col items-center justify-center py-20">
+                <span class="material-symbols-outlined text-6xl text-primary animate-spin mb-4">refresh</span>
+                <p class="text-pink-100/70">Loading events...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden flex flex-col items-center justify-center py-20">
+                <span class="material-symbols-outlined text-6xl text-pink-100/30 mb-4">event_note</span>
+                <p class="text-xl text-pink-100/70 mb-2">No events yet</p>
+                <p class="text-sm text-pink-100/50">Check back later for updates!</p>
+            </div>
         </div>
+    </main>
 
-        <!-- Events Grid -->
-        <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Events will be loaded here by JavaScript -->
-        </div>
-
-        <!-- Loading State -->
-        <div id="loading-state" class="flex flex-col items-center justify-center py-20">
-            <span class="material-symbols-outlined text-6xl text-primary animate-spin mb-4">refresh</span>
-            <p class="text-pink-100/70">Loading events...</p>
-        </div>
-
-        <!-- Empty State -->
-        <div id="empty-state" class="hidden flex flex-col items-center justify-center py-20">
-            <span class="material-symbols-outlined text-6xl text-pink-100/30 mb-4">event_note</span>
-            <p class="text-xl text-pink-100/70 mb-2">No events yet</p>
-            <p class="text-sm text-pink-100/50">Check back later for updates!</p>
-        </div>
-    </div>
-</main>
-
-<footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-1 relative z-20">
+    <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-1 relative z-20">
         <div class="max-w-[960px] mx-auto px-6 flex flex-col items-center gap-6 text-center" bis_skin_checked="1" style="
     flex-direction: row;justify-content: center;
 ">
@@ -138,7 +158,8 @@
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer"
                     bis_skin_checked="1" style="height: 1.7rem;">
-                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP" style="opacity: 1;height: 1.7rem;">
+                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP"
+                        style="opacity: 1;height: 1.7rem;">
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
@@ -156,7 +177,8 @@
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
-                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.7rem;">
+                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1"
+                    style="height: 1.7rem;">
                     <img alt="x.svg"
                         src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg"
                         style="width: 1.7rem;">
@@ -166,27 +188,31 @@
             <p class="text-pink-200/40 text-xs text-center">© Wangho's Flower Garden by Vietnamese fans</p>
         </div>
     </footer>
-<!-- Event Detail Modal -->
-<div id="event-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-pink-300/20 shadow-2xl">
-        <div class="sticky top-0 bg-gradient-to-br from-slate-900 to-slate-800 border-b border-pink-300/20 p-6 flex items-start justify-between z-10">
-            <div class="flex-1">
-                <h2 id="modal-title" class="text-3xl font-bold text-white mb-2"></h2>
-                <div id="modal-meta" class="flex items-center gap-4 text-sm text-pink-100/50"></div>
+    <!-- Event Detail Modal -->
+    <div id="event-modal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div
+            class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-pink-300/20 shadow-2xl">
+            <div
+                class="sticky top-0 bg-gradient-to-br from-slate-900 to-slate-800 border-b border-pink-300/20 p-6 flex items-start justify-between z-10">
+                <div class="flex-1">
+                    <h2 id="modal-title" class="text-3xl font-bold text-white mb-2"></h2>
+                    <div id="modal-meta" class="flex items-center gap-4 text-sm text-pink-100/50"></div>
+                </div>
+                <button id="close-modal" class="text-pink-100/50 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
             </div>
-            <button id="close-modal" class="text-pink-100/50 hover:text-white transition-colors">
-                <span class="material-symbols-outlined text-3xl">close</span>
-            </button>
-        </div>
-        <div id="modal-image" class="hidden">
-            <img id="modal-img" src="" alt="" class="w-full h-64" style="object-fit: contain;" />
-        </div>
-        <div id="modal-content" class="p-6 prose prose-invert prose-pink max-w-none">
-            <!-- Content will be inserted here -->
+            <div id="modal-image" class="hidden">
+                <img id="modal-img" src="" alt="" class="w-full h-64" style="object-fit: contain;" />
+            </div>
+            <div id="modal-content" class="p-6 prose prose-invert prose-pink max-w-none">
+                <!-- Content will be inserted here -->
+            </div>
         </div>
     </div>
-</div>
 
-<script type="module" src="/js/events.js"></script>
+    <script type="module" src="/js/events.js"></script>
 </body>
+
 </html>
