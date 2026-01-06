@@ -74,6 +74,18 @@
             mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            max-height: 300px;
+        }
+
+
     </style>
 </head>
 
@@ -90,6 +102,10 @@
     <header class="top-32 z-40 glass-panel border-b border-border-dark" style="margin-top: 8rem;">
         <div class="mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
                 <nav class="hidden md:flex items-center gap-8 mx-auto" style="margin-left: unset;">
                     <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/">Home</a>
                     <a class="text-sm font-bold text-primary" href="/birthday-wishes.html">Birthday Message</a>
@@ -104,14 +120,22 @@
                 </div>
             </div>
         </div>
+        <!-- Mobile menu dropdown -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-black/50 backdrop-blur-md border-t border-pink-900/20">
+            <nav class="flex flex-col py-4 px-4 gap-2">
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="/">Home</a>
+                <a class="text-sm font-bold text-primary py-2 px-4 rounded-lg hover:bg-white/5" href="/birthday-wishes.html">Birthday Message</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="/events.html">Eleven out of ten</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="#">About</a>
+            </nav>
+        </div>
     </header>
 
     <main class="flex-grow relative" style="padding-top: 6.7rem;">
         <div class="max-w-[1280px] mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
             <div class="lg:col-span-7">
                     <div class="sticky top-24">
-                        <div
-                            class="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-border-dark shadow-[0_0_40px_-10px_rgba(251,93,165,0.15)]">
+                        <div class="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-border-dark shadow-[0_0_40px_-10px_rgba(251,93,165,0.15)]">
                             <div class="mb-8">
                                 <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
                                     <span
@@ -431,18 +455,15 @@
         </div>
     </main>
 
-    <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-1 relative z-20">
-        <div class="max-w-[960px] mx-auto px-6 flex flex-col items-center gap-6 text-center" bis_skin_checked="1" style="
-    flex-direction: row;
-">
-            <div class="flex flex-col gap-2" bis_skin_checked="1">
-                <span class="text-white font-bold text-xl font-serif">Follow Peanut on</span>
-                <!-- <p class="text-pink-200/70 text-sm">Follow Peanut on platforms</p> -->
+    <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-2 md:py-1 relative z-20">
+        <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center" bis_skin_checked="1">
+            <div class="flex flex-col gap-1 md:gap-2" bis_skin_checked="1">
+                <span class="text-white font-bold text-sm md:text-xl font-serif">Follow Peanut on</span>
             </div>
-            <div class="flex gap-8 items-center" bis_skin_checked="1">
+            <div class="flex gap-4 md:gap-8 items-center" bis_skin_checked="1">
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://youtube.com/@lolpeanuttv?si=V1kHJhWFrZ4Raw_c" target="_blank"
-                    rel="noopener noreferrer" bis_skin_checked="1">
+                    rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.2rem;">
                     <svg xmlns="http://www.w3.org/2000/svg" id="yt-ringo2-svg_yt11" width="40" height="40"
                         viewBox="0 0 30 30" focusable="false" aria-hidden="true"
                         style="pointer-events: none;display: flex;width: 100%;height: 100%;align-items: center;align-content: center;justify-content: center;justify-items: center;">
@@ -457,16 +478,14 @@
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer"
-                    bis_skin_checked="1">
-                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP" style="opacity: 1;">
+                    bis_skin_checked="1" style="height: 1.2rem;">
+                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP" style="opacity: 1; height: 1.2rem;">
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.instagram.com/wanghohan98/" target="_blank" rel="noopener noreferrer"
-                    bis_skin_checked="1">
-                    <svg aria-label="Instagram" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="35" role="img" viewBox="0 0 24 24" width="35" style="
-    height: 3rem;
-">
+                    bis_skin_checked="1" style="height: 1.2rem;">
+                    <svg aria-label="Instagram" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="35" role="img" viewBox="0 0 24 24" width="35" style="height: 1.2rem;">
                         <title>Instagram</title>
                         <path d="M12 2.982c2.937 0 3.285.011 4.445.064a6.087 6.087 0 0 1 2.042.379 3.408 3.408 0 0 1 1.265.823 3.408 3.408 0 0 1 .823 1.265 6.087 6.087 0 0 1 .379 2.042c.053 1.16.064 1.508.064 4.445s-.011 3.285-.064 4.445a6.087 6.087 0 0 1-.379 2.042 3.643 3.643 0 0 1-2.088 2.088 6.087 6.087 0 0 1-2.042.379c-1.16.053-1.508.064-4.445.064s-3.285-.011-4.445-.064a6.087 6.087 0 0 1-2.043-.379 3.408 3.408 0 0 1-1.264-.823 3.408 3.408 0 0 1-.823-1.265 6.087 6.087 0 0 1-.379-2.042c-.053-1.16-.064-1.508-.064-4.445s.011-3.285.064-4.445a6.087 6.087 0 0 1 .379-2.042 3.408 3.408 0 0 1 .823-1.265 3.408 3.408 0 0 1 1.265-.823 6.087 6.087 0 0 1 2.042-.379c1.16-.053 1.508-.064 4.445-.064M12 1c-2.987 0-3.362.013-4.535.066a8.074 8.074 0 0 0-2.67.511 5.392 5.392 0 0 0-1.949 1.27 5.392 5.392 0 0 0-1.269 1.948 8.074 8.074 0 0 0-.51 2.67C1.012 8.638 1 9.013 1 12s.013 3.362.066 4.535a8.074 8.074 0 0 0 .511 2.67 5.392 5.392 0 0 0 1.27 1.949 5.392 5.392 0 0 0 1.948 1.269 8.074 8.074 0 0 0 2.67.51C8.638 22.988 9.013 23 12 23s3.362-.013 4.535-.066a8.074 8.074 0 0 0 2.67-.511 5.625 5.625 0 0 0 3.218-3.218 8.074 8.074 0 0 0 .51-2.67C22.988 15.362 23 14.987 23 12s-.013-3.362-.066-4.535a8.074 8.074 0 0 0-.511-2.67 5.392 5.392 0 0 0-1.27-1.949 5.392 5.392 0 0 0-1.948-1.269 8.074 8.074 0 0 0-2.67-.51C15.362 1.012 14.987 1 12 1Zm0 5.351A5.649 5.649 0 1 0 17.649 12 5.649 5.649 0 0 0 12 6.351Zm0 9.316A3.667 3.667 0 1 1 15.667 12 3.667 3.667 0 0 1 12 15.667Zm5.872-10.859a1.32 1.32 0 1 0 1.32 1.32 1.32 1.32 0 0 0-1.32-1.32Z">
                         </path>
@@ -474,16 +493,29 @@
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
-                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1">
-                    <img alt="x.svg" src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg" style="width: 3rem;">
+                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.2rem;">
+                    <img alt="x.svg" src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg" style="width: 1.2rem;">
                     <!-- <span>Soop</span> -->
                 </a>
             </div>
-            <p class="text-pink-200/40 text-xs mt-4">© Wangho's Flower Garden by Vietnamese fans</p>
         </div>
+        <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans</p>
     </footer>
 
     <script type="module" src="/js/birthday-wishes.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+                const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
+                icon.textContent = mobileMenu.classList.contains('open') ? 'close' : 'menu';
+            });
+        }
+    </script>
 </body>
 
 </html>
