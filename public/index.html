@@ -351,7 +351,7 @@
     <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-2 md:py-1 relative z-20">
         <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center" bis_skin_checked="1">
             <div class="flex flex-col gap-1 md:gap-2" bis_skin_checked="1">
-                <span class="text-white font-bold text-sm md:text-xl font-serif">Follow Peanut on</span>
+                <span class="text-white font-bold text-sm md:text-xl" style="font-size: 0.8rem;">Follow Peanut on</span>
             </div>
             <div class="flex gap-4 md:gap-8 items-center" bis_skin_checked="1">
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
@@ -401,23 +401,18 @@
 
     <!-- About Modal -->
     <div id="about-modal"
-        class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="frame-popup-container max-w-2xl w-full">
             <!-- Frame overlay - lớp phủ không chặn tương tác -->
             <div class="frame-overlay"></div>
-            <!-- Nội dung popup -->
-            <div class="bg-white/10 dark:bg-[#2a1b2e]/95 backdrop-blur-xl border border-white/20 dark:border-pink-500/20 rounded-2xl shadow-2xl w-full max-h-[90vh] overflow-y-auto relative z-[1]">
-                <div
-                    class="sticky top-0 bg-gradient-to-r from-primary/20 to-purple-500/20 backdrop-blur-md p-6 border-b border-white/10 flex items-center justify-between">
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <span class="material-symbols-outlined">info</span>
-                        About Us
-                    </h2>
-                    <button id="close-about-modal" class="p-2 hover:bg-white/10 rounded-full transition-colors">
-                        <span class="material-symbols-outlined text-white">close</span>
-                    </button>
-                </div>
-                <div id="about-content-display" class="p-6 text-slate-200 prose prose-invert max-w-none">
+            <!-- Nội dung popup - nền trong suốt -->
+            <div class="w-full max-h-[70vh] overflow-y-auto relative z-[1] p-8">
+                <!-- Close button -->
+                <button id="close-about-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm">
+                    <span class="material-symbols-outlined text-white text-2xl">close</span>
+                </button>
+                <!-- Nội dung -->
+                <div id="about-content-display" class="text-white prose prose-invert max-w-none text-center" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);">
                     <p>Loading...</p>
                 </div>
             </div>

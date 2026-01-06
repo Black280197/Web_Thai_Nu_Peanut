@@ -81,11 +81,10 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
+
         .mobile-menu.open {
             max-height: 300px;
         }
-
-
     </style>
 </head>
 
@@ -94,8 +93,10 @@
         style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
 
     <!-- Banner with text.png -->
-    <div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;" bis_skin_checked="1">
-        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;width: 17rem;">
+    <div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm"
+        style="max-height: 8.5rem;" bis_skin_checked="1">
+        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
+            style="height: 8rem;width: 17rem;">
     </div>
 
     <!-- Navbar below banner -->
@@ -103,19 +104,21 @@
         <div class="mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
+                <button id="mobile-menu-btn"
+                    class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
                     <span class="material-symbols-outlined text-2xl">menu</span>
                 </button>
                 <nav class="hidden md:flex items-center gap-8 mx-auto" style="margin-left: unset;">
                     <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/">Home</a>
                     <a class="text-sm font-bold text-primary" href="/birthday-wishes.html">Birthday Message</a>
-                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="/events.html">Eleven Out Of Ten</a>
+                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                        href="/events.html">Eleven Out Of Ten</a>
                     <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">About</a>
                 </nav>
                 <div class="flex items-center gap-4 ml-auto">
                     <a href="/" style="padding: 0; background: none;"
                         class="flex h-9 items-center justify-center rounded-full bg-primary hover:bg-opacity-90 transition-all px-5 text-sm font-bold text-white shadow-[0_0_15px_rgba(251,93,165,0.5)]">
-                        <img src="/assets/img/previous.png" style="height: 2rem;"/>
+                        <img src="/assets/img/previous.png" style="height: 2rem;" />
                     </a>
                 </div>
             </div>
@@ -123,10 +126,14 @@
         <!-- Mobile menu dropdown -->
         <div id="mobile-menu" class="mobile-menu md:hidden bg-black/50 backdrop-blur-md border-t border-pink-900/20">
             <nav class="flex flex-col py-4 px-4 gap-2">
-                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="/">Home</a>
-                <a class="text-sm font-bold text-primary py-2 px-4 rounded-lg hover:bg-white/5" href="/birthday-wishes.html">Birthday Message</a>
-                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="/events.html">Eleven Out Of Ten</a>
-                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="#">About</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/">Home</a>
+                <a class="text-sm font-bold text-primary py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/birthday-wishes.html">Birthday Message</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/events.html">Eleven Out Of Ten</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="#">About</a>
             </nav>
         </div>
     </header>
@@ -134,131 +141,133 @@
     <main class="flex-grow relative" style="padding-top: 6.7rem;">
         <div class="max-w-[1280px] mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
             <div class="lg:col-span-7">
-                    <div class="sticky top-24">
-                        <div class="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-border-dark shadow-[0_0_40px_-10px_rgba(251,93,165,0.15)]">
-                            <div class="mb-8">
-                                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
-                                    <span
-                                        class="material-symbols-outlined text-primary text-3xl sm:text-4xl">edit_note</span>
-                                    Send Your Birthday Wishes
-                                </h2>
-                                <p class="text-slate-400 text-sm sm:text-base">
-                                    Your message will be reviewed before display.
-                                </p>
+                <div class="sticky top-24">
+                    <div
+                        class="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-border-dark shadow-[0_0_40px_-10px_rgba(251,93,165,0.15)]">
+                        <div class="mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
+                                <span
+                                    class="material-symbols-outlined text-primary text-3xl sm:text-4xl">edit_note</span>
+                                Send Your Birthday Wishes
+                            </h2>
+                            <p class="text-slate-400 text-sm sm:text-base">
+                                Your message will be reviewed before display.
+                            </p>
+                        </div>
+
+                        <form id="wishes-form" class="flex flex-col gap-6">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-medium text-slate-300 ml-1">From (nickname)</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <span class="material-symbols-outlined text-slate-500">person</span>
+                                    </div>
+                                    <input id="nickname" maxlength="100"
+                                        class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-full focus:ring-2 focus:ring-primary focus:border-primary block pl-11 p-3.5 placeholder-slate-600 transition-all"
+                                        placeholder="example: hwh98peanut" type="text" required />
+                                </div>
                             </div>
 
-                            <form id="wishes-form" class="flex flex-col gap-6">
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-sm font-medium text-slate-300 ml-1">From (nickname)</label>
-                                    <div class="relative">
-                                        <div
-                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                            <span class="material-symbols-outlined text-slate-500">person</span>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex justify-between items-center ml-1">
+                                    <label class="text-sm font-medium text-slate-300">Message to Wangho</label>
+                                    <span id="char-count" class="text-xs text-slate-500">0/2500 characters</span>
+                                </div>
+                                <div class="relative group">
+                                    <div class="absolute top-4 left-4 pointer-events-none">
+                                        <span
+                                            class="material-symbols-outlined text-slate-500">chat_bubble_outline</span>
+                                    </div>
+                                    <textarea id="content" maxlength="2500"
+                                        class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-2xl focus:ring-2 focus:ring-primary focus:border-primary block pl-11 p-4 placeholder-slate-600 transition-all resize-none"
+                                        placeholder="Write your sincere birthday wishes here..." rows="2"
+                                        required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col gap-3">
+                                <label class="text-sm font-medium text-slate-300 ml-1">Attach Sticker</label>
+                                <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                                    <label class="cursor-pointer">
+                                        <input checked class="peer sr-only" name="sticker" type="radio" />
+                                        <div class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-primary flex items-center justify-center peer-checked:bg-primary/20 peer-checked:shadow-[0_0_10px_rgba(251,93,165,0.3)] transition-all"
+                                            style="height: 3rem;">
+                                            <span class="text-2xl">🎂</span>
                                         </div>
-                                        <input id="nickname" maxlength="100"
-                                            class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-full focus:ring-2 focus:ring-primary focus:border-primary block pl-11 p-3.5 placeholder-slate-600 transition-all"
-                                            placeholder="example: hwh98peanut" type="text" required />
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col gap-2">
-                                    <div class="flex justify-between items-center ml-1">
-                                        <label class="text-sm font-medium text-slate-300">Message to Wangho</label>
-                                        <span id="char-count" class="text-xs text-slate-500">0/2500 characters</span>
-                                    </div>
-                                    <div class="relative group">
-                                        <div class="absolute top-4 left-4 pointer-events-none">
-                                            <span
-                                                class="material-symbols-outlined text-slate-500">chat_bubble_outline</span>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" name="sticker" type="radio" />
+                                        <div class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all"
+                                            style="height: 3rem;">
+                                            <span class="text-2xl">🎉</span>
                                         </div>
-                                        <textarea id="content" maxlength="2500"
-                                            class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-2xl focus:ring-2 focus:ring-primary focus:border-primary block pl-11 p-4 placeholder-slate-600 transition-all resize-none"
-                                            placeholder="Write your sincere birthday wishes here..."
-                                            rows="2" required></textarea>
-                                    </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" name="sticker" type="radio" />
+                                        <div class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all"
+                                            style="height: 3rem;">
+                                            <span class="text-2xl">🥜</span>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" name="sticker" type="radio" />
+                                        <div class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all"
+                                            style="height: 3rem;">
+                                            <span class="text-2xl">🧡</span>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" name="sticker" type="radio" />
+                                        <div class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all"
+                                            style="height: 3rem;">
+                                            <span class="text-2xl">🏆</span>
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="peer sr-only" name="sticker" type="radio" />
+                                        <div class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all"
+                                            style="height: 3rem;">
+                                            <span class="text-2xl">💌</span>
+                                        </div>
+                                    </label>
                                 </div>
+                            </div>
 
-                                <div class="flex flex-col gap-3">
-                                    <label class="text-sm font-medium text-slate-300 ml-1">Attach Sticker</label>
-                                    <div class="grid grid-cols-4 sm:grid-cols-6 gap-3">
-                                        <label class="cursor-pointer">
-                                            <input checked class="peer sr-only" name="sticker" type="radio" />
-                                            <div
-                                                class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-primary flex items-center justify-center peer-checked:bg-primary/20 peer-checked:shadow-[0_0_10px_rgba(251,93,165,0.3)] transition-all" style="height: 3rem;">
-                                                <span class="text-2xl">🎂</span>
-                                            </div>
-                                        </label>
-                                        <label class="cursor-pointer">
-                                            <input class="peer sr-only" name="sticker" type="radio" />
-                                            <div
-                                                class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all" style="height: 3rem;">
-                                                <span class="text-2xl">🎉</span>
-                                            </div>
-                                        </label>
-                                        <label class="cursor-pointer">
-                                            <input class="peer sr-only" name="sticker" type="radio" />
-                                            <div
-                                                class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all" style="height: 3rem;">
-                                                <span class="text-2xl">🥜</span>
-                                            </div>
-                                        </label>
-                                        <label class="cursor-pointer">
-                                            <input class="peer sr-only" name="sticker" type="radio" />
-                                            <div
-                                                class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all" style="height: 3rem;">
-                                                <span class="text-2xl">🧡</span>
-                                            </div>
-                                        </label>
-                                        <label class="cursor-pointer">
-                                            <input class="peer sr-only" name="sticker" type="radio" />
-                                            <div
-                                                class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all" style="height: 3rem;">
-                                                <span class="text-2xl">🏆</span>
-                                            </div>
-                                        </label>
-                                        <label class="cursor-pointer">
-                                            <input class="peer sr-only" name="sticker" type="radio" />
-                                            <div
-                                                class="aspect-square rounded-xl bg-surface-dark/50 border-2 border-transparent hover:border-slate-600 flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary/20 transition-all" style="height: 3rem;">
-                                                <span class="text-2xl">💌</span>
-                                            </div>
-                                        </label>
-                                    </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-medium text-slate-300 ml-1">Attach Image (optional)</label>
+                                <div class="relative">
+                                    <input id="image-upload"
+                                        class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-2xl focus:ring-2 focus:ring-primary focus:border-primary block p-3 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-hover cursor-pointer"
+                                        type="file" accept="image/*" />
+                                    <p class="text-xs text-slate-500 mt-2 ml-1">Choose an image to send with your wishes
+                                        (max
+                                        5MB)</p>
                                 </div>
+                            </div>
 
-                                <div class="flex flex-col gap-2">
-                                    <label class="text-sm font-medium text-slate-300 ml-1">Attach Image (optional)</label>
-                                    <div class="relative">
-                                        <input id="image-upload"
-                                            class="w-full bg-surface-dark/80 border border-border-dark text-white text-sm rounded-2xl focus:ring-2 focus:ring-primary focus:border-primary block p-3 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-hover cursor-pointer"
-                                            type="file" accept="image/*" />
-                                        <p class="text-xs text-slate-500 mt-2 ml-1">Choose an image to send with your wishes (max
-                                            5MB)</p>
-                                    </div>
+                            <button id="submit-button"
+                                class="group relative mt-4 w-full h-14 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm border-2 border-primary text-white shadow-lg transition-all hover:scale-[1.01] hover:bg-white/20 hover:shadow-primary/40 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark"
+                                type="submit">
+                                <div
+                                    class="relative flex items-center justify-center gap-2 font-bold text-lg tracking-wide">
+                                    <span class="material-symbols-outlined text-2xl">cake</span>
+                                    <span>Birthday Message</span>
                                 </div>
+                            </button>
 
-                                <button id="submit-button"
-                                    class="group relative mt-4 w-full h-14 overflow-hidden rounded-full bg-white/10 backdrop-blur-sm border-2 border-primary text-white shadow-lg transition-all hover:scale-[1.01] hover:bg-white/20 hover:shadow-primary/40 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background-dark"
-                                    type="submit">
-                                    <div
-                                        class="relative flex items-center justify-center gap-2 font-bold text-lg tracking-wide">
-                                        <span class="material-symbols-outlined text-2xl">cake</span>
-                                        <span>Birthday Message</span>
-                                    </div>
-                                </button>
-
-                                <p class="text-center text-xs text-slate-500 mt-2">
-                                    Wishes will be moderated before being displayed publicly.
-                                </p>
-                            </form>
-                        </div>
+                            <p class="text-center text-xs text-slate-500 mt-2">
+                                Wishes will be moderated before being displayed publicly.
+                            </p>
+                        </form>
                     </div>
                 </div>
+            </div>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                 <!-- Left sidebar -->
                 <div class="lg:col-span-5 flex flex-col gap-8" hidden>
                     <!-- Image slideshow -->
-                    <div class="relative overflow-hidden rounded-2xl border border-border-dark" style="height: 500px; display: none;">
+                    <div class="relative overflow-hidden rounded-2xl border border-border-dark"
+                        style="height: 500px; display: none;">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10 opacity-90">
                         </div>
@@ -456,9 +465,10 @@
     </main>
 
     <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-2 md:py-1 relative z-20">
-        <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center" bis_skin_checked="1">
+        <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center"
+            bis_skin_checked="1">
             <div class="flex flex-col gap-1 md:gap-2" bis_skin_checked="1">
-                <span class="text-white font-bold text-sm md:text-xl font-serif">Follow Peanut on</span>
+                <span class="text-white font-bold text-sm md:text-xl" style="font-size: 0.8rem;">Follow Peanut on</span>
             </div>
             <div class="flex gap-4 md:gap-8 items-center" bis_skin_checked="1">
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
@@ -479,27 +489,34 @@
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer"
                     bis_skin_checked="1" style="height: 1.2rem;">
-                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP" style="opacity: 1; height: 1.2rem;">
+                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP"
+                        style="opacity: 1;height: 1.2rem;">
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.instagram.com/wanghohan98/" target="_blank" rel="noopener noreferrer"
                     bis_skin_checked="1" style="height: 1.2rem;">
-                    <svg aria-label="Instagram" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="35" role="img" viewBox="0 0 24 24" width="35" style="height: 1.2rem;">
+                    <svg aria-label="Instagram" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="35"
+                        role="img" viewBox="0 0 24 24" width="35" style="height: 1.2rem;">
                         <title>Instagram</title>
-                        <path d="M12 2.982c2.937 0 3.285.011 4.445.064a6.087 6.087 0 0 1 2.042.379 3.408 3.408 0 0 1 1.265.823 3.408 3.408 0 0 1 .823 1.265 6.087 6.087 0 0 1 .379 2.042c.053 1.16.064 1.508.064 4.445s-.011 3.285-.064 4.445a6.087 6.087 0 0 1-.379 2.042 3.643 3.643 0 0 1-2.088 2.088 6.087 6.087 0 0 1-2.042.379c-1.16.053-1.508.064-4.445.064s-3.285-.011-4.445-.064a6.087 6.087 0 0 1-2.043-.379 3.408 3.408 0 0 1-1.264-.823 3.408 3.408 0 0 1-.823-1.265 6.087 6.087 0 0 1-.379-2.042c-.053-1.16-.064-1.508-.064-4.445s.011-3.285.064-4.445a6.087 6.087 0 0 1 .379-2.042 3.408 3.408 0 0 1 .823-1.265 3.408 3.408 0 0 1 1.265-.823 6.087 6.087 0 0 1 2.042-.379c1.16-.053 1.508-.064 4.445-.064M12 1c-2.987 0-3.362.013-4.535.066a8.074 8.074 0 0 0-2.67.511 5.392 5.392 0 0 0-1.949 1.27 5.392 5.392 0 0 0-1.269 1.948 8.074 8.074 0 0 0-.51 2.67C1.012 8.638 1 9.013 1 12s.013 3.362.066 4.535a8.074 8.074 0 0 0 .511 2.67 5.392 5.392 0 0 0 1.27 1.949 5.392 5.392 0 0 0 1.948 1.269 8.074 8.074 0 0 0 2.67.51C8.638 22.988 9.013 23 12 23s3.362-.013 4.535-.066a8.074 8.074 0 0 0 2.67-.511 5.625 5.625 0 0 0 3.218-3.218 8.074 8.074 0 0 0 .51-2.67C22.988 15.362 23 14.987 23 12s-.013-3.362-.066-4.535a8.074 8.074 0 0 0-.511-2.67 5.392 5.392 0 0 0-1.27-1.949 5.392 5.392 0 0 0-1.948-1.269 8.074 8.074 0 0 0-2.67-.51C15.362 1.012 14.987 1 12 1Zm0 5.351A5.649 5.649 0 1 0 17.649 12 5.649 5.649 0 0 0 12 6.351Zm0 9.316A3.667 3.667 0 1 1 15.667 12 3.667 3.667 0 0 1 12 15.667Zm5.872-10.859a1.32 1.32 0 1 0 1.32 1.32 1.32 1.32 0 0 0-1.32-1.32Z">
+                        <path
+                            d="M12 2.982c2.937 0 3.285.011 4.445.064a6.087 6.087 0 0 1 2.042.379 3.408 3.408 0 0 1 1.265.823 3.408 3.408 0 0 1 .823 1.265 6.087 6.087 0 0 1 .379 2.042c.053 1.16.064 1.508.064 4.445s-.011 3.285-.064 4.445a6.087 6.087 0 0 1-.379 2.042 3.643 3.643 0 0 1-2.088 2.088 6.087 6.087 0 0 1-2.042.379c-1.16.053-1.508.064-4.445.064s-3.285-.011-4.445-.064a6.087 6.087 0 0 1-2.043-.379 3.408 3.408 0 0 1-1.264-.823 3.408 3.408 0 0 1-.823-1.265 6.087 6.087 0 0 1-.379-2.042c-.053-1.16-.064-1.508-.064-4.445s.011-3.285.064-4.445a6.087 6.087 0 0 1 .379-2.042 3.408 3.408 0 0 1 .823-1.265 3.408 3.408 0 0 1 1.265-.823 6.087 6.087 0 0 1 2.042-.379c1.16-.053 1.508-.064 4.445-.064M12 1c-2.987 0-3.362.013-4.535.066a8.074 8.074 0 0 0-2.67.511 5.392 5.392 0 0 0-1.949 1.27 5.392 5.392 0 0 0-1.269 1.948 8.074 8.074 0 0 0-.51 2.67C1.012 8.638 1 9.013 1 12s.013 3.362.066 4.535a8.074 8.074 0 0 0 .511 2.67 5.392 5.392 0 0 0 1.27 1.949 5.392 5.392 0 0 0 1.948 1.269 8.074 8.074 0 0 0 2.67.51C8.638 22.988 9.013 23 12 23s3.362-.013 4.535-.066a8.074 8.074 0 0 0 2.67-.511 5.625 5.625 0 0 0 3.218-3.218 8.074 8.074 0 0 0 .51-2.67C22.988 15.362 23 14.987 23 12s-.013-3.362-.066-4.535a8.074 8.074 0 0 0-.511-2.67 5.392 5.392 0 0 0-1.27-1.949 5.392 5.392 0 0 0-1.948-1.269 8.074 8.074 0 0 0-2.67-.51C15.362 1.012 14.987 1 12 1Zm0 5.351A5.649 5.649 0 1 0 17.649 12 5.649 5.649 0 0 0 12 6.351Zm0 9.316A3.667 3.667 0 1 1 15.667 12 3.667 3.667 0 0 1 12 15.667Zm5.872-10.859a1.32 1.32 0 1 0 1.32 1.32 1.32 1.32 0 0 0-1.32-1.32Z">
                         </path>
                     </svg>
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
-                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.2rem;">
-                    <img alt="x.svg" src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg" style="width: 1.2rem;">
+                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1"
+                    style="height: 1.2rem;">
+                    <img alt="x.svg"
+                        src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg"
+                        style="width: 1.2rem;">
                     <!-- <span>Soop</span> -->
                 </a>
             </div>
         </div>
-        <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans</p>
+        <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans
+        </p>
     </footer>
 
     <script type="module" src="/js/birthday-wishes.js"></script>
@@ -507,7 +524,7 @@
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         if (mobileMenuBtn && mobileMenu) {
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('open');
