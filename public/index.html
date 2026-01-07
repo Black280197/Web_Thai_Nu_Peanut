@@ -50,6 +50,7 @@
             font-style: normal;
             font-display: swap;
         }
+
         @font-face {
             font-family: 'candy_cake';
             src: url('assets/fonts/Candy_Cake.ttf') format('truetype');
@@ -127,6 +128,7 @@
             font-weight: normal;
             font-style: normal;
         }
+
         .my-candy-cake {
             font-family: 'candy_cake' !important;
             font-weight: normal;
@@ -139,15 +141,20 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
+
         .mobile-menu.open {
             max-height: 300px;
         }
 
         /* Countdown cloud background */
         .countdown-cloud {
-            background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0.15) 40%, transparent 70%);
+            background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0.15) 40%, transparent 70%),
+                radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.8) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.7) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 192, 203, 0.6) 0%, transparent 60%);
             filter: blur(0px);
             border-radius: 2rem;
+            margin-bottom: 1rem;
         }
 
         /* Frame popup container for About Modal */
@@ -177,22 +184,30 @@
         @media (max-width: 768px) {
             .countdown-title-mobile {
                 font-size: 3rem !important;
-                height: auto !important;
+                height: 4rem !important;
                 line-height: 1.2 !important;
             }
+
             .countdown-subtitle-mobile {
                 font-size: 1.2rem !important;
             }
+
             .countdown-number-mobile {
                 font-size: 2rem !important;
                 letter-spacing: 0.2rem !important;
             }
+
             .countdown-label-mobile {
                 font-size: 0.8rem !important;
             }
+
             .countdown-separator-mobile {
                 font-size: 2rem !important;
                 padding-bottom: 1rem !important;
+            }
+            .countdown-cloud {
+                min-height: 5rem !important;
+                margin-bottom: 1rem !important;
             }
         }
     </style>
@@ -202,31 +217,44 @@
     <div class="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
     <!-- Banner with text.png -->
-    <div class="w-full bg-gradient-to-b from-black/50 to-transparent fixed top-0 left-0 z-50 backdrop-blur-sm" style="max-height: 8.5rem;" bis_skin_checked="1">
-        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto" style="height: 8rem;width: 17rem;">
+    <div class="w-full bg-gradient-to-b from-black/50 to-transparent top-0 left-0 z-50 backdrop-blur-sm"
+        style="max-height: 8.5rem;" bis_skin_checked="1">
+        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
+            style="height: 8rem;width: 17rem;">
     </div>
 
     <!-- Navbar below banner -->
-    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0" style="margin-top: 8rem;">
+    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0"
+        style="margin-top: 0rem;">
         <div class="mx-auto px-4 sm:px-6 lg:px-8" style="margin-right: unset;" bis_skin_checked="1">
-            <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;" bis_skin_checked="1">
+            <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;"
+                bis_skin_checked="1">
                 <!-- Mobile menu button -->
-                <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
+                <button id="mobile-menu-btn"
+                    class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
                     <span class="material-symbols-outlined text-2xl">menu</span>
                 </button>
-                <nav class="hidden md:flex items-center gap-8 mx-auto" style="margin-left: unset;">
-                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/">Home</a>
-                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/birthday-wishes.html" bis_skin_checked="1">Birthday Message</a>
-                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors" href="/events.html" bis_skin_checked="1">Eleven Out Of Ten</a>
-                    <a id="about-link" class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer" href="javascript:void(0)" bis_skin_checked="1">About</a>
-                    <a id="admin-nav-link" class="text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1" href="/admin-dashboard.html" bis_skin_checked="1">
+                <nav class="hidden md:flex items-center gap-8 mx-auto">
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/">Home</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/birthday-wishes.html" bis_skin_checked="1">Birthday Message</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/events.html" bis_skin_checked="1">Eleven Out Of Ten</a>
+                    <a id="about-link"
+                        class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer"
+                        href="javascript:void(0)" bis_skin_checked="1">About</a>
+                    <a id="admin-nav-link"
+                        class="text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1"
+                        href="/admin-dashboard.html" bis_skin_checked="1">
                         <span class="material-symbols-outlined text-base">admin_panel_settings</span>
                         <span>Admin</span>
                     </a>
                 </nav>
-                <div class="flex items-center gap-4 ml-auto" bis_skin_checked="1">
+                <div class="flex items-center gap-4 ml-auto" bis_skin_checked="1" style="position: absolute; right: 1rem;">
                     <!-- Guest mode: Login button -->
-                    <button id="login-button" class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                    <button id="login-button"
+                        class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
                         Login
                     </button>
 
@@ -238,7 +266,12 @@
                         <button id="logout-button" class="text-xs text-pink-200/60 hover:text-white transition-colors">
                             Logout
                         </button>
-                        <div id="avatar" hidden="" class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50" style="background-image: none;" bis_skin_checked="1"><div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg" bis_skin_checked="1">C</div></div>
+                        <div id="avatar" hidden=""
+                            class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50"
+                            style="background-image: none;" bis_skin_checked="1">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg"
+                                bis_skin_checked="1">C</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -246,11 +279,18 @@
         <!-- Mobile menu dropdown -->
         <div id="mobile-menu" class="mobile-menu md:hidden bg-black/50 backdrop-blur-md border-t border-pink-900/20">
             <nav class="flex flex-col py-4 px-4 gap-2">
-                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="/">Home</a>
-                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="/birthday-wishes.html">Birthday Message</a>
-                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5" href="/events.html">Eleven Out Of Ten</a>
-                <a id="about-link-mobile" class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer py-2 px-4 rounded-lg hover:bg-white/5" href="javascript:void(0)">About</a>
-                <a id="admin-nav-link-mobile" class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1 py-2 px-4 rounded-lg hover:bg-white/5" href="/admin-dashboard.html">
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/">Home</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/birthday-wishes.html">Birthday Message</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/events.html">Eleven Out Of Ten</a>
+                <a id="about-link-mobile"
+                    class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="javascript:void(0)">About</a>
+                <a id="admin-nav-link-mobile"
+                    class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1 py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/admin-dashboard.html">
                     <span class="material-symbols-outlined text-base">admin_panel_settings</span>
                     <span>Admin</span>
                 </a>
@@ -267,67 +307,85 @@
             <div class="text-center space-y-4 floating-element" bis_skin_checked="1">
                 <h1 id="countdown-title"
                     class="text-5xl md:text-8xl font-extrabold tracking-tight text-white shimmer-text leading-tight my-style countdown-title-mobile"
-                    style="font-size: 9rem;height: 12rem;line-height: 1.3;">
+                    style="font-size: 9rem;height: 12rem;line-height: 1.3; min-width: 55rem;">
                     Happy Peanut Day
                 </h1>
-                <p class="text-lg md:text-xl text-pink-100/70 font-light max-w-lg mx-auto font-body my-candy-cake countdown-subtitle-mobile" style="max-width: 54rem; font-size: 2.3rem; color: white;">
+                <p class="text-lg md:text-xl text-pink-100/70 font-light max-w-lg mx-auto font-body my-candy-cake countdown-subtitle-mobile"
+                    style="max-width: 54rem; font-size: 2.3rem; color: white;">
                     May your path be gentle, and happiness bloom beside you!
                 </p>
             </div>
 
             <div class="relative w-full max-w-3xl group mt-4" bis_skin_checked="1">
-                <div class="relative p-4 md:p-12 countdown-cloud"
-                    style="min-height: 12rem;"
-                    bis_skin_checked="1">
+                <div class="relative p-4 md:p-12 countdown-cloud" style="min-height: 12rem;" bis_skin_checked="1">
                     <div class="grid grid-cols-7 gap-1 md:gap-6 relative z-10" bis_skin_checked="1">
-                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item" bis_skin_checked="1">
-                            <div class="flex justify-center rounded-2xl"
-                                bis_skin_checked="1">
-                                <span id="countdown-days" class="text-3xl md:text-5xl font-black text-white my-style countdown-number-mobile"
+                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
+                            bis_skin_checked="1">
+                            <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
+                                <span id="countdown-days"
+                                    class="text-3xl md:text-5xl font-black text-white my-candy-cake countdown-number-mobile"
                                     style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
                             </div>
-                            <span class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-style countdown-label-mobile" style="font-size: 1.65rem;">Days</span>
+                            <span
+                                class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-candy-cake countdown-label-mobile"
+                                style="font-size: 1.65rem;">Days</span>
                         </div>
-                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item" bis_skin_checked="1">
+                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
+                            bis_skin_checked="1">
                             <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
-                                <span class="text-3xl md:text-5xl font-black text-white my-style countdown-separator-mobile" style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
+                                <span
+                                    class="text-3xl md:text-5xl font-black text-white my-candy-cake countdown-separator-mobile"
+                                    style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item" bis_skin_checked="1">
-                            <div class="flex justify-center rounded-2xl"
-                                bis_skin_checked="1">
-                                <span id="countdown-hours" class="text-3xl md:text-5xl font-black text-white my-style countdown-number-mobile"
+                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
+                            bis_skin_checked="1">
+                            <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
+                                <span id="countdown-hours"
+                                    class="text-3xl md:text-5xl font-black text-white my-candy-cake countdown-number-mobile"
                                     style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
                             </div>
-                            <span class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-style countdown-label-mobile" style="font-size: 1.65rem;">Hours</span>
+                            <span
+                                class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-candy-cake countdown-label-mobile"
+                                style="font-size: 1.65rem;">Hours</span>
                         </div>
-                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item" bis_skin_checked="1">
+                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
+                            bis_skin_checked="1">
                             <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
-                                <span class="text-3xl md:text-5xl font-black text-white my-style countdown-separator-mobile" style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
+                                <span
+                                    class="text-3xl md:text-5xl font-black text-white my-candy-cake countdown-separator-mobile"
+                                    style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item" bis_skin_checked="1">
-                            <div class="flex justify-center rounded-2xl"
-                                bis_skin_checked="1">
+                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
+                            bis_skin_checked="1">
+                            <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
                                 <span id="countdown-minutes"
-                                    class="text-3xl md:text-5xl font-black text-white my-style countdown-number-mobile"
+                                    class="text-3xl md:text-5xl font-black text-white my-candy-cake countdown-number-mobile"
                                     style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
                             </div>
-                            <span class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-style countdown-label-mobile" style="font-size: 1.65rem;">Minutes</span>
+                            <span
+                                class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-candy-cake countdown-label-mobile"
+                                style="font-size: 1.65rem;">Minutes</span>
                         </div>
-                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item" bis_skin_checked="1">
+                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
+                            bis_skin_checked="1">
                             <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
-                                <span class="text-3xl md:text-5xl font-black text-white my-style countdown-separator-mobile" style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
+                                <span
+                                    class="text-3xl md:text-5xl font-black text-white my-candy-cake countdown-separator-mobile"
+                                    style="font-size: 5rem;padding-bottom: 2.1rem;">:</span>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item" bis_skin_checked="1">
-                            <div class="flex justify-center rounded-2xl"
-                                bis_skin_checked="1">
+                        <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
+                            bis_skin_checked="1">
+                            <div class="flex justify-center rounded-2xl" bis_skin_checked="1">
                                 <span id="countdown-seconds"
-                                    class="text-3xl md:text-5xl font-black text-white my-style countdown-number-mobile"
+                                    class="text-3xl md:text-5xl font-black text-white my-candy-cake countdown-number-mobile"
                                     style="font-size: 5rem;letter-spacing: 0.5rem;">00</span>
                             </div>
-                            <span class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-style countdown-label-mobile" style="font-size: 1.65rem;">Seconds</span>
+                            <span
+                                class="text-xs capitalize tracking-[0.1em] md:tracking-[0.2em] text-white font-bold my-candy-cake countdown-label-mobile"
+                                style="font-size: 1.65rem;">Seconds</span>
                         </div>
                     </div>
                     <!-- <img src="/assets/img/frame.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
@@ -336,8 +394,8 @@
             </div>
 
             <a id="birthday-wishes-link" href="/birthday-wishes.html"
-                class="group relative inline-flex items-center justify-center px-10 py-4 via-yellow-200 to-gold text-amber-900 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] shadow-lg backdrop-blur-sm bg-white\/10"  style="background-color: #f9bfbf82;"
-                bis_skin_checked="1">
+                class="group relative inline-flex items-center justify-center px-10 py-4 via-yellow-200 to-gold text-amber-900 font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,215,0,0.6)] shadow-lg backdrop-blur-sm bg-white\/10"
+                style="background-color: #f9bfbf82;" bis_skin_checked="1">
                 <span class="relative z-10 flex items-center gap-2">
                     <span class="material-symbols-outlined text-[24px] animate-bounce">cake</span>
                     <span>Send your message to Wangho</span>
@@ -349,7 +407,8 @@
     </main>
 
     <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-2 md:py-1 relative z-20">
-        <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center" bis_skin_checked="1">
+        <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center"
+            bis_skin_checked="1">
             <div class="flex flex-col gap-1 md:gap-2" bis_skin_checked="1">
                 <span class="text-white font-bold text-sm md:text-xl" style="font-size: 0.8rem;">Follow Peanut on</span>
             </div>
@@ -372,7 +431,8 @@
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer"
                     bis_skin_checked="1" style="height: 1.2rem;">
-                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP" style="opacity: 1;height: 1.2rem;">
+                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP"
+                        style="opacity: 1;height: 1.2rem;">
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
@@ -388,7 +448,8 @@
                     <!-- <span>Soop</span> -->
                 </a>
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
-                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.2rem;">
+                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1"
+                    style="height: 1.2rem;">
                     <img alt="x.svg"
                         src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg"
                         style="width: 1.2rem;">
@@ -396,25 +457,27 @@
                 </a>
             </div>
         </div>
-        <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans</p>
+        <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans
+        </p>
     </footer>
 
     <!-- About Modal -->
-    <div id="about-modal"
-        class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="frame-popup-container max-w-2xl w-full">
+    <div id="about-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" bis_skin_checked="1">
+        <div class="frame-popup-container max-w-2xl w-full" bis_skin_checked="1" style="min-height: 48rem;">
             <!-- Frame overlay - lớp phủ không chặn tương tác -->
-            <div class="frame-overlay"></div>
+            <div class="frame-overlay" bis_skin_checked="1"></div>
             <!-- Nội dung popup - nền trong suốt -->
-            <div class="w-full max-h-[70vh] overflow-y-auto relative z-[1] p-8">
+            <div class="max-h-[70vh] p-8 relative w-full z-[1]" bis_skin_checked="1" style="
+    padding: 10rem 3rem 1rem;
+    text-align: justify;
+    max-height: 70vh;
+">
                 <!-- Close button -->
                 <button id="close-about-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm">
                     <span class="material-symbols-outlined text-white text-2xl">close</span>
                 </button>
                 <!-- Nội dung -->
-                <div id="about-content-display" class="text-white prose prose-invert max-w-none text-center" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);">
-                    <p>Loading...</p>
-                </div>
+                <div id="about-content-display" class="max-w-none overflow-y-auto prose prose-invert text-center text-white" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);max-height: 30rem;padding-bottom: 6rem;" bis_skin_checked="1"></div>
             </div>
         </div>
     </div>
@@ -485,7 +548,7 @@
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         if (mobileMenuBtn && mobileMenu) {
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('open');
