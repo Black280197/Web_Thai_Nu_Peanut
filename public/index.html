@@ -213,7 +213,7 @@
         @media (max-width: 768px) {
             .countdown-title-mobile {
                 font-size: 3.6rem !important;
-                height: 7rem !important;
+                height: 5rem !important;
                 line-height: 1.2 !important;
             }
 
@@ -385,7 +385,7 @@
                     Happy Peanut Day
                 </h1>
                 <p class="text-lg md:text-xl text-pink-100/70 font-light max-w-lg mx-auto font-body my-candy-cake countdown-subtitle-mobile"
-                    style="max-width: 100%; font-size: 2rem; color: rgb(27, 19, 19);">
+                    style="max-width: 100%; font-size: 2rem; color: rgb(255, 255, 255);">
                     May your path be gentle, and happiness bloom beside you!
                 </p>
             </div>
@@ -625,28 +625,6 @@
     </button>
 
     <script type="module" src="/js/countdown.js"></script>
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('open');
-                const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
-                icon.textContent = mobileMenu.classList.contains('open') ? 'close' : 'menu';
-            });
-        }
-
-        // Mobile about link
-        const aboutLinkMobile = document.getElementById('about-link-mobile');
-        if (aboutLinkMobile) {
-            aboutLinkMobile.addEventListener('click', () => {
-                document.getElementById('about-modal')?.classList.remove('hidden');
-                mobileMenu?.classList.remove('open');
-            });
-        }
-    </script>
 </body>
 
 </html>

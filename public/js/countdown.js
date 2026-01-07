@@ -24,14 +24,14 @@ const BIRTHDAY_DATE = new Date(new Date().getFullYear(), 0, 4) // Month 0 = Janu
 function isBirthdayWeek() {
   const today = new Date()
   const daysUntilBirthday = Math.floor((BIRTHDAY_DATE - today) / (1000 * 60 * 60 * 24))
-  
+
   // If birthday has passed this year, check for next year
   if (daysUntilBirthday < 0) {
     const nextYearBirthday = new Date(today.getFullYear() + 1, 0, 4)
     const daysUntilNextBirthday = Math.floor((nextYearBirthday - today) / (1000 * 60 * 60 * 24))
     return daysUntilNextBirthday <= 7 && daysUntilNextBirthday >= 0
   }
-  
+
   return daysUntilBirthday <= 7 && daysUntilBirthday >= 0
 }
 
@@ -50,19 +50,19 @@ function updateBirthdayWeekBadge() {
 // Load user profile
 async function loadUserProfile() {
   if (!user) return
-  
+
   const { data, error } = await supabase
     .from('users')
     .select('username, avatar_url')
     .eq('id', user.id)
     .single()
-  
+
   if (data) {
     const usernameElement = document.getElementById('username')
     if (usernameElement) {
       usernameElement.textContent = data.username || 'Fan Member'
     }
-    
+
     const avatarElement = document.getElementById('avatar')
     if (avatarElement) {
       if (data.avatar_url && data.avatar_url.trim() !== '') {
@@ -85,12 +85,12 @@ async function loadCountdownSettings() {
     .eq('event_type', 'return_date')
     .eq('is_active', true)
     .single()
-  
+
   if (error) {
     console.error('Error loading countdown:', error)
     return null
   }
-  
+
   return data
 }
 
@@ -99,7 +99,7 @@ function calculateCountdown(targetDate) {
   const now = new Date().getTime()
   const target = new Date(targetDate).getTime()
   const distance = target - now
-  
+
   if (distance < 0) {
     return {
       days: 0,
@@ -109,13 +109,13 @@ function calculateCountdown(targetDate) {
       finished: true
     }
   }
-  
+
   // Calculate total days, hours, minutes, seconds
   const days = Math.floor(distance / (1000 * 60 * 60 * 24))
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((distance % (1000 * 60)) / 1000)
-  
+
   return {
     days,
     hours,
@@ -131,12 +131,12 @@ function updateCountdownDisplay(countdown) {
   const hoursElement = document.getElementById('countdown-hours')
   const minutesElement = document.getElementById('countdown-minutes')
   const secondsElement = document.getElementById('countdown-seconds')
-  
+
   if (daysElement) daysElement.textContent = String(countdown.days).padStart(2, '0')
   if (hoursElement) hoursElement.textContent = String(countdown.hours).padStart(2, '0')
   if (minutesElement) minutesElement.textContent = String(countdown.minutes).padStart(2, '0')
   if (secondsElement) secondsElement.textContent = String(countdown.seconds).padStart(2, '0')
-  
+
   if (countdown.finished) {
     const titleElement = document.getElementById('countdown-title')
     if (titleElement) {
@@ -150,16 +150,16 @@ startCountdown()
 checkAdminAccess()
 async function startCountdown() {
   const settings = await loadCountdownSettings()
-  
+
   if (!settings) {
     console.error('No countdown settings found')
     return
   }
-  
+
   // Update immediately
   const countdown = calculateCountdown(settings.target_date)
   updateCountdownDisplay(countdown)
-  
+
   // Update every second
   setInterval(() => {
     const countdown = calculateCountdown(settings.target_date)
@@ -182,7 +182,7 @@ if (user) {
     })
   }
   if (loginButton) loginButton.classList.add('hidden')
-  
+
   loadUserProfile()
   checkAdminAccess()
 } else {
@@ -223,9 +223,9 @@ async function loadAboutContent() {
       .select('setting_value')
       .eq('setting_key', 'about_content')
       .single()
-    
+
     if (error) throw error
-    
+
     if (data && aboutContentDisplay) {
       aboutContentDisplay.innerHTML = data.setting_value
     }
@@ -246,12 +246,34 @@ if (aboutLink && aboutModal) {
   })
 }
 
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
+if (mobileMenuBtn && mobileMenu) {
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
+    icon.textContent = mobileMenu.classList.contains('open') ? 'close' : 'menu';
+  });
+}
+
+// Mobile about link
+const aboutLinkMobile = document.getElementById('about-link-mobile');
+if (aboutLinkMobile) {
+  aboutLinkMobile.addEventListener('click', () => {
+    document.getElementById('about-modal')?.classList.remove('hidden');
+    mobileMenu?.classList.remove('open');
+    loadAboutContent();
+  });
+}
+
 // Close modal
 if (closeAboutModal && aboutModal) {
   closeAboutModal.addEventListener('click', () => {
     aboutModal.classList.add('hidden')
   })
-  
+
   // Close on backdrop click
   aboutModal.addEventListener('click', (e) => {
     if (e.target === aboutModal) {
@@ -268,7 +290,7 @@ async function checkAboutPopup() {
       .select('setting_value')
       .eq('setting_key', 'about_popup_enabled')
       .single()
-    
+
     if (error) throw error
     const showedAboutModal = sessionStorage.getItem('showedAboutModal');
     if (data && data.setting_value === 'true' && aboutModal && !showedAboutModal) {
@@ -276,7 +298,7 @@ async function checkAboutPopup() {
       setTimeout(() => {
         aboutModal.classList.remove('hidden')
         loadAboutContent()
-        sessionStorage.setItem('showedAboutModal', 'true'); 
+        sessionStorage.setItem('showedAboutModal', 'true');
       }, 2000)
     }
   } catch (error) {
@@ -346,24 +368,24 @@ if (feedbackModal) {
 if (feedbackForm) {
   feedbackForm.addEventListener('submit', async (e) => {
     e.preventDefault()
-    
+
     if (!user) {
       showFeedbackError('Please log in to send feedback')
       return
     }
-    
+
     const subject = feedbackSubject.value.trim()
     const message = feedbackMessage.value.trim()
-    
+
     if (!subject || !message) {
       showFeedbackError('Please fill in all fields')
       return
     }
-    
+
     const submitButton = document.getElementById('submit-feedback')
     submitButton.disabled = true
     submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Sending...'
-    
+
     try {
       const { error } = await supabase
         .from('feedback')
@@ -373,16 +395,16 @@ if (feedbackForm) {
           message: message,
           status: 'unread'
         }])
-      
+
       if (error) throw error
-      
+
       showFeedbackSuccess('Thank you! Your feedback has been sent successfully.')
-      
+
       // Clear form and close after 2 seconds
       setTimeout(() => {
         closeFeedbackModalHandler()
       }, 2000)
-      
+
     } catch (error) {
       console.error('Error submitting feedback:', error)
       showFeedbackError('Failed to send feedback. Please try again.')
