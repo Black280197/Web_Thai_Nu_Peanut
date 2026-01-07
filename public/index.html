@@ -191,30 +191,37 @@
             }
 
             #about-modal .frame-popup-container {
-                min-height: auto !important;
+                min-height: 32rem !important;
                 max-height: 85vh;
                 max-width: calc(100vw - 1rem) !important;
                 overflow: hidden;
             }
 
             #about-modal .frame-popup-container>div:nth-child(2) {
-                padding: 4rem 1rem 1rem !important;
+                padding: 8.1rem 2.3rem 1rem !important;
                 max-height: 75vh !important;
             }
 
             #about-modal #about-content-display {
-                max-height: calc(75vh - 6rem) !important;
-                padding-bottom: 3rem !important;
+                max-height: 18rem !important;
+                padding-bottom: 4rem !important;
                 font-size: 0.85rem;
+                text-align: justify;
             }
         }
 
         /* Responsive styles */
         @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+            
             .countdown-title-mobile {
-                font-size: 3.6rem !important;
-                height: 5rem !important;
+                font-size: 2.5rem !important;
+                height: auto !important;
                 line-height: 1.2 !important;
+                white-space: normal !important;
             }
 
             .countdown-subtitle-mobile {
@@ -222,17 +229,17 @@
             }
 
             .countdown-number-mobile {
-                font-size: 2rem !important;
-                letter-spacing: 0.2rem !important;
+                font-size: 1.5rem !important;
+                letter-spacing: 0.1rem !important;
             }
 
             .countdown-label-mobile {
-                font-size: 0.8rem !important;
+                font-size: 0.7rem !important;
             }
 
             .countdown-separator-mobile {
-                font-size: 2rem !important;
-                padding-bottom: 1rem !important;
+                font-size: 1.5rem !important;
+                padding-bottom: 0.8rem !important;
             }
 
             .countdown-cloud {
@@ -286,14 +293,14 @@
     </style>
 </head>
 
-<body class="text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col relative">
+<body class="text-slate-900 dark:text-white font-display min-h-screen flex flex-col relative" style="overflow-x: hidden;">
     <div class="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
     <!-- Banner with text.png -->
     <div class="w-full bg-gradient-to-b from-black/50 to-transparent top-0 left-0 z-50 backdrop-blur-sm"
         style="max-height: 8.5rem;" bis_skin_checked="1">
         <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
-            style="height: 8rem;width: 17rem;">
+            style="height: 8rem; width: auto; max-width: 17rem;">
     </div>
 
     <!-- Navbar below banner -->
@@ -372,13 +379,9 @@
         </div>
     </header>
 
-    <main class="flex-grow relative flex items-center justify-center pt-48 pb-12" style="
-    padding-top: 1rem;
-">
-        <div class="relative z-10 w-full max-w-4xl px-4 flex flex-col items-center gap-10" bis_skin_checked="1" style="
-    gap: 0rem;
-">
-            <div class="text-center space-y-4 floating-element" bis_skin_checked="1">
+    <main class="flex-grow relative flex items-center justify-center pt-48 pb-12" style="padding-top: 1rem; overflow-x: hidden;">
+        <div class="relative z-10 w-full max-w-4xl px-4 flex flex-col items-center gap-10" bis_skin_checked="1" style="gap: 0rem; max-width: 100%; overflow-x: hidden;">
+            <div class="text-center space-y-4 floating-element" bis_skin_checked="1" style="max-width: 100%; overflow: hidden;">
                 <h1 id="countdown-title"
                     class="text-5xl md:text-8xl font-extrabold tracking-tight text-white shimmer-text leading-tight my-style countdown-title-mobile"
                     style="font-size: 8rem;height: 12rem;line-height: 1.3;">
@@ -390,7 +393,7 @@
                 </p>
             </div>
 
-            <div class="relative w-full max-w-3xl group mt-4" bis_skin_checked="1">
+            <div class="relative w-full max-w-3xl group mt-4" bis_skin_checked="1" style="max-width: 100%;">
                 <div class="relative p-4 md:p-12 countdown-cloud" style="min-height: 12rem;" bis_skin_checked="1">
                     <div class="grid grid-cols-7 gap-1 md:gap-6 relative z-10" bis_skin_checked="1">
                         <div class="flex flex-col items-center justify-center gap-1 md:gap-3 group/item"
