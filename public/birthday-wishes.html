@@ -116,10 +116,21 @@
                     <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">About</a>
                 </nav>
                 <div class="flex items-center gap-4 ml-auto" style="position: absolute; right: 1rem;">
-                    <a href="/" style="padding: 0; background: none;"
-                        class="flex h-9 items-center justify-center rounded-full bg-primary hover:bg-opacity-90 transition-all px-5 text-sm font-bold text-white shadow-[0_0_15px_rgba(251,93,165,0.5)]">
-                        <img src="/assets/img/previous.png" style="height: 2rem;" />
-                    </a>
+                    <!-- Guest mode: Login button -->
+                    <button id="login-button"
+                        class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                        Login
+                    </button>
+
+                    <!-- Logged in user section -->
+                    <div id="user-section" class="hidden flex items-center gap-4">
+                        <span id="username" class="text-sm text-pink-100/80">Logged in as <strong
+                                class="text-white"></strong></span>
+                        <button id="logout-button"
+                            class="px-4 py-2 bg-pink-100/10 hover:bg-pink-100/20 text-pink-100 rounded-full text-sm font-semibold transition-all">
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

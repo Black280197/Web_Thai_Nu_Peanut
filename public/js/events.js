@@ -154,6 +154,7 @@ window.viewEvent = async function(eventId) {
 function setupModal() {
   const modal = document.getElementById('event-modal')
   const closeBtn = document.getElementById('close-modal')
+  const imageFullscreenModal = document.getElementById('image-fullscreen-modal')
   
   closeBtn?.addEventListener('click', () => {
     modal.classList.add('hidden')
@@ -168,10 +169,33 @@ function setupModal() {
   
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-      modal.classList.add('hidden')
+    if (e.key === 'Escape') {
+      if (!imageFullscreenModal?.classList.contains('hidden')) {
+        imageFullscreenModal.classList.add('hidden')
+      } else if (!modal?.classList.contains('hidden')) {
+        modal.classList.add('hidden')
+      }
     }
   })
+}
+
+// Open image fullscreen
+window.openImageFullscreen = function(imageSrc) {
+  const modal = document.getElementById('image-fullscreen-modal')
+  const img = document.getElementById('fullscreen-img')
+  
+  if (modal && img) {
+    img.src = imageSrc
+    modal.classList.remove('hidden')
+  }
+}
+
+// Close image fullscreen
+window.closeImageFullscreen = function() {
+  const modal = document.getElementById('image-fullscreen-modal')
+  if (modal) {
+    modal.classList.add('hidden')
+  }
 }
 
 // Initialize page

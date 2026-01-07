@@ -235,13 +235,26 @@
                     <span class="material-symbols-outlined text-3xl">close</span>
                 </button>
             </div>
-            <div id="modal-image" class="hidden">
+            <div id="modal-image" class="hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="window.openImageFullscreen(this.querySelector('img').src)">
                 <img id="modal-img" src="" alt="" class="w-full h-64" style="object-fit: contain;" />
             </div>
             <div id="modal-content" class="p-6 prose prose-invert prose-pink max-w-none">
                 <!-- Content will be inserted here -->
             </div>
         </div>
+    </div>
+
+    <!-- Image Fullscreen Modal -->
+    <div id="image-fullscreen-modal"
+        class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-black/95 backdrop-blur-md cursor-zoom-out"
+        onclick="window.closeImageFullscreen()">
+        <button class="absolute top-4 right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10"
+            onclick="event.stopPropagation(); window.closeImageFullscreen()">
+            <span class="material-symbols-outlined text-white text-3xl">close</span>
+        </button>
+        <img id="fullscreen-img" src="" alt="" 
+            class="max-w-[95vw] max-h-[95vh] object-contain" 
+            onclick="event.stopPropagation()" />
     </div>
 
     <script type="module" src="/js/events.js"></script>

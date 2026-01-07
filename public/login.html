@@ -56,6 +56,11 @@
             font-weight: normal;
             font-style: normal;
         }
+        @media (max-width: 768px) {
+            .main-form-login {
+                width: 100% !important;
+            }
+        }
     </style>
 </head>
 <body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased overflow-x-hidden selection:bg-primary selection:text-white">
@@ -84,7 +89,7 @@
                     Support? <span class="material-symbols-outlined text-base">help</span>
                 </a>
             </div>
-            <div class="w-full mx-auto" style="background-color: #780e0ebd;margin: 0;padding: 0.5rem 1rem 0.5rem 1rem;border-radius: 25px;">
+            <div class="w-full mx-auto main-form-login" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1); margin: 0; padding: 0.5rem 1rem 0.5rem 1rem; border-radius: 25px; width: calc(100% - 6rem); height: 100%;">
                 <div class="mb-10">
                     <h1 id="login-title" class="text-3xl lg:text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-white mb-3">Welcome!</h1>
                     <p id="login-message" class="text-slate-500 dark:text-pink-200/60 text-base font-normal" style="    color: white;">Log in to join the Peanut fan community</p>

@@ -1,6 +1,7 @@
 // Birthday wishes page initialization
-import { requireAuth } from './supabase-client.js'
+import { requireAuth, getCurrentUser, isAdmin } from './supabase-client.js'
 import { supabase } from './supabase-client.js'
+import { handleLogout } from './auth.js'
 
 // Check if user is logged in
 const user = await requireAuth()
@@ -323,6 +324,33 @@ async function init() {
   updateCountdownDisplay()
   updateProgressBar()
   loadRecentWishes()
+  
+  // Handle user authentication state
+  const currentUser = await getCurrentUser()
+  const loginButton = document.getElementById('login-button')
+  const userSection = document.getElementById('user-section')
+  const logoutButton = document.getElementById('logout-button')
+  
+  if (currentUser) {
+    // Show user section
+    userSection?.classList.remove('hidden')
+    const usernameStrong = userSection?.querySelector('strong')
+    if (usernameStrong) usernameStrong.textContent = currentUser.user_metadata?.username || currentUser.email
+  } else {
+    // Show login button
+    loginButton?.classList.remove('hidden')
+  }
+  
+  // Handle login button
+  loginButton?.addEventListener('click', () => {
+    window.location.href = '/login.html'
+  })
+  
+  // Handle logout
+  logoutButton?.addEventListener('click', async () => {
+    await handleLogout()
+    window.location.href = '/'
+  })
   
   // Update countdown every second
   setInterval(updateCountdownDisplay, 1000)

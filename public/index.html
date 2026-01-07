@@ -148,13 +148,23 @@
 
         /* Countdown cloud background */
         .countdown-cloud {
-            background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.3) 0%, rgba(236, 72, 153, 0.15) 40%, transparent 70%),
-                radial-gradient(circle at 20% 80%, rgba(255, 182, 193, 0.8) 0%, transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.7) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255, 192, 203, 0.6) 0%, transparent 60%);
-            filter: blur(0px);
-            border-radius: 2rem;
+            position: relative;
             margin-bottom: 1rem;
+        }
+        
+        .countdown-cloud::before {
+            content: '';
+            position: absolute;
+            inset: -30px;
+            background: 
+                radial-gradient(ellipse 120% 80% at 50% 50%, rgba(138, 43, 226, 0.5) 0%, transparent 60%),
+                radial-gradient(ellipse 100% 100% at 30% 70%, rgba(75, 0, 130, 0.6) 0%, transparent 50%),
+                radial-gradient(ellipse 100% 100% at 70% 30%, rgba(148, 0, 211, 0.5) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 60% at 50% 80%, rgba(186, 85, 211, 0.4) 0%, transparent 40%);
+            filter: blur(25px);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
         }
 
         /* Frame popup container for About Modal */
@@ -176,7 +186,29 @@
 
         @media (max-width: 768px) {
             .frame-overlay {
-                inset: -1rem;
+                inset: -0.5rem;
+            }
+            
+            #about-modal {
+                padding: 0.5rem !important;
+            }
+            
+            #about-modal .frame-popup-container {
+                min-height: auto !important;
+                max-height: 85vh;
+                max-width: calc(100vw - 1rem) !important;
+                overflow: hidden;
+            }
+            
+            #about-modal .frame-popup-container > div:nth-child(2) {
+                padding: 4rem 1rem 1rem !important;
+                max-height: 75vh !important;
+            }
+            
+            #about-modal #about-content-display {
+                max-height: calc(75vh - 6rem) !important;
+                padding-bottom: 3rem !important;
+                font-size: 0.85rem;
             }
         }
 
@@ -462,7 +494,7 @@
     </footer>
 
     <!-- About Modal -->
-    <div id="about-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" bis_skin_checked="1">
+    <div id="about-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4" bis_skin_checked="1" style="display: none;">
         <div class="frame-popup-container max-w-2xl w-full" bis_skin_checked="1" style="min-height: 48rem;">
             <!-- Frame overlay - lớp phủ không chặn tương tác -->
             <div class="frame-overlay" bis_skin_checked="1"></div>
@@ -473,7 +505,7 @@
     max-height: 70vh;
 ">
                 <!-- Close button -->
-                <button id="close-about-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm">
+                <button id="close-about-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm" style="display: none;">
                     <span class="material-symbols-outlined text-white text-2xl">close</span>
                 </button>
                 <!-- Nội dung -->
