@@ -102,7 +102,14 @@ window.viewEvent = async function(eventId) {
     if (error) throw error
     
     // Populate modal
-    modalTitle.textContent = event.title
+    // Handle HTML title or plain text
+    if (/<[a-z][\s\S]*>/i.test(event.title)) {
+      // Title has HTML, use innerHTML
+      modalTitle.innerHTML = event.title;
+    } else {
+      // Plain text, use textContent
+      modalTitle.textContent = event.title;
+    }
     
     const publishedDate = new Date(event.published_at).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -131,15 +138,24 @@ window.viewEvent = async function(eventId) {
       modalImageDiv.classList.add('hidden')
     }
     
-    // Convert content to HTML (handle line breaks)
-    const contentHtml = event.content
-      .split('\n')
-      .map(para => para.trim())
-      .filter(para => para.length > 0)
-      .map(para => `<p class="mb-4 text-pink-100/80 leading-relaxed">${para}</p>`)
-      .join('')
+    // Handle HTML content or plain text with line breaks
+    let contentHtml = event.content;
     
-    modalContent.innerHTML = contentHtml
+    // Check if content contains HTML tags
+    if (/<[a-z][\s\S]*>/i.test(contentHtml)) {
+      // Content has HTML, use it directly
+      modalContent.innerHTML = contentHtml;
+    } else {
+      // Plain text, convert line breaks to paragraphs
+      contentHtml = event.content
+        .split('\n')
+        .map(para => para.trim())
+        .filter(para => para.length > 0)
+        .map(para => `<p class="mb-4 text-pink-100/80 leading-relaxed">${para}</p>`)
+        .join('');
+      
+      modalContent.innerHTML = contentHtml;
+    }
     
     // Show modal
     modal.classList.remove('hidden')
