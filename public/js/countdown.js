@@ -23,7 +23,7 @@ async function checkAdminAccess() {
       aboutNavLink.classList.remove('hidden')
     }
   }
-  if (  aboutNavLinkMobile) {
+  if (aboutNavLinkMobile) {
     const admin = await isAdmin()
     if (admin) {
       aboutNavLinkMobile.classList.remove('hidden')
@@ -140,7 +140,7 @@ function calculateCountdown(targetDate) {
 }
 
 // Update countdown display
-function updateCountdownDisplay(countdown) {
+function updateCountdownDisplay(countdown, settings) {
   const daysElement = document.getElementById('countdown-days')
   const hoursElement = document.getElementById('countdown-hours')
   const minutesElement = document.getElementById('countdown-minutes')
@@ -151,10 +151,20 @@ function updateCountdownDisplay(countdown) {
   if (minutesElement) minutesElement.textContent = String(countdown.minutes).padStart(2, '0')
   if (secondsElement) secondsElement.textContent = String(countdown.seconds).padStart(2, '0')
 
-  if (countdown.finished) {
-    const titleElement = document.getElementById('countdown-title')
-    if (titleElement) {
-      titleElement.innerHTML = 'Happy Peanut Day! 🎉'
+  const titleElement = document.getElementById('countdown-title')
+  const subtitleElement = document.getElementById('countdown-subtitle')
+  if (titleElement && settings) {
+    titleElement.innerHTML = settings.title;
+  }
+  if (subtitleElement && settings) {
+    subtitleElement.innerHTML = settings.description;
+  }
+  if (countdown.finished && settings) {
+    if (titleElement && settings) {
+      titleElement.innerHTML = settings.title;
+    }
+    if (subtitleElement && settings) {
+      subtitleElement.innerHTML = settings.description;
     }
   }
 }
@@ -172,12 +182,12 @@ async function startCountdown() {
 
   // Update immediately
   const countdown = calculateCountdown(settings.target_date)
-  updateCountdownDisplay(countdown)
+  updateCountdownDisplay(countdown, settings)
 
   // Update every second
   setInterval(() => {
     const countdown = calculateCountdown(settings.target_date)
-    updateCountdownDisplay(countdown)
+    updateCountdownDisplay(countdown, settings)
   }, 1000)
 }
 

@@ -122,7 +122,7 @@ function calculateCountdown(targetDate) {
 }
 
 // Update countdown display
-function updateCountdownDisplay(countdown) {
+function updateCountdownDisplay(countdown, settings) {
   const monthsElement = document.getElementById('countdown-months')
   const daysElement = document.getElementById('countdown-days')
   const hoursElement = document.getElementById('countdown-hours')
@@ -135,11 +135,23 @@ function updateCountdownDisplay(countdown) {
   if (minutesElement) minutesElement.textContent = String(countdown.minutes).padStart(2, '0')
   if (secondsElement) secondsElement.textContent = String(countdown.seconds).padStart(2, '0')
   
-  if (countdown.finished) {
-    const titleElement = document.getElementById('countdown-title')
-    if (titleElement) {
-      titleElement.innerHTML = 'Peanut Đã Trở Về! <br class="hidden md:block"/> 🎉'
-    }
+  // Update title from settings
+  const titleElement = document.getElementById('countdown-title')
+  
+  if (titleElement && settings) {
+    titleElement.innerHTML = settings.title;
+
+    // if (countdown.finished) {
+    //   titleElement.innerHTML = 'Peanut Đã Trở Về! <br class="hidden md:block"/> 🎉'
+    // } else {
+    //   titleElement.innerHTML = `${settings.title} <br class="hidden md:block"/> 🎂`
+    // }
+  }
+  
+  // Update description from settings
+  const descriptionElement = document.querySelector('.countdown-subtitle-mobile')
+  if (descriptionElement && settings && settings.description) {
+    descriptionElement.textContent = settings.description
   }
 }
 // Initialize
@@ -157,12 +169,12 @@ async function startCountdown() {
   
   // Update immediately
   const countdown = calculateCountdown(settings.target_date)
-  updateCountdownDisplay(countdown)
+  updateCountdownDisplay(countdown, settings)
   
   // Update every second
   setInterval(() => {
     const countdown = calculateCountdown(settings.target_date)
-    updateCountdownDisplay(countdown)
+    updateCountdownDisplay(countdown, settings)
   }, 1000)
 }
 
