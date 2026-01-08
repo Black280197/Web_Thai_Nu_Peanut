@@ -9,10 +9,24 @@ const user = await getCurrentUser()
 // Check if user is admin and show admin link
 async function checkAdminAccess() {
   const adminNavLink = document.getElementById('admin-nav-link')
+  const aboutNavLink = document.getElementById('about-link')
+  const aboutNavLinkMobile = document.getElementById('about-link-mobile')
   if (adminNavLink) {
     const admin = await isAdmin()
     if (admin) {
       adminNavLink.classList.remove('hidden')
+    }
+  }
+  if (aboutNavLink) {
+    const admin = await isAdmin()
+    if (admin) {
+      aboutNavLink.classList.remove('hidden')
+    }
+  }
+  if (  aboutNavLinkMobile) {
+    const admin = await isAdmin()
+    if (admin) {
+      aboutNavLinkMobile.classList.remove('hidden')
     }
   }
 }
