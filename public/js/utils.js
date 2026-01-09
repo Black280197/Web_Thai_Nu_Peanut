@@ -145,7 +145,7 @@ export async function uploadImage(file, bucket, folder, supabase) {
     }
     
     // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > 50 * 1024 * 1024) {
       throw new Error('Image size must be less than 5MB')
     }
     

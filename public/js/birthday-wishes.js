@@ -226,7 +226,7 @@ if (form) {
       return
     }
     
-    if (content.length > 500) {
+    if (content.length > 2500) {
       alert('Lời chúc không được vượt quá 2500 charactors')
       return
     }
@@ -293,7 +293,7 @@ if (form) {
       if (error) throw error
       
       // Success
-      alert('Gửi lời chúc thành công! Lời chúc của bạn đang chờ duyệt.')
+      alert('Sended Successfully! Your wish is pending approval.')
       
       // Reset form
       form.reset()
