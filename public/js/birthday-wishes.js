@@ -360,7 +360,242 @@ async function init() {
     updateProgressBar()
     loadRecentWishes()
   }, 30000)
+  
+  // Load approved wishes preview
+  loadWishesPreview()
 }
+
+// Load wishes preview for "Eleven Out Of Ten" section
+async function loadWishesPreview() {
+  try {
+    const { data, error } = await supabase
+      .from('wishes')
+      .select(`
+        id,
+        content,
+        sticker,
+        type,
+        created_at,
+        users!wishes_user_id_fkey(username, avatar_url)
+      `)
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(3)
+
+    if (error) throw error
+
+    const container = document.getElementById('wishes-preview')
+    if (!container) return
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `
+        <div class="text-center py-8">
+          <span class="material-symbols-outlined text-6xl text-slate-600 mb-3">favorite_border</span>
+          <p class="text-slate-400">Chưa có lời chúc nào được phê duyệt</p>
+          <p class="text-slate-500 text-sm">Hãy gửi lời chúc đầu tiên nhé!</p>
+        </div>
+      `
+      return
+    }
+
+    // Get like counts for these wishes
+    const wishIds = data.map(w => w.id)
+    const { data: likesData } = await supabase
+      .from('likes')
+      .select('target_id')
+      .eq('target_type', 'wish')
+      .in('target_id', wishIds)
+
+    const likeCounts = {}
+    if (likesData) {
+      likesData.forEach(like => {
+        likeCounts[like.target_id] = (likeCounts[like.target_id] || 0) + 1
+      })
+    }
+
+    // Check which wishes current user has liked
+    const userLikes = new Set()
+    if (user) {
+      const { data: userLikesData } = await supabase
+        .from('likes')
+        .select('target_id')
+        .eq('user_id', user.id)
+        .eq('target_type', 'wish')
+        .in('target_id', wishIds)
+      
+      if (userLikesData) {
+        userLikesData.forEach(like => userLikes.add(like.target_id))
+      }
+    }
+
+    container.innerHTML = data.map(wish => createWishPreviewCard(wish, likeCounts[wish.id] || 0, userLikes.has(wish.id))).join('')
+    
+    // Setup like button event listeners
+    setupWishLikeButtons()
+
+  } catch (error) {
+    console.error('Error loading wishes preview:', error)
+    const container = document.getElementById('wishes-preview')
+    if (container) {
+      container.innerHTML = `
+        <div class="text-center py-8">
+          <span class="material-symbols-outlined text-6xl text-red-400 mb-3">error</span>
+          <p class="text-red-400">Không thể tải lời chúc</p>
+          <button onclick="loadWishesPreview()" class="text-primary hover:text-primary-glow text-sm mt-2">
+            Thử lại
+          </button>
+        </div>
+      `
+    }
+  }
+}
+
+// Create wish preview card
+function createWishPreviewCard(wish, likeCount, isLiked) {
+  const user = wish.users || {}
+  const avatar = user.avatar_url || getDefaultAvatar(user.username)
+  
+  return `
+    <div class="wish-card">
+      <div class="wish-header">
+        <div class="wish-avatar">
+          ${avatar.startsWith('http') ? 
+            `<img src="${avatar}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">` :
+            avatar
+          }
+        </div>
+        <div class="flex-grow">
+          <p class="text-white font-medium text-sm">${user.username || 'Anonymous'}</p>
+          <p class="text-slate-400 text-xs">${getTimeAgo(wish.created_at)}</p>
+        </div>
+        <span class="wish-type-badge wish-type-${wish.type}">
+          ${getTypeLabel(wish.type)}
+        </span>
+      </div>
+      
+      <div class="wish-content">
+        <p class="text-white">${wish.content}</p>
+      </div>
+      
+      ${wish.sticker ? `<div class="text-center text-2xl mb-3">${wish.sticker}</div>` : ''}
+      
+      <div class="wish-actions">
+        <button class="like-button ${isLiked ? 'liked' : ''}" data-wish-id="${wish.id}" data-liked="${isLiked}">
+          <span class="material-symbols-outlined">${isLiked ? 'favorite' : 'favorite_border'}</span>
+          <span class="like-count">${likeCount}</span>
+        </button>
+        <small class="text-slate-500 text-xs">
+          <span class="material-symbols-outlined text-sm align-middle">schedule</span>
+          ${getTimeAgo(wish.created_at)}
+        </small>
+      </div>
+    </div>
+  `
+}
+
+// Setup like button event listeners for wishes
+function setupWishLikeButtons() {
+  const likeButtons = document.querySelectorAll('.like-button')
+  likeButtons.forEach(button => {
+    button.addEventListener('click', async (e) => {
+      e.preventDefault()
+      await toggleWishLike(button)
+    })
+  })
+}
+
+// Toggle like for wish
+async function toggleWishLike(button) {
+  if (!user) {
+    alert('Bạn cần đăng nhập để thả tim!')
+    return
+  }
+
+  const wishId = button.dataset.wishId
+  const isLiked = button.dataset.liked === 'true'
+
+  try {
+    button.disabled = true
+    button.classList.add('like-animation')
+
+    const icon = button.querySelector('.material-symbols-outlined')
+    const countElement = button.querySelector('.like-count')
+    const currentCount = parseInt(countElement.textContent) || 0
+
+    if (isLiked) {
+      // Remove like
+      const { error } = await supabase
+        .from('likes')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('target_type', 'wish')
+        .eq('target_id', wishId)
+
+      if (error) throw error
+
+      button.classList.remove('liked')
+      button.dataset.liked = 'false'
+      icon.textContent = 'favorite_border'
+      countElement.textContent = Math.max(0, currentCount - 1)
+
+    } else {
+      // Add like
+      const { error } = await supabase
+        .from('likes')
+        .insert({
+          user_id: user.id,
+          target_type: 'wish',
+          target_id: wishId
+        })
+
+      if (error) throw error
+
+      button.classList.add('liked')
+      button.dataset.liked = 'true'
+      icon.textContent = 'favorite'
+      countElement.textContent = currentCount + 1
+    }
+
+  } catch (error) {
+    console.error('Error toggling like:', error)
+    alert('Có lỗi xảy ra khi thả tim. Vui lòng thử lại!')
+  } finally {
+    button.disabled = false
+    setTimeout(() => {
+      button.classList.remove('like-animation')
+    }, 300)
+  }
+}
+
+// Helper functions
+function getDefaultAvatar(username) {
+  return username ? username.charAt(0).toUpperCase() : '?'
+}
+
+function getTypeLabel(type) {
+  const labels = {
+    'daily': 'Hàng Ngày',
+    'birthday': 'Sinh Nhật',
+    'debut': 'Debut'
+  }
+  return labels[type] || type
+}
+
+function getTimeAgo(dateString) {
+  const now = new Date()
+  const date = new Date(dateString)
+  const diffInSeconds = Math.floor((now - date) / 1000)
+  
+  if (diffInSeconds < 60) return 'Vừa xong'
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} phút trước`
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} giờ trước`
+  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} ngày trước`
+  
+  return new Date(dateString).toLocaleDateString('vi-VN')
+}
+
+// Make loadWishesPreview available globally
+window.loadWishesPreview = loadWishesPreview
 
 // Start initialization
 init()

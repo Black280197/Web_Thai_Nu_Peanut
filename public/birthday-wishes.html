@@ -85,6 +85,129 @@
         .mobile-menu.open {
             max-height: 300px;
         }
+        body,
+        html,
+        .cursorsDefault,
+        input[type="range"]::-webkit-slider-thumb,
+        input[type="range"]::-webkit-slider-runnable-track {
+            cursor: url("/assets/img/Key1.png"), default !important;
+        }
+
+        a,
+        button,
+        .cursorsHover,
+        [cursorshover] {
+            cursor: url("/assets/img/Key2.png") 0 0, auto !important;
+        }
+
+        /* Wish cards styling */
+        .wish-card {
+            background: rgba(42, 21, 31, 0.6);
+            border: 1px solid rgba(80, 37, 56, 0.5);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .wish-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(251, 93, 165, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .wish-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .wish-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #fb5da5, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+
+        .wish-content {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .wish-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(80, 37, 56, 0.5);
+        }
+
+        .like-button {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .like-button:hover {
+            color: #fb5da5;
+            background: rgba(251, 93, 165, 0.1);
+        }
+
+        .like-button.liked {
+            color: #fb5da5;
+            background: rgba(251, 93, 165, 0.15);
+        }
+
+        .wish-type-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .wish-type-daily {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .wish-type-birthday {
+            background: rgba(251, 93, 165, 0.2);
+            color: #fb5da5;
+        }
+
+        .wish-type-debut {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .like-animation {
+            animation: heartBeat 0.3s ease-in-out;
+        }
     </style>
 </head>
 
@@ -473,6 +596,32 @@
                 </div> -->
             </div>
         </div>
+        
+        <!-- Approved Wishes Section -->
+        <section class="w-full max-w-4xl mx-auto px-4 md:px-6 py-12">
+            <div class="glass-panel p-8 rounded-2xl border border-border-dark">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-bold text-white">
+                        <span class="material-symbols-outlined text-4xl text-primary align-middle mr-2">favorite</span>
+                        Eleven Out Of Ten
+                    </h2>
+                    <a href="approved-wishes.html" class="text-primary hover:text-primary-glow transition-colors text-sm font-medium">
+                        Xem tất cả →
+                    </a>
+                </div>
+                
+                <p class="text-slate-300 mb-6">
+                    Những lời chúc tốt đẹp nhất từ cộng đồng fan ✨
+                </p>
+                
+                <div id="wishes-preview" class="space-y-4">
+                    <div class="text-center py-8">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-3"></div>
+                        <p class="text-slate-400">Đang tải lời chúc...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-2 md:py-1 relative z-20">
