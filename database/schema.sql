@@ -213,6 +213,66 @@ INSERT INTO public.countdown_settings (event_type, target_date, title, descripti
 ON CONFLICT DO NOTHING;
 
 -- ============================================
+-- 11. EVENTS TABLE
+-- ============================================
+CREATE TABLE IF NOT EXISTS public.events (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT,
+  content TEXT NOT NULL,
+  image_url TEXT,
+  event_date DATE,
+  created_by UUID REFERENCES public.users(id) ON DELETE CASCADE NOT NULL,
+  status TEXT DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'archived')),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS idx_events_created_by ON public.events(created_by);
+CREATE INDEX IF NOT EXISTS idx_events_status ON public.events(status);
+CREATE INDEX IF NOT EXISTS idx_events_event_date ON public.events(event_date);
+CREATE INDEX IF NOT EXISTS idx_events_created_at ON public.events(created_at DESC);
+
+-- ============================================
+-- 12. LIKES TABLE (For wishes and events)
+-- ============================================
+CREATE TABLE IF NOT EXISTS public.likes (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES public.users(id) ON DELETE CASCADE NOT NULL,
+  target_type TEXT NOT NULL CHECK (target_type IN ('wish', 'event', 'comment')),
+  target_id UUID NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, target_type, target_id)
+);
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS idx_likes_user_id ON public.likes(user_id);
+CREATE INDEX IF NOT EXISTS idx_likes_target ON public.likes(target_type, target_id);
+CREATE INDEX IF NOT EXISTS idx_likes_created_at ON public.likes(created_at DESC);
+
+-- ============================================
+-- 13. COMMENTS TABLE (For events)
+-- ============================================
+CREATE TABLE IF NOT EXISTS public.comments (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES public.users(id) ON DELETE CASCADE NOT NULL,
+  target_type TEXT NOT NULL CHECK (target_type IN ('event')),
+  target_id UUID NOT NULL,
+  content TEXT NOT NULL,
+  parent_id UUID REFERENCES public.comments(id) ON DELETE CASCADE,
+  status TEXT DEFAULT 'active' CHECK (status IN ('active', 'deleted', 'hidden')),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS idx_comments_user_id ON public.comments(user_id);
+CREATE INDEX IF NOT EXISTS idx_comments_target ON public.comments(target_type, target_id);
+CREATE INDEX IF NOT EXISTS idx_comments_parent_id ON public.comments(parent_id);
+CREATE INDEX IF NOT EXISTS idx_comments_created_at ON public.comments(created_at DESC);
+
+-- ============================================
 -- ROW LEVEL SECURITY (RLS) POLICIES
 -- ============================================
 
@@ -227,6 +287,9 @@ ALTER TABLE public.badges ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_badges ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.countdown_settings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.events ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.likes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
 
 -- ============================================
 -- USERS POLICIES
@@ -403,6 +466,61 @@ CREATE POLICY "Admins can manage countdown settings"
   );
 
 -- ============================================
+-- EVENTS POLICIES
+-- ============================================
+CREATE POLICY "Everyone can view active events"
+  ON public.events FOR SELECT
+  USING (status = 'active');
+
+CREATE POLICY "Admins can manage all events"
+  ON public.events FOR ALL
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.users 
+      WHERE id = auth.uid() AND role = 'admin'
+    )
+  );
+
+-- ============================================
+-- LIKES POLICIES
+-- ============================================
+CREATE POLICY "Users can view all likes"
+  ON public.likes FOR SELECT
+  USING (TRUE);
+
+CREATE POLICY "Users can manage their own likes"
+  ON public.likes FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete their own likes"
+  ON public.likes FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- ============================================
+-- COMMENTS POLICIES
+-- ============================================
+CREATE POLICY "Users can view active comments"
+  ON public.comments FOR SELECT
+  USING (status = 'active');
+
+CREATE POLICY "Users can create comments"
+  ON public.comments FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own comments"
+  ON public.comments FOR UPDATE
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Admins can manage all comments"
+  ON public.comments FOR ALL
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.users 
+      WHERE id = auth.uid() AND role = 'admin'
+    )
+  );
+
+-- ============================================
 -- FUNCTIONS & TRIGGERS
 -- ============================================
 
@@ -430,6 +548,18 @@ CREATE TRIGGER update_wishes_updated_at
 -- Trigger: Update journals.updated_at
 CREATE TRIGGER update_journals_updated_at
   BEFORE UPDATE ON public.journals
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger: Update events.updated_at
+CREATE TRIGGER update_events_updated_at
+  BEFORE UPDATE ON public.events
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger: Update comments.updated_at
+CREATE TRIGGER update_comments_updated_at
+  BEFORE UPDATE ON public.comments
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
 
