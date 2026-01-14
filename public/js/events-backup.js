@@ -4,7 +4,6 @@ import { handleLogout } from './auth.js'
 
 let currentUser = null
 let currentEventId = null
-let currentTab = 'official'
 
 // Load like and comment counts for events
 async function getEventCounts(eventIds) {

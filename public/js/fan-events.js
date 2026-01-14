@@ -1,4 +1,4 @@
-// Events page initialization
+// Fan Events page initialization
 import { getCurrentUser, isAdmin, supabase } from './supabase-client.js'
 import { handleLogout } from './auth.js'
 
@@ -44,22 +44,26 @@ async function getEventCounts(eventIds) {
   }
 }
 
-// Load and display events
-async function loadEvents() {
-  const container = document.getElementById('events-container')
+// Load and display fan events
+async function loadFanEvents() {
+  const container = document.getElementById('fan-events-container')
   const loadingState = document.getElementById('loading-state')
   const emptyState = document.getElementById('empty-state')
 
+  // Show loading
+  if (loadingState) loadingState.classList.remove('hidden')
+
   try {
+    // Get fan events
     const { data: events, error } = await supabase
       .from('events')
       .select(`
         *,
         author:author_id (username)
       `)
-      .eq('status', 'published')
-      .eq('event_type', 'official')
-      .order('published_at', { ascending: false })
+      .eq('event_type', 'fan')
+      .in('status', ['published'])
+      .order('event_date', { ascending: false })
 
     if (error) throw error
 
@@ -75,31 +79,36 @@ async function loadEvents() {
     const { likeCounts, commentCounts } = await getEventCounts(eventIds)
 
     container.innerHTML = events.map(event => {
-      const publishedDate = new Date(event.published_at || event.created_at).toLocaleDateString('vi-VN', {
+      const eventDate = new Date(event.event_date || event.created_at).toLocaleDateString('vi-VN', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       })
 
-      const excerpt = event.excerpt || event.content.substring(0, 150) + '...'
+      const excerpt = event.description || event.content.substring(0, 150) + '...'
       const likeCount = likeCounts[event.id] || 0
       const commentCount = commentCounts[event.id] || 0
+      const statusBadge = event.status === 'draft' ? 
+        `<span class="px-2 py-1 text-xs bg-yellow-500/20 text-yellow-200 rounded-full">Nháp</span>` : ''
 
       return `
-        <article class="group bg-white/5 backdrop-blur-md border border-pink-300/20 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(236,72,153,0.3)]">
+        <article class="group bg-white/5 backdrop-blur-md border border-pink-300/20 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-12px_rgba(236,72,153,0.3)] event-card" data-event-id="${event.id}">
           ${event.image_url ? `
             <div class="relative h-48 overflow-hidden">
               <img src="${event.image_url}" alt="${event.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              ${statusBadge ? `<div class="absolute top-3 right-3">${statusBadge}</div>` : ''}
             </div>
-          ` : ''}
+          ` : `
+            ${statusBadge ? `<div class="p-3 flex justify-end">${statusBadge}</div>` : ''}
+          `}
           <div class="p-6">
             <div class="flex items-center gap-2 text-xs text-pink-100/50 mb-3">
               <span class="material-symbols-outlined text-sm">calendar_today</span>
-              <time datetime="${event.published_at}">${publishedDate}</time>
+              <time datetime="${event.event_date || event.created_at}">${eventDate}</time>
               <span class="mx-2">•</span>
               <span class="material-symbols-outlined text-sm">person</span>
-              <span>${event.author?.username || 'Admin'}</span>
+              <span>${event.author?.username || 'Fan'}</span>
             </div>
             <h2 class="text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
               ${event.title}
@@ -118,7 +127,7 @@ async function loadEvents() {
                   ${commentCount}
                 </span>
               </div>
-              <button onclick="window.viewEvent('${event.id}')" class="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold text-sm group/btn">
+              <button class="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold text-sm group/btn">
                 <span>Đọc thêm</span>
                 <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
               </button>
@@ -128,110 +137,247 @@ async function loadEvents() {
       `
     }).join('')
 
+    // Add click handlers
+    container.querySelectorAll('.event-card').forEach(card => {
+      card.addEventListener('click', async (e) => {
+        if (e.target.closest('button')) return // Don't trigger on button clicks
+        const eventId = card.dataset.eventId
+        const event = events.find(e => e.id === eventId)
+        if (event) await openEventModal(event)
+      })
+    })
+
   } catch (error) {
-    console.error('Error loading events:', error)
+    console.error('Error loading fan events:', error)
     loadingState?.classList.add('hidden')
-    container.innerHTML = `
-      <div class="col-span-full flex flex-col items-center justify-center py-20">
-        <span class="material-symbols-outlined text-6xl text-red-400 mb-4">error</span>
-        <p class="text-xl text-pink-100/70">Failed to load events</p>
-      </div>
-    `
+    if (container) {
+      container.innerHTML = `
+        <div class="col-span-full flex flex-col items-center justify-center py-20">
+          <span class="material-symbols-outlined text-6xl text-red-400 mb-4">error</span>
+          <p class="text-xl text-pink-100/70">Failed to load fan events</p>
+        </div>
+      `
+    }
   }
 }
 
-// View event detail in modal
-window.viewEvent = async function (eventId) {
-  currentEventId = eventId
-  const modal = document.getElementById('event-modal')
-  const modalTitle = document.getElementById('modal-title')
-  const modalMeta = document.getElementById('modal-meta')
-  const modalContent = document.getElementById('modal-content')
-  const modalImageDiv = document.getElementById('modal-image')
-  const modalImg = document.getElementById('modal-img')
+// Create new fan post
+async function createFanPost(postData) {
+  if (!currentUser) {
+    alert('Bạn cần đăng nhập để tạo bài viết!')
+    return false
+  }
 
   try {
-    // Fetch event details
-    const { data: event, error } = await supabase
+    const { error } = await supabase
       .from('events')
-      .select(`
-        *,
-        author:author_id (username)
-      `)
-      .eq('id', eventId)
-      .single()
+      .insert({
+        title: postData.title,
+        content: postData.content,
+        description: postData.description,
+        image_url: postData.image_url,
+        event_type: 'fan',
+        status: 'draft',
+        author_id: currentUser.id,
+        created_by: currentUser.id,
+        event_date: new Date().toISOString()
+      })
 
     if (error) throw error
 
-    // Populate modal
-    if (/<[a-z][\s\S]*>/i.test(event.title)) {
-      modalTitle.innerHTML = event.title;
-    } else {
-      modalTitle.textContent = event.title;
+    return true
+  } catch (error) {
+    console.error('Error creating post:', error)
+    return false
+  }
+}
+
+// Setup create post modal
+function setupCreatePostModal() {
+  const modal = document.getElementById('create-post-modal')
+  const createBtn = document.getElementById('create-post-btn')
+  const closeBtn = document.getElementById('close-create-modal')
+  const cancelBtn = document.getElementById('cancel-post')
+  const form = document.getElementById('create-post-form')
+  let currentPostImage = null
+
+  // Open modal
+  createBtn?.addEventListener('click', () => {
+    if (!currentUser) {
+      alert('Bạn cần đăng nhập để tạo bài viết!')
+      return
+    }
+    modal?.classList.remove('hidden')
+  })
+
+  // Close modal
+  const closeModal = () => {
+    modal?.classList.add('hidden')
+    form?.reset()
+    currentPostImage = null
+    const preview = document.getElementById('post-image-preview')
+    if (preview) preview.classList.add('hidden')
+  }
+
+  closeBtn?.addEventListener('click', closeModal)
+  cancelBtn?.addEventListener('click', closeModal)
+
+  // Click outside to close
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal()
+  })
+
+  // Image file upload handler
+  const imageFileInput = document.getElementById('post-image-file')
+  imageFileInput?.addEventListener('change', async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    
+    try {
+      // Create object URL for preview
+      const imageUrl = URL.createObjectURL(file)
+      currentPostImage = imageUrl
+      showPostImagePreview(imageUrl)
+      
+      // Clear URL input
+      document.getElementById('post-image-url').value = ''
+    } catch (error) {
+      console.error('Error processing image file:', error)
+      alert('Có lỗi khi xử lý tập tin hình ảnh!')
+    }
+  })
+
+  // Image URL input handler
+  const imageUrlInput = document.getElementById('post-image-url')
+  imageUrlInput?.addEventListener('input', (e) => {
+    const url = e.target.value.trim()
+    if (url) {
+      currentPostImage = url
+      showPostImagePreview(url)
+      
+      // Clear file input
+      document.getElementById('post-image-file').value = ''
+    }
+  })
+
+  // Remove image handler
+  const removeImageBtn = document.getElementById('remove-post-image')
+  removeImageBtn?.addEventListener('click', () => {
+    currentPostImage = null
+    document.getElementById('post-image-url').value = ''
+    document.getElementById('post-image-file').value = ''
+    const preview = document.getElementById('post-image-preview')
+    if (preview) preview.classList.add('hidden')
+  })
+
+  // Submit form
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const submitBtn = document.getElementById('submit-post')
+    const originalText = submitBtn.textContent
+
+    submitBtn.disabled = true
+    submitBtn.textContent = 'Đang đăng...'
+
+    const postData = {
+      title: document.getElementById('post-title').value.trim(),
+      content: document.getElementById('post-content').value.trim(),
+      description: document.getElementById('post-description').value.trim(),
+      image_url: currentPostImage || ''
     }
 
-    const publishedDate = new Date(event.published_at || event.created_at).toLocaleDateString('vi-VN', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    if (!postData.title || !postData.content) {
+      alert('Vui lòng nhập tiêu đề và nội dung!')
+      submitBtn.disabled = false
+      submitBtn.textContent = originalText
+      return
+    }
 
-    modalMeta.innerHTML = `
+    const success = await createFanPost(postData)
+
+    if (success) {
+      alert('Bài viết đã được tạo! Chờ admin duyệt.')
+      closeModal()
+      await loadFanEvents() // Reload events
+    } else {
+      alert('Có lỗi xảy ra khi tạo bài viết!')
+    }
+
+    submitBtn.disabled = false
+    submitBtn.textContent = originalText
+  })
+}
+
+// Show image preview
+function showPostImagePreview(url) {
+  const preview = document.getElementById('post-image-preview')
+  const img = preview?.querySelector('img')
+  if (preview && img) {
+    img.src = url
+    preview.classList.remove('hidden')
+  }
+}
+
+// Open event modal
+async function openEventModal(event) {
+  currentEventId = event.id
+  
+  const modal = document.getElementById('event-modal')
+  const title = document.getElementById('modal-title')
+  const meta = document.getElementById('modal-meta')
+  const content = document.getElementById('modal-content')
+  const image = document.getElementById('modal-image')
+  const img = document.getElementById('modal-img')
+
+  if (!modal) return
+
+  // Set content
+  if (title) title.textContent = event.title
+  if (content) content.innerHTML = event.content || event.description || ''
+
+  // Set meta info
+  const eventDate = new Date(event.event_date || event.created_at).toLocaleDateString('vi-VN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+  if (meta) {
+    meta.innerHTML = `
       <span class="flex items-center gap-1">
         <span class="material-symbols-outlined text-sm">calendar_today</span>
-        <time datetime="${event.published_at}">${publishedDate}</time>
+        ${eventDate}
       </span>
       <span>•</span>
       <span class="flex items-center gap-1">
         <span class="material-symbols-outlined text-sm">person</span>
-        <span>${event.author?.username || 'Admin'}</span>
+        <span>${event.author?.username || 'Fan'}</span>
       </span>
     `
-
-    // Show image if exists
-    if (event.image_url) {
-      modalImg.src = event.image_url
-      modalImg.alt = event.title
-      modalImageDiv.classList.remove('hidden')
-    } else {
-      modalImageDiv.classList.add('hidden')
-    }
-
-    // Handle HTML content or plain text with line breaks
-    let contentHtml = event.content;
-
-    if (/<[a-z][\s\S]*>/i.test(contentHtml)) {
-      modalContent.innerHTML = contentHtml;
-    } else {
-      contentHtml = event.content
-        .split('\n')
-        .map(para => para.trim())
-        .filter(para => para.length > 0)
-        .map(para => `<p class="mb-4 text-pink-100/80 leading-relaxed">${para}</p>`)
-        .join('');
-
-      modalContent.innerHTML = contentHtml;
-    }
-
-    // Load likes and comments
-    await loadEventLikes(eventId)
-    await loadEventComments(eventId)
-
-    // Setup user avatar
-    if (currentUser) {
-      const userAvatar = document.getElementById('user-avatar')
-      if (userAvatar) {
-        userAvatar.innerHTML = getDefaultAvatar(currentUser.user_metadata?.username || currentUser.email)
-      }
-    }
-
-    // Show modal
-    modal.classList.remove('hidden')
-
-  } catch (error) {
-    console.error('Error loading event:', error)
-    alert('Failed to load event details')
   }
+
+  // Set image
+  if (event.image_url && img && image) {
+    img.src = event.image_url
+    img.alt = event.title
+    image.classList.remove('hidden')
+  } else if (image) {
+    image.classList.add('hidden')
+  }
+
+  // Load likes and comments
+  await loadEventLikes(event.id)
+  await loadEventComments(event.id)
+
+  // Setup user avatar
+  if (currentUser) {
+    const userAvatar = document.getElementById('user-avatar')
+    if (userAvatar) {
+      userAvatar.innerHTML = getDefaultAvatar(currentUser.user_metadata?.username || currentUser.email)
+    }
+  }
+
+  modal.classList.remove('hidden')
 }
 
 // Load event likes
@@ -271,6 +417,7 @@ async function loadEventLikes(eventId) {
   }
 }
 
+// Load event comments
 async function loadEventComments(eventId) {
   try {
     const { data: comments, error } = await supabase
@@ -648,12 +795,16 @@ async function init() {
   const logoutButton = document.getElementById('logout-button')
   const adminNavLink = document.getElementById('admin-nav-link')
   const adminNavLinkMobile = document.getElementById('admin-nav-link-mobile')
+  const createPostBtn = document.getElementById('create-post-btn')
   
   if (currentUser) {
     // Show user section
     userSection?.classList.remove('hidden')
     const usernameStrong = userSection?.querySelector('strong')
     if (usernameStrong) usernameStrong.textContent = currentUser.user_metadata?.username || currentUser.email
+
+    // Show create post button for logged in users
+    createPostBtn?.classList.remove('hidden')
 
     // Check if admin
     if (await isAdmin()) {
@@ -676,11 +827,12 @@ async function init() {
     window.location.href = '/'
   })
 
-  // Setup modal
+  // Setup modals
   setupModal()
+  setupCreatePostModal()
 
-  // Load events
-  await loadEvents()
+  // Load fan events
+  await loadFanEvents()
 }
 
 // Make toggleCommentLike globally available
