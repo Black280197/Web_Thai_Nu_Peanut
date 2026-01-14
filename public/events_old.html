@@ -31,7 +31,6 @@
             background-size: 200% auto;
             color: #000;
             background-clip: text;
-            text-fill-color: transparent;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shine 5s linear infinite;
@@ -54,26 +53,152 @@
             max-height: 300px;
         }
 
+        /* Event interactions */
+        .event-card {
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .like-button {
+            transition: all 0.3s ease;
+        }
+
+        .like-button:hover {
+            transform: scale(1.1);
+            color: #ec4899;
+        }
+
+        .like-button.liked {
+            color: #ec4899;
+        }
+
+        .comment-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .comment-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ec4899, #8b5cf6);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .comment-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            padding: 12px 16px;
+            color: white;
+            flex: 1;
+            resize: none;
+            min-height: 40px;
+            max-height: 120px;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: #ec4899;
+            box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2);
+        }
+
+        .comment-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .comment-submit {
+            background: #ec4899;
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 12px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .comment-submit:hover {
+            background: #be185d;
+            transform: translateY(-2px);
+        }
+
+        .comment-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .like-animation {
+            animation: heartBeat 0.4s ease-in-out;
+        }
+
+        /* Tab System */
+        .tab-btn {
+            color: rgba(255, 255, 255, 0.6);
+            position: relative;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-content {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .tab-content.hidden {
+            display: none;
+        }
         body,
         html,
         .cursorsDefault,
         input[type="range"]::-webkit-slider-thumb,
         input[type="range"]::-webkit-slider-runnable-track {
-            cursor: url("/assets/img/Key2.png") 16 4, default !important;
+            cursor: url("/assets/img/Key1.png"), default !important;
         }
 
         a,
         button,
         .cursorsHover,
         [cursorshover] {
-            cursor: url("/assets/img/Key2.png") 16 8, auto !important;
-        }
-
-        a:hover,
-        button:hover,
-        .cursorsHover:hover,
-        [cursorshover] {
-            cursor: url("/assets/img/Key2.png") 16 8, auto !important;
+            cursor: url("/assets/img/Key2.png") 0 0, auto !important;
         }
     </style>
 </head>
@@ -168,9 +293,41 @@
                 </p>
             </div>
 
+            <!-- Tab Navigation -->
+            <div class="flex justify-center mb-8">
+                <div class="bg-black/30 backdrop-blur-md rounded-2xl p-2 border border-pink-300/20">
+                    <button id="official-tab" class="tab-btn active px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300">
+                        <span class="material-symbols-outlined text-sm mr-2">stars</span>
+                        Official Events
+                    </button>
+                    <button id="fan-tab" class="tab-btn px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300">
+                        <span class="material-symbols-outlined text-sm mr-2">groups</span>
+                        Events for Fan
+                    </button>
+                </div>
+            </div>
+
+            <!-- Create Post Button (for Fan Events) -->
+            <div id="create-post-section" class="hidden text-center mb-8">
+                <button id="create-post-btn" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white px-8 py-3 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <span class="material-symbols-outlined mr-2">add</span>
+                    Tạo bài viết mới
+                </button>
+            </div>
+
             <!-- Events Grid -->
-            <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Events will be loaded here by JavaScript -->
+            <!-- Official Events Tab -->
+            <div id="official-events-tab" class="tab-content">
+                <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Official events will be loaded here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Fan Events Tab -->
+            <div id="fan-events-tab" class="tab-content hidden">
+                <div id="fan-events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Fan events will be loaded here by JavaScript -->
+                </div>
             </div>
 
             <!-- Loading State -->
@@ -242,6 +399,49 @@
         <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans
         </p>
     </footer>
+    <!-- Create Post Modal -->
+    <div id="create-post-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-pink-300/20 shadow-2xl">
+            <div class="sticky top-0 bg-gradient-to-br from-slate-900 to-slate-800 border-b border-pink-300/20 p-6 flex items-center justify-between z-10">
+                <h2 class="text-2xl font-bold text-white">Tạo bài viết mới</h2>
+                <button id="close-create-modal" class="text-pink-100/50 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+            
+            <form id="create-post-form" class="p-6 space-y-6">
+                <div>
+                    <label class="block text-white font-medium mb-2">Tiêu đề *</label>
+                    <input type="text" id="post-title" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none" placeholder="Nhập tiêu đề bài viết..." required>
+                </div>
+                
+                <div>
+                    <label class="block text-white font-medium mb-2">Nội dung *</label>
+                    <textarea id="post-content" rows="6" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none resize-none" placeholder="Chia sẻ suy nghĩ của bạn về Peanut..." required></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-white font-medium mb-2">Mô tả ngắn</label>
+                    <input type="text" id="post-description" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none" placeholder="Mô tả ngắn về bài viết (tùy chọn)">
+                </div>
+                
+                <div>
+                    <label class="block text-white font-medium mb-2">Hình ảnh</label>
+                    <input type="url" id="post-image" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none" placeholder="URL hình ảnh (tùy chọn)">
+                </div>
+                
+                <div class="flex gap-4 pt-4">
+                    <button type="button" id="cancel-post" class="flex-1 px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors">
+                        Hủy
+                    </button>
+                    <button type="submit" id="submit-post" class="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all">
+                        Đăng bài
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Event Detail Modal -->
     <div id="event-modal"
         class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
@@ -257,12 +457,46 @@
                     <span class="material-symbols-outlined text-3xl">close</span>
                 </button>
             </div>
-            <div id="modal-image" class="hidden hover:opacity-90 transition-opacity"
-                onclick="window.openImageFullscreen(this.querySelector('img').src)">
+            <div id="modal-image" class="hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="window.openImageFullscreen(this.querySelector('img').src)">
                 <img id="modal-img" src="" alt="" class="w-full h-64" style="object-fit: contain;" />
             </div>
             <div id="modal-content" class="p-6 prose prose-invert prose-pink max-w-none">
                 <!-- Content will be inserted here -->
+            </div>
+            
+            <!-- Event Actions Section -->
+            <div class="px-6 pb-4 border-t border-pink-300/20">
+                <div class="flex items-center justify-between py-4">
+                    <button id="modal-like-btn" class="like-button flex items-center gap-2 text-lg" data-event-id="" data-liked="false">
+                        <span class="material-symbols-outlined">favorite_border</span>
+                        <span id="modal-like-count">0</span> lượt thích
+                    </button>
+                    <span id="modal-comment-count" class="text-pink-100/70 text-sm">0 bình luận</span>
+                </div>
+            </div>
+            
+            <!-- Comments Section -->
+            <div id="modal-comments" class="comment-section mx-6 mb-6">
+                <h3 class="text-xl font-bold text-white mb-4">Bình luận</h3>
+                
+                <!-- Comment Form -->
+                <div id="comment-form" class="comment-form mb-6">
+                    <div class="comment-avatar">
+                        <span id="user-avatar">?</span>
+                    </div>
+                    <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..." rows="2"></textarea>
+                    <button id="comment-submit" class="comment-submit">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+                
+                <!-- Comments List -->
+                <div id="comments-list" class="space-y-3">
+                    <div class="text-center py-4 text-pink-100/50">
+                        <span class="material-symbols-outlined text-2xl mb-2 block">chat_bubble_outline</span>
+                        <p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -275,7 +509,8 @@
             onclick="event.stopPropagation(); window.closeImageFullscreen()">
             <span class="material-symbols-outlined text-white text-3xl">close</span>
         </button>
-        <img id="fullscreen-img" src="" alt="" class="max-w-[95vw] max-h-[95vh] object-contain"
+        <img id="fullscreen-img" src="" alt="" 
+            class="max-w-[95vw] max-h-[95vh] object-contain" 
             onclick="event.stopPropagation()" />
     </div>
 

@@ -85,19 +85,20 @@
         .mobile-menu.open {
             max-height: 300px;
         }
+
         body,
         html,
         .cursorsDefault,
         input[type="range"]::-webkit-slider-thumb,
         input[type="range"]::-webkit-slider-runnable-track {
-            cursor: url("/assets/img/Key1.png"), default !important;
+            cursor: url("/assets/img/Key2.png") 16 4, default !important;
         }
 
         a,
         button,
         .cursorsHover,
         [cursorshover] {
-            cursor: url("/assets/img/Key2.png") 0 0, auto !important;
+            cursor: url("/assets/img/Key2.png") 16 8, auto !important;
         }
 
         /* Wish cards styling */
@@ -201,8 +202,15 @@
         }
 
         @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .like-animation {
@@ -223,7 +231,8 @@
     </div>
 
     <!-- Navbar below banner -->
-    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0" style="margin-top: 0rem;">
+    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0"
+        style="margin-top: 0rem;">
         <div class="mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between" style="padding-top: 0.4rem; padding-bottom: 0.4rem;">
                 <!-- Mobile menu button -->
@@ -236,7 +245,8 @@
                     <a class="text-sm font-bold text-primary" href="/birthday-wishes.html">Birthday Message</a>
                     <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
                         href="/events.html">Eleven Out Of Ten</a>
-                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden" href="#">About</a>
+                    <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden"
+                        href="#">About</a>
                 </nav>
                 <div class="flex items-center gap-4 ml-auto" style="position: absolute; right: 1rem;">
                     <!-- Guest mode: Login button -->
@@ -276,8 +286,8 @@
         <div class="max-w-[1280px] mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
             <div class="lg:col-span-7">
                 <div class="sticky top-24">
-                    <div
-                        class="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-border-dark shadow-[0_0_40px_-10px_rgba(251,93,165,0.15)]" style="    background: rgba(255, 255, 255, 0.08);backdrop-filter: blur(20px);-webkit-backdrop-filter: blur(20px);border: 1px solid rgba(255, 255, 255, 0.15);box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);margin: 0;padding: 0.5rem 1rem 0.5rem 1rem;border-radius: 25px;height: 100%;">
+                    <div class="glass-panel rounded-3xl p-6 sm:p-8 lg:p-10 border border-border-dark shadow-[0_0_40px_-10px_rgba(251,93,165,0.15)]"
+                        style="    background: rgba(255, 255, 255, 0.08);backdrop-filter: blur(20px);-webkit-backdrop-filter: blur(20px);border: 1px solid rgba(255, 255, 255, 0.15);box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);margin: 0;padding: 0.5rem 1rem 0.5rem 1rem;border-radius: 25px;height: 100%;">
                         <div class="mb-8">
                             <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 flex items-center gap-2">
                                 <span
@@ -596,7 +606,7 @@
                 </div> -->
             </div>
         </div>
-        
+
         <!-- Approved Wishes Section -->
         <section class="w-full max-w-4xl mx-auto px-4 md:px-6 py-12">
             <div class="glass-panel p-8 rounded-2xl border border-border-dark">
@@ -605,15 +615,16 @@
                         <span class="material-symbols-outlined text-4xl text-primary align-middle mr-2">favorite</span>
                         Eleven Out Of Ten
                     </h2>
-                    <a href="approved-wishes.html" class="text-primary hover:text-primary-glow transition-colors text-sm font-medium">
+                    <a href="approved-wishes.html"
+                        class="text-primary hover:text-primary-glow transition-colors text-sm font-medium">
                         Xem tất cả →
                     </a>
                 </div>
-                
+
                 <p class="text-slate-300 mb-6">
                     Những lời chúc tốt đẹp nhất từ cộng đồng fan ✨
                 </p>
-                
+
                 <div id="wishes-preview" class="space-y-4">
                     <div class="text-center py-8">
                         <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-3"></div>
