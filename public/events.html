@@ -154,8 +154,15 @@
         }
 
         @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
         }
 
         .like-animation {
@@ -212,9 +219,11 @@
                         href="/">Home</a>
                     <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
                         href="/birthday-wishes.html">Birthday Message</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/debut-message.html" bis_skin_checked="1">Debut Message</a>
                     <a class="text-sm font-bold text-primary" href="/events.html">Eleven Out Of Ten</a>
                     <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
-                        href="/fan-events.html">Fan Events</a>
+                        href="/fan-events.html">Events</a>
                     <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors hidden"
                         href="#">About</a>
                     <a id="admin-nav-link"
@@ -253,7 +262,7 @@
                 <a class="text-sm font-bold text-primary py-2 px-4 rounded-lg hover:bg-white/5"
                     href="/events.html">Eleven Out Of Ten</a>
                 <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
-                    href="/fan-events.html">Fan Events</a>
+                    href="/fan-events.html">Events</a>
                 <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
                     href="#">About</a>
                 <a id="admin-nav-link-mobile"
@@ -370,39 +379,42 @@
                     <span class="material-symbols-outlined text-3xl">close</span>
                 </button>
             </div>
-            <div id="modal-image" class="hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="window.openImageFullscreen(this.querySelector('img').src)">
+            <div id="modal-image" class="hidden cursor-pointer hover:opacity-90 transition-opacity"
+                onclick="window.openImageFullscreen(this.querySelector('img').src)">
                 <img id="modal-img" src="" alt="" class="w-full h-64" style="object-fit: contain;" />
             </div>
             <div id="modal-content" class="p-6 prose prose-invert prose-pink max-w-none">
                 <!-- Content will be inserted here -->
             </div>
-            
+
             <!-- Event Actions Section -->
             <div class="px-6 pb-4 border-t border-pink-300/20">
                 <div class="flex items-center justify-between py-4">
-                    <button id="modal-like-btn" class="like-button flex items-center gap-2 text-lg" data-event-id="" data-liked="false">
+                    <button id="modal-like-btn" class="like-button flex items-center gap-2 text-lg" data-event-id=""
+                        data-liked="false">
                         <span class="material-symbols-outlined">favorite_border</span>
                         <span id="modal-like-count">0</span> lượt thích
                     </button>
                     <span id="modal-comment-count" class="text-pink-100/70 text-sm">0 bình luận</span>
                 </div>
             </div>
-            
+
             <!-- Comments Section -->
             <div id="modal-comments" class="comment-section mx-6 mb-6">
                 <h3 class="text-xl font-bold text-white mb-4">Bình luận</h3>
-                
+
                 <!-- Comment Form -->
                 <div id="comment-form" class="comment-form mb-6">
                     <div class="comment-avatar">
                         <span id="user-avatar">?</span>
                     </div>
-                    <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..." rows="2"></textarea>
+                    <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..."
+                        rows="2"></textarea>
                     <button id="comment-submit" class="comment-submit">
                         <span class="material-symbols-outlined">send</span>
                     </button>
                 </div>
-                
+
                 <!-- Comments List -->
                 <div id="comments-list" class="space-y-3">
                     <div class="text-center py-4 text-pink-100/50">
@@ -422,8 +434,7 @@
             onclick="event.stopPropagation(); window.closeImageFullscreen()">
             <span class="material-symbols-outlined text-white text-3xl">close</span>
         </button>
-        <img id="fullscreen-img" src="" alt="" 
-            class="max-w-[95vw] max-h-[95vh] object-contain" 
+        <img id="fullscreen-img" src="" alt="" class="max-w-[95vw] max-h-[95vh] object-contain"
             onclick="event.stopPropagation()" />
     </div>
 

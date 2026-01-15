@@ -637,7 +637,8 @@ document.getElementById('event-form')?.addEventListener('submit', async (e) => {
       content: sanitizeHTML(content),
       image_url: imageUrl || null,
       status,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
+      event_type: 'official'
     }
     
     if (eventId) {

@@ -1,4 +1,4 @@
-// Fan Events page initialization
+// Events page initialization
 import { getCurrentUser, isAdmin, supabase } from './supabase-client.js'
 import { handleLogout } from './auth.js'
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Fan Events - Wangho's Flower Garden</title>
+    <title>Events - Wangho's Flower Garden</title>
     <link data-default-icon="/assets/img/peanut.png" rel="icon" sizes="192x192" href="/assets/img/peanut.png">
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -154,8 +154,15 @@
         }
 
         @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
         }
 
         .like-animation {
@@ -260,8 +267,10 @@
                     <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
                         href="/birthday-wishes.html">Birthday Message</a>
                     <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/debut-message.html" bis_skin_checked="1">Debut Message</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
                         href="/events.html">Eleven Out Of Ten</a>
-                    <a class="text-sm font-bold text-primary" href="/fan-events.html">Fan Events</a>
+                    <a class="text-sm font-bold text-primary" href="/fan-events.html">Events</a>
                     <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors hidden"
                         href="#">About</a>
                     <a id="admin-nav-link"
@@ -280,10 +289,11 @@
 
                     <!-- Logged in user section -->
                     <div id="user-section" class="hidden flex items-center gap-4">
-                        <span class="text-pink-100/80 font-medium">Chào <strong class="text-primary"></strong>!</span>
+                        <span id="username" class="text-sm text-pink-100/80">Logged in as <strong
+                                class="text-white"></strong></span>
                         <button id="logout-button"
-                            class="bg-white/10 hover:bg-white/20 text-pink-100 px-4 py-2 rounded-lg transition-colors">
-                            Đăng xuất
+                            class="px-4 py-2 bg-pink-100/10 hover:bg-pink-100/20 text-pink-100 rounded-full text-sm font-semibold transition-all">
+                            Logout
                         </button>
                     </div>
                 </div>
@@ -299,7 +309,7 @@
                 <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
                     href="/events.html">Eleven Out Of Ten</a>
                 <a class="text-sm font-bold text-primary py-2 px-4 rounded-lg hover:bg-white/5"
-                    href="/fan-events.html">Fan Events</a>
+                    href="/fan-events.html">Events</a>
                 <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
                     href="#">About</a>
                 <a id="admin-nav-link-mobile"
@@ -317,13 +327,8 @@
             <div class="text-center mb-12">
                 <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white shimmer-text leading-tight font-serif mb-4"
                     style="font-size: 1.95rem; margin-top: 1rem;">
-                    𝐅𝐀𝐍 𝐄𝐕𝐄𝐍𝐓𝐒 - 𝐅𝐎𝐑 𝐖𝐀𝐍𝐆𝐇𝐎 𝟐𝟎𝟐𝟔
-                    <br />
-                    𝟐𝟖𝐓𝐇 𝐁𝐈𝐑𝐓𝐇𝐃𝐀𝐘 & 𝟏𝟏𝐓𝐇 𝐃𝐄𝐁𝐔𝐓 𝐀𝐍𝐍𝐈𝐕𝐄𝐑𝐒𝐀𝐑𝐘
+                    𝐄𝐕𝐄𝐍𝐓𝐒 𝐅𝐎𝐑 𝐖𝐀𝐍𝐆𝐇𝐎 𝐁𝐘 𝐕𝐈𝐄𝐓𝐍𝐀𝐌𝐄𝐒𝐄 𝐅𝐀𝐍𝐒
                 </h1>
-                <p class="text-lg text-pink-100/70 font-light max-w-2xl mx-auto">
-                    Share your thoughts and memories about Peanut with fellow fans. Community posts by Vietnamese fans
-                </p>
             </div>
 
             <!-- Events Grid -->
@@ -373,8 +378,8 @@
                 <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
                     href="https://www.twitch.tv/lolpeanut98" target="_blank" rel="noopener noreferrer"
                     bis_skin_checked="1" style="height: 1.2rem;">
-                    <svg class="w-5 h-5 text-purple-500 group-hover:text-purple-400 transition-colors" fill="currentColor"
-                        viewBox="0 0 24 24" bis_skin_checked="1">
+                    <svg class="w-5 h-5 text-purple-500 group-hover:text-purple-400 transition-colors"
+                        fill="currentColor" viewBox="0 0 24 24" bis_skin_checked="1">
                         <path
                             d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"
                             bis_skin_checked="1"></path>
@@ -396,51 +401,67 @@
     </footer>
 
     <!-- Create Post Modal -->
-    <div id="create-post-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-pink-300/20 shadow-2xl">
-            <div class="sticky top-0 bg-gradient-to-br from-slate-900 to-slate-800 border-b border-pink-300/20 p-6 flex items-center justify-between z-10">
+    <div id="create-post-modal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div
+            class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-pink-300/20 shadow-2xl">
+            <div
+                class="sticky top-0 bg-gradient-to-br from-slate-900 to-slate-800 border-b border-pink-300/20 p-6 flex items-center justify-between z-10">
                 <h2 class="text-2xl font-bold text-white">Tạo bài viết mới</h2>
                 <button id="close-create-modal" class="text-pink-100/50 hover:text-white transition-colors">
                     <span class="material-symbols-outlined text-3xl">close</span>
                 </button>
             </div>
-            
+
             <form id="create-post-form" class="p-6 space-y-6">
                 <div>
                     <label class="block text-white font-medium mb-2">Tiêu đề *</label>
-                    <input type="text" id="post-title" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none" placeholder="Nhập tiêu đề bài viết..." required>
+                    <input type="text" id="post-title"
+                        class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none"
+                        placeholder="Nhập tiêu đề bài viết..." required>
                 </div>
-                
+
                 <div>
                     <label class="block text-white font-medium mb-2">Nội dung *</label>
-                    <textarea id="post-content" rows="6" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none resize-none" placeholder="Chia sẻ suy nghĩ của bạn về Peanut..." required></textarea>
+                    <textarea id="post-content" rows="6"
+                        class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none resize-none"
+                        placeholder="Chia sẻ suy nghĩ của bạn về Peanut..." required></textarea>
                 </div>
-                
+
                 <div>
                     <label class="block text-white font-medium mb-2">Mô tả ngắn</label>
-                    <input type="text" id="post-description" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none" placeholder="Mô tả ngắn về bài viết (tùy chọn)">
+                    <input type="text" id="post-description"
+                        class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none"
+                        placeholder="Mô tả ngắn về bài viết (tùy chọn)">
                 </div>
-                
+
                 <div>
                     <label class="block text-white font-medium mb-2">Hình ảnh</label>
                     <div class="space-y-3">
-                        <input type="file" id="post-image-file" accept="image/*" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-primary file:text-white hover:file:bg-primary-hover">
+                        <input type="file" id="post-image-file" accept="image/*"
+                            class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-primary file:text-white hover:file:bg-primary-hover">
                         <div class="text-center text-pink-100/50">hoặc</div>
-                        <input type="url" id="post-image-url" class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none" placeholder="URL hình ảnh">
+                        <input type="url" id="post-image-url"
+                            class="w-full px-4 py-3 bg-white/5 border border-pink-300/20 rounded-lg text-white placeholder-pink-100/50 focus:border-primary focus:outline-none"
+                            placeholder="URL hình ảnh">
                         <div id="post-image-preview" class="hidden relative">
-                            <img src="" alt="Preview" class="max-w-full max-h-48 rounded-lg border border-pink-300/20 object-contain mx-auto">
-                            <button type="button" id="remove-post-image" class="absolute top-2 right-2 p-1 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors">
+                            <img src="" alt="Preview"
+                                class="max-w-full max-h-48 rounded-lg border border-pink-300/20 object-contain mx-auto">
+                            <button type="button" id="remove-post-image"
+                                class="absolute top-2 right-2 p-1 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors">
                                 <span class="material-symbols-outlined text-sm">close</span>
                             </button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="flex gap-4 pt-4">
-                    <button type="button" id="cancel-post" class="flex-1 px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors">
+                    <button type="button" id="cancel-post"
+                        class="flex-1 px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors">
                         Hủy
                     </button>
-                    <button type="submit" id="submit-post" class="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all">
+                    <button type="submit" id="submit-post"
+                        class="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all">
                         Đăng bài
                     </button>
                 </div>
@@ -463,39 +484,42 @@
                     <span class="material-symbols-outlined text-3xl">close</span>
                 </button>
             </div>
-            <div id="modal-image" class="hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="window.openImageFullscreen(this.querySelector('img').src)">
+            <div id="modal-image" class="hidden cursor-pointer hover:opacity-90 transition-opacity"
+                onclick="window.openImageFullscreen(this.querySelector('img').src)">
                 <img id="modal-img" src="" alt="" class="w-full h-64" style="object-fit: contain;" />
             </div>
             <div id="modal-content" class="p-6 prose prose-invert prose-pink max-w-none">
                 <!-- Content will be inserted here -->
             </div>
-            
+
             <!-- Event Actions Section -->
             <div class="px-6 pb-4 border-t border-pink-300/20">
                 <div class="flex items-center justify-between py-4">
-                    <button id="modal-like-btn" class="like-button flex items-center gap-2 text-lg" data-event-id="" data-liked="false">
+                    <button id="modal-like-btn" class="like-button flex items-center gap-2 text-lg" data-event-id=""
+                        data-liked="false">
                         <span class="material-symbols-outlined">favorite_border</span>
                         <span id="modal-like-count">0</span> lượt thích
                     </button>
                     <span id="modal-comment-count" class="text-pink-100/70 text-sm">0 bình luận</span>
                 </div>
             </div>
-            
+
             <!-- Comments Section -->
             <div id="modal-comments" class="comment-section mx-6 mb-6">
                 <h3 class="text-xl font-bold text-white mb-4">Bình luận</h3>
-                
+
                 <!-- Comment Form -->
                 <div id="comment-form" class="comment-form mb-6">
                     <div class="comment-avatar">
                         <span id="user-avatar">?</span>
                     </div>
-                    <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..." rows="2"></textarea>
+                    <textarea id="comment-input" class="comment-input" placeholder="Viết bình luận của bạn..."
+                        rows="2"></textarea>
                     <button id="comment-submit" class="comment-submit">
                         <span class="material-symbols-outlined">send</span>
                     </button>
                 </div>
-                
+
                 <!-- Comments List -->
                 <div id="comments-list" class="space-y-3">
                     <div class="text-center py-4 text-pink-100/50">
@@ -515,8 +539,7 @@
             onclick="event.stopPropagation(); window.closeImageFullscreen()">
             <span class="material-symbols-outlined text-white text-3xl">close</span>
         </button>
-        <img id="fullscreen-img" src="" alt="" 
-            class="max-w-[95vw] max-h-[95vh] object-contain" 
+        <img id="fullscreen-img" src="" alt="" class="max-w-[95vw] max-h-[95vh] object-contain"
             onclick="event.stopPropagation()" />
     </div>
 
