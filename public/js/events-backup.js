@@ -273,13 +273,13 @@ function setupCreatePostModal() {
     const success = await createFanPost(postData)
     
     if (success) {
-      alert('Bài viết đã được tạo và đang chờ admin duyệt!')
+      alert('Event created successfully. Waiting for admin approval.')
       closeModal()
       if (currentTab === 'fan') {
         loadEvents('fan')
       }
     } else {
-      alert('Có lỗi xảy ra khi tạo bài viết. Vui lòng thử lại!')
+      alert('An error occurred while creating the event! Please try again.')
     }
     
     submitBtn.disabled = false

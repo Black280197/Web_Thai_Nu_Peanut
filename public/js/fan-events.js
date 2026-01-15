@@ -288,7 +288,7 @@ function setupCreatePostModal() {
     }
 
     if (!postData.title || !postData.content) {
-      alert('Vui lòng nhập tiêu đề và nội dung!')
+      alert('Please enter a title and content!')
       submitBtn.disabled = false
       submitBtn.textContent = originalText
       return
@@ -297,11 +297,11 @@ function setupCreatePostModal() {
     const success = await createFanPost(postData)
 
     if (success) {
-      alert('Bài viết đã được tạo! Chờ admin duyệt.')
+      alert('Event created successfully. Waiting for admin approval.')
       closeModal()
       await loadFanEvents() // Reload events
     } else {
-      alert('Có lỗi xảy ra khi tạo bài viết!')
+      alert('An error occurred while creating the event!')
     }
 
     submitBtn.disabled = false
