@@ -83,7 +83,7 @@
         }
 
         .mobile-menu.open {
-            max-height: 300px;
+            max-height: fit-content;
         }
 
         body,
@@ -234,7 +234,7 @@
     <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0"
         style="margin-top: 0rem;">
         <div class="mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between" style="padding-top: 0.4rem; padding-bottom: 0.4rem;">
+            <div class="flex items-center justify-between" style="height: 2rem; margin-left: unset;"
                 <!-- Mobile menu button -->
                 <button id="mobile-menu-btn"
                     class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
@@ -260,13 +260,19 @@
                     </button>
 
                     <!-- Logged in user section -->
-                    <div id="user-section" class="hidden flex items-center gap-4">
-                        <span id="username" class="text-sm text-pink-100/80">Logged in as <strong
-                                class="text-white"></strong></span>
-                        <button id="logout-button"
-                            class="px-4 py-2 bg-pink-100/10 hover:bg-pink-100/20 text-pink-100 rounded-full text-sm font-semibold transition-all">
+                    <div id="user-section" class="flex items-center gap-4" bis_skin_checked="1">
+                        <div class="hidden sm:block text-right" bis_skin_checked="1">
+                            <p class="text-sm font-semibold text-white" id="username">cuong5_9a</p>
+                        </div>
+                        <button id="logout-button" class="text-xs text-pink-200/60 hover:text-white transition-colors">
                             Logout
                         </button>
+                        <div id="avatar" hidden=""
+                            class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50"
+                            style="background-image: none;" bis_skin_checked="1">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg"
+                                bis_skin_checked="1">C</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -278,6 +284,8 @@
                     href="/">Home</a>
                 <a class="text-sm font-bold text-primary py-2 px-4 rounded-lg hover:bg-white/5"
                     href="/birthday-wishes.html">Birthday Message</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/debut-message.html">Debut Message</a>
                 <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
                     href="/events.html">Eleven Out Of Ten</a>
                 <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
