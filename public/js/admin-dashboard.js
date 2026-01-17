@@ -9,13 +9,13 @@ const user = await requireAdmin()
 // Load admin username
 async function loadAdminProfile() {
   if (!user) return
-  
+
   const { data } = await supabase
     .from('users')
     .select('username')
     .eq('id', user.id)
     .single()
-  
+
   if (data) {
     document.getElementById('admin-username').textContent = data.username || 'Admin'
   }
@@ -25,12 +25,12 @@ async function loadAdminProfile() {
 function initTabs() {
   const tabs = document.querySelectorAll('.nav-tab')
   const tabContents = document.querySelectorAll('.tab-content')
-  
+
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
       e.preventDefault()
       const targetId = tab.getAttribute('href').substring(1)
-      
+
       // Update active tab
       tabs.forEach(t => {
         t.classList.remove('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/30')
@@ -38,12 +38,12 @@ function initTabs() {
         const span = t.querySelector('span:first-child')
         if (span) span.classList.remove('fill-1')
       })
-      
+
       tab.classList.add('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/30')
       tab.classList.remove('text-slate-600', 'dark:text-slate-400')
       const span = tab.querySelector('span:first-child')
       if (span) span.classList.add('fill-1')
-      
+
       // Show target content
       tabContents.forEach(content => {
         if (content.id === `tab-${targetId}`) {
@@ -52,10 +52,10 @@ function initTabs() {
           content.classList.add('hidden')
         }
       })
-      
+
       // Update header
       updateHeader(targetId)
-      
+
       // Load data for the tab
       if (targetId === 'users') {
         loadUsers()
@@ -83,7 +83,7 @@ function updateHeader(tabId) {
     'site-settings': 'Site Settings',
     settings: 'Countdown Settings'
   }
-  
+
   const subtitles = {
     users: 'Manage accounts, permissions and status for the fan club',
     wishes: 'Review and manage birthday wishes from the fan club',
@@ -92,7 +92,7 @@ function updateHeader(tabId) {
     'site-settings': 'Customize text and content across the site',
     settings: 'Configure countdown and system settings'
   }
-  
+
   document.getElementById('page-title').textContent = titles[tabId] || titles.users
   document.getElementById('page-subtitle').textContent = subtitles[tabId] || subtitles.users
 }
@@ -106,18 +106,18 @@ async function loadUsers() {
       .from('users')
       .select('id, username, email, created_at, role, updated_at')
       .order('created_at', { ascending: false })
-    
+
     if (error) throw error
-    
+
     // Update stats
     document.getElementById('total-users').textContent = users.length
-    
+
     const adminCount = users.filter(u => u.role === 'admin').length
     const memberCount = users.filter(u => u.role === 'member').length
-    
+
     document.getElementById('admin-count').textContent = adminCount
     document.getElementById('member-count').textContent = memberCount
-    
+
     // Calculate active users (updated today)
     const today = new Date()
     today.setHours(0, 0, 0, 0)
@@ -127,10 +127,10 @@ async function loadUsers() {
       return updateDate >= today
     }).length
     document.getElementById('active-users').textContent = activeCount
-    
+
     // Render users table
     renderUsersTable(users)
-    
+
   } catch (error) {
     console.error('Error loading users:', error)
     showToast('Failed to load users', 'error')
@@ -140,14 +140,14 @@ async function loadUsers() {
 function renderUsersTable(users) {
   const tbody = document.getElementById('users-table-body')
   tbody.innerHTML = ''
-  
+
   users.forEach(user => {
     const row = document.createElement('tr')
     row.className = 'hover:bg-white/5 transition-colors'
-    
+
     const roleColor = user.role === 'admin' ? 'gold' : 'blue-400'
     const roleIcon = user.role === 'admin' ? 'admin_panel_settings' : 'person'
-    
+
     row.innerHTML = `
       <td class="px-6 py-4">
         <div class="flex items-center gap-3">
@@ -182,24 +182,24 @@ function renderUsersTable(users) {
         </div>
       </td>
     `
-    
+
     tbody.appendChild(row)
   })
 }
 
 // Change user role
-window.changeUserRole = async function(userId, currentRole) {
+window.changeUserRole = async function (userId, currentRole) {
   const newRole = currentRole === 'admin' ? 'member' : 'admin'
-  
+
   showConfirm(`Are you sure you want to change role to ${newRole}?`, async () => {
     try {
       const { error } = await supabase
         .from('users')
         .update({ role: newRole })
         .eq('id', userId)
-      
+
       if (error) throw error
-      
+
       showToast('Role updated successfully!', 'success')
       loadUsers()
     } catch (error) {
@@ -210,7 +210,7 @@ window.changeUserRole = async function(userId, currentRole) {
 }
 
 // Delete user
-window.deleteUser = async function(userId) {
+window.deleteUser = async function (userId) {
   showConfirm('Are you sure you want to delete this user? This action cannot be undone!', async () => {
     try {
       // Note: This will fail with RLS unless proper policies are set
@@ -218,9 +218,9 @@ window.deleteUser = async function(userId) {
         .from('users')
         .delete()
         .eq('id', userId)
-      
+
       if (error) throw error
-      
+
       showToast('User deleted successfully!', 'success')
       loadUsers()
     } catch (error) {
@@ -234,7 +234,7 @@ window.deleteUser = async function(userId) {
 document.getElementById('search-users')?.addEventListener('input', (e) => {
   const searchTerm = e.target.value.toLowerCase()
   const rows = document.querySelectorAll('#users-table-body tr')
-  
+
   rows.forEach(row => {
     const text = row.textContent.toLowerCase()
     row.style.display = text.includes(searchTerm) ? '' : 'none'
@@ -244,7 +244,7 @@ document.getElementById('search-users')?.addEventListener('input', (e) => {
 document.getElementById('filter-role')?.addEventListener('change', (e) => {
   const role = e.target.value
   const rows = document.querySelectorAll('#users-table-body tr')
-  
+
   rows.forEach(row => {
     if (role === 'all') {
       row.style.display = ''
@@ -264,18 +264,18 @@ async function loadWishes() {
       .from('wishes')
       .select('id, content, sticker, image_url, status, created_at, users!wishes_user_id_fkey(username)')
       .order('created_at', { ascending: false })
-    
+
     if (error) throw error
-    
+
     // Update stats
     const pendingCount = wishes.filter(w => w.status === 'pending').length
     const approvedCount = wishes.filter(w => w.status === 'approved').length
     const rejectedCount = wishes.filter(w => w.status === 'rejected').length
-    
+
     document.getElementById('pending-wishes-stat').textContent = pendingCount
     document.getElementById('approved-wishes-stat').textContent = approvedCount
     document.getElementById('rejected-wishes-stat').textContent = rejectedCount
-    
+
     // Update nav badge
     const badge = document.getElementById('pending-wishes-count')
     if (pendingCount > 0) {
@@ -284,10 +284,10 @@ async function loadWishes() {
     } else {
       badge.classList.add('hidden')
     }
-    
+
     // Render pending wishes
     renderWishesList(wishes.filter(w => w.status === 'pending'))
-    
+
   } catch (error) {
     console.error('Error loading wishes:', error)
     alert('Không thể tải danh sách lời chúc')
@@ -296,24 +296,24 @@ async function loadWishes() {
 
 function renderWishesList(wishes) {
   const list = document.getElementById('wishes-list')
-  
+
   if (wishes.length === 0) {
     list.innerHTML = '<p class="text-center text-slate-400">Không có lời chúc nào cần duyệt</p>'
     return
   }
-  
+
   list.innerHTML = ''
-  
+
   wishes.forEach(wish => {
     const card = document.createElement('div')
     card.className = 'p-4 rounded-xl bg-white/5 border border-white/10 hover:border-primary/30 transition-colors'
-    
-    const imageHtml = wish.image_url 
+
+    const imageHtml = wish.image_url
       ? `<div class="mt-3">
            <img src="${wish.image_url}" alt="Wish image" class="max-w-xs max-h-48 rounded-lg border border-white/10 object-cover" />
          </div>`
       : ''
-    
+
     card.innerHTML = `
       <div class="flex items-start justify-between gap-4">
         <div class="flex-1">
@@ -335,25 +335,25 @@ function renderWishesList(wishes) {
         </div>
       </div>
     `
-    
+
     list.appendChild(card)
   })
 }
 
 // Moderate wish
-window.moderateWish = async function(wishId, status) {
+window.moderateWish = async function (wishId, status) {
   try {
     const { error } = await supabase
       .from('wishes')
-      .update({ 
+      .update({
         status,
         moderated_by: user.id,
         moderated_at: new Date().toISOString()
       })
       .eq('id', wishId)
-    
+
     if (error) throw error
-    
+
     showToast(status === 'approved' ? 'Wish approved!' : 'Wish rejected!', 'success')
     loadWishes()
   } catch (error) {
@@ -372,23 +372,23 @@ async function loadSettings() {
       .eq('event_type', 'return_date')
       .eq('is_active', true)
       .single()
-    
+
     if (error) throw error
-    
+
     if (data) {
       const targetDate = new Date(data.target_date)
-      
+
       // Format date as YYYY-MM-DD
       const year = targetDate.getFullYear()
       const month = String(targetDate.getMonth() + 1).padStart(2, '0')
       const day = String(targetDate.getDate()).padStart(2, '0')
       document.getElementById('return-date').value = `${year}-${month}-${day}`
-      
+
       // Format time as HH:MM
       const hours = String(targetDate.getHours()).padStart(2, '0')
       const minutes = String(targetDate.getMinutes()).padStart(2, '0')
       document.getElementById('return-time').value = `${hours}:${minutes}`
-      
+
       document.getElementById('countdown-title').value = data.title || ''
       document.getElementById('countdown-description').value = data.description || ''
     }
@@ -404,21 +404,21 @@ document.getElementById('save-countdown-settings')?.addEventListener('click', as
     const returnTime = document.getElementById('return-time').value || '00:00'
     const title = document.getElementById('countdown-title').value
     const description = document.getElementById('countdown-description').value
-    
+
     if (!returnDate) {
       showToast('Please select a return date', 'warning')
       return
     }
-    
+
     // Combine date and time into ISO string (local timezone)
     const dateTimeStr = `${returnDate}T${returnTime}:00`
     const targetDateTime = new Date(dateTimeStr)
-    
+
     if (isNaN(targetDateTime.getTime())) {
       showToast('Invalid date or time format', 'error')
       return
     }
-    
+
     const { error } = await supabase
       .from('countdown_settings')
       .update({
@@ -429,9 +429,9 @@ document.getElementById('save-countdown-settings')?.addEventListener('click', as
       })
       .eq('event_type', 'return_date')
       .eq('is_active', true)
-    
+
     if (error) throw error
-    
+
     showToast('Countdown settings saved successfully!', 'success')
     loadSettings() // Reload to confirm
   } catch (error) {
@@ -443,6 +443,7 @@ document.getElementById('save-countdown-settings')?.addEventListener('click', as
 // ============= EVENTS MANAGEMENT =============
 
 let currentEventFilter = 'all'
+let currentEventTypeFilter = 'all'
 
 // Load events
 async function loadEvents() {
@@ -454,15 +455,19 @@ async function loadEvents() {
         author:author_id (username)
       `)
       .order('created_at', { ascending: false })
-    
+
     if (currentEventFilter !== 'all') {
       query = query.eq('status', currentEventFilter)
     }
-    
+
+    if (currentEventTypeFilter !== 'all') {
+      query = query.eq('event_type', currentEventTypeFilter)
+    }
+
     const { data: events, error } = await query
-    
+
     if (error) throw error
-    
+
     renderEventsList(events || [])
   } catch (error) {
     console.error('Error loading events:', error)
@@ -473,12 +478,12 @@ async function loadEvents() {
 function renderEventsList(events) {
   const container = document.getElementById('events-list')
   if (!container) return
-  
+
   if (events.length === 0) {
     container.innerHTML = '<p class="text-slate-400 text-center py-8">No events found</p>'
     return
   }
-  
+
   container.innerHTML = events.map(event => {
     const createdDate = new Date(event.created_at).toLocaleDateString()
     const statusColors = {
@@ -486,7 +491,7 @@ function renderEventsList(events) {
       draft: 'bg-yellow-500/20 text-yellow-400',
       archived: 'bg-gray-500/20 text-gray-400'
     }
-    
+
     return `
       <div class="bg-white/5 rounded-xl p-4 border border-white/5 hover:border-primary/30 transition-all">
         <div class="flex gap-4">
@@ -535,13 +540,13 @@ function showEventModal(event = null) {
   const modalTitle = document.getElementById('event-modal-title')
   const form = document.getElementById('event-form')
   const imagePreview = document.getElementById('event-image-preview')
-  
+
   if (!modal) return
-  
+
   // Reset image state
   currentEventImage = null
   if (imagePreview) imagePreview.classList.add('hidden')
-  
+
   if (event) {
     modalTitle.textContent = 'Edit Event'
     document.getElementById('event-id').value = event.id
@@ -550,7 +555,7 @@ function showEventModal(event = null) {
     document.getElementById('event-content').value = event.content
     document.getElementById('event-image-url').value = event.image_url || ''
     document.getElementById('event-status').value = event.status
-    
+
     // Show existing image if available
     if (event.image_url) {
       currentEventImage = event.image_url
@@ -561,7 +566,7 @@ function showEventModal(event = null) {
     form.reset()
     document.getElementById('event-id').value = ''
   }
-  
+
   modal.classList.remove('hidden')
 }
 
@@ -582,16 +587,16 @@ function closeEventModal() {
 }
 
 // Edit event
-window.editEvent = async function(eventId) {
+window.editEvent = async function (eventId) {
   try {
     const { data: event, error } = await supabase
       .from('events')
       .select('*')
       .eq('id', eventId)
       .single()
-    
+
     if (error) throw error
-    
+
     showEventModal(event)
   } catch (error) {
     console.error('Error loading event:', error)
@@ -600,16 +605,16 @@ window.editEvent = async function(eventId) {
 }
 
 // Delete event
-window.deleteEvent = async function(eventId) {
+window.deleteEvent = async function (eventId) {
   showConfirm('Are you sure you want to delete this event?', async () => {
     try {
       const { error } = await supabase
         .from('events')
         .delete()
         .eq('id', eventId)
-      
+
       if (error) throw error
-      
+
       showToast('Event deleted successfully!', 'success')
       loadEvents()
     } catch (error) {
@@ -622,14 +627,14 @@ window.deleteEvent = async function(eventId) {
 // Handle event form submission
 document.getElementById('event-form')?.addEventListener('submit', async (e) => {
   e.preventDefault()
-  
+
   const eventId = document.getElementById('event-id').value
   const title = document.getElementById('event-title').value
   const excerpt = document.getElementById('event-excerpt').value
   const content = document.getElementById('event-content').value
   const imageUrl = document.getElementById('event-image-url').value
   const status = document.getElementById('event-status').value
-  
+
   try {
     const eventData = {
       title,
@@ -638,31 +643,30 @@ document.getElementById('event-form')?.addEventListener('submit', async (e) => {
       image_url: imageUrl || null,
       status,
       updated_at: new Date().toISOString(),
-      event_type: 'official'
     }
-    
+
     if (eventId) {
       // Update existing event
       const { error } = await supabase
         .from('events')
         .update(eventData)
         .eq('id', eventId)
-      
+
       if (error) throw error
       showToast('Event updated successfully!', 'success')
     } else {
       // Create new event
       eventData.author_id = user.id
       eventData.published_at = status === 'published' ? new Date().toISOString() : null
-      
+
       const { error } = await supabase
         .from('events')
         .insert([eventData])
-      
+
       if (error) throw error
       showToast('Event created successfully!', 'success')
     }
-    
+
     closeEventModal()
     loadEvents()
   } catch (error) {
@@ -675,7 +679,7 @@ document.getElementById('event-form')?.addEventListener('submit', async (e) => {
 document.querySelectorAll('.event-filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     currentEventFilter = btn.dataset.status
-    
+
     // Update active button
     document.querySelectorAll('.event-filter-btn').forEach(b => {
       b.classList.remove('bg-primary', 'text-white')
@@ -683,7 +687,24 @@ document.querySelectorAll('.event-filter-btn').forEach(btn => {
     })
     btn.classList.add('bg-primary', 'text-white')
     btn.classList.remove('text-slate-600', 'dark:text-slate-400')
-    
+
+    loadEvents()
+  })
+})
+
+// Event type filter buttons
+document.querySelectorAll('.event-type-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentEventTypeFilter = btn.dataset.type
+
+    // Update active button
+    document.querySelectorAll('.event-type-filter-btn').forEach(b => {
+      b.classList.remove('bg-primary', 'text-white')
+      b.classList.add('text-slate-600', 'dark:text-slate-400')
+    })
+    btn.classList.add('bg-primary', 'text-white')
+    btn.classList.remove('text-slate-600', 'dark:text-slate-400')
+
     loadEvents()
   })
 })
@@ -701,7 +722,7 @@ document.getElementById('cancel-event')?.addEventListener('click', closeEventMod
 document.getElementById('event-image-file')?.addEventListener('change', async (e) => {
   const file = e.target.files[0]
   if (!file) return
-  
+
   try {
     showToast('Uploading image...', 'info')
     const imageUrl = await uploadImage(file, 'wishes-images', 'events', supabase)
@@ -733,7 +754,7 @@ document.getElementById('remove-event-image')?.addEventListener('click', () => {
 })
 
 // View event detail
-window.viewEventDetail = async function(eventId) {
+window.viewEventDetail = async function (eventId) {
   try {
     const { data: event, error } = await supabase
       .from('events')
@@ -743,13 +764,13 @@ window.viewEventDetail = async function(eventId) {
       `)
       .eq('id', eventId)
       .single()
-    
+
     if (error) throw error
-    
+
     // Populate detail modal
     const modal = document.getElementById('event-detail-modal')
     if (!modal) return
-    
+
     document.getElementById('detail-event-title').textContent = event.title
     document.getElementById('detail-event-date').textContent = new Date(event.created_at).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -757,10 +778,10 @@ window.viewEventDetail = async function(eventId) {
       day: 'numeric'
     })
     document.getElementById('detail-event-author').textContent = event.author?.username || 'Admin'
-    
+
     const contentDiv = document.getElementById('detail-event-content')
     contentDiv.innerHTML = event.content
-    
+
     const imageDiv = document.getElementById('detail-event-image')
     if (event.image_url) {
       imageDiv.innerHTML = `<img src="${event.image_url}" alt="${event.title}" class="w-full h-auto rounded-lg">`
@@ -768,7 +789,7 @@ window.viewEventDetail = async function(eventId) {
     } else {
       imageDiv.classList.add('hidden')
     }
-    
+
     modal.classList.remove('hidden')
   } catch (error) {
     console.error('Error loading event detail:', error)
@@ -790,9 +811,9 @@ async function loadSiteSettings() {
     const { data: settings, error } = await supabase
       .from('site_settings')
       .select('*')
-    
+
     if (error) throw error
-    
+
     settings?.forEach(setting => {
       if (setting.setting_key === 'login_welcome_title') {
         document.getElementById('login-title').value = setting.setting_value
@@ -820,7 +841,7 @@ document.getElementById('save-site-settings')?.addEventListener('click', async (
     const loginSlogan = document.getElementById('login-slogan').value
     const aboutContent = document.getElementById('about-content').value
     const aboutPopupEnabled = document.getElementById('about-popup-enabled').checked
-    
+
     const updates = [
       { setting_key: 'login_welcome_title', setting_value: loginTitle },
       { setting_key: 'login_welcome_message', setting_value: loginMessage },
@@ -828,7 +849,7 @@ document.getElementById('save-site-settings')?.addEventListener('click', async (
       { setting_key: 'about_content', setting_value: sanitizeHTML(aboutContent) },
       { setting_key: 'about_popup_enabled', setting_value: aboutPopupEnabled ? 'true' : 'false' }
     ]
-    
+
     for (const update of updates) {
       const { error } = await supabase
         .from('site_settings')
@@ -840,10 +861,10 @@ document.getElementById('save-site-settings')?.addEventListener('click', async (
         }, {
           onConflict: 'setting_key'
         })
-      
+
       if (error) throw error
     }
-    
+
     showToast('Site settings saved successfully!', 'success')
   } catch (error) {
     console.error('Error saving site settings:', error)
@@ -863,22 +884,22 @@ function escapeHtml(text) {
 async function loadFeedback(statusFilter = 'all') {
   try {
     currentFeedbackFilter = statusFilter
-    
+
     let query = supabase
       .from('feedback')
       .select(`
         *,
         user:users!feedback_user_id_fkey(username, email)
       `)
-    
+
     if (statusFilter !== 'all') {
       query = query.eq('status', statusFilter)
     }
-    
+
     const { data: feedbackItems, error } = await query.order('created_at', { ascending: false })
-    
+
     if (error) throw error
-    
+
     renderFeedbackList(feedbackItems || [])
     updateFeedbackCounts(feedbackItems || [])
   } catch (error) {
@@ -891,7 +912,7 @@ async function loadFeedback(statusFilter = 'all') {
 function renderFeedbackList(feedbackItems) {
   const container = document.getElementById('feedback-list')
   if (!container) return
-  
+
   if (feedbackItems.length === 0) {
     container.innerHTML = `
       <div class="text-center py-12">
@@ -901,26 +922,26 @@ function renderFeedbackList(feedbackItems) {
     `
     return
   }
-  
+
   container.innerHTML = feedbackItems.map(item => {
     const date = new Date(item.created_at)
-    const dateStr = date.toLocaleDateString('vi-VN', { 
-      year: 'numeric', 
-      month: 'short', 
+    const dateStr = date.toLocaleDateString('vi-VN', {
+      year: 'numeric',
+      month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
     })
-    
+
     const isUnread = item.status === 'unread'
-    const statusBadge = isUnread 
+    const statusBadge = isUnread
       ? '<span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">Unread</span>'
       : '<span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">Read</span>'
-    
-    const messagePreview = item.message.length > 100 
-      ? item.message.substring(0, 100) + '...' 
+
+    const messagePreview = item.message.length > 100
+      ? item.message.substring(0, 100) + '...'
       : item.message
-    
+
     return `
       <div class="p-4 rounded-lg border ${isUnread ? 'border-yellow-200 dark:border-yellow-900/30 bg-yellow-50/50 dark:bg-yellow-900/10' : 'border-pink-100 dark:border-white/5 bg-white/50 dark:bg-white/5'}">
         <div class="flex items-start justify-between gap-4 mb-3">
@@ -959,21 +980,21 @@ function renderFeedbackList(feedbackItems) {
 }
 
 // Toggle feedback message expand/collapse
-window.toggleFeedbackMessage = function(feedbackId) {
+window.toggleFeedbackMessage = function (feedbackId) {
   const preview = document.querySelector(`.feedback-preview-${feedbackId}`)
   if (!preview) return
-  
+
   const button = preview.nextElementSibling
   if (!button) return
-  
+
   const feedback = document.querySelector(`[data-feedback-id="${feedbackId}"]`)
   const isExpanded = preview.dataset.expanded === 'true'
-  
+
   if (isExpanded) {
     // Collapse
     const fullMessage = preview.dataset.fullMessage
-    const messagePreview = fullMessage.length > 100 
-      ? fullMessage.substring(0, 100) + '...' 
+    const messagePreview = fullMessage.length > 100
+      ? fullMessage.substring(0, 100) + '...'
       : fullMessage
     preview.textContent = messagePreview
     button.textContent = 'Show more'
@@ -983,12 +1004,12 @@ window.toggleFeedbackMessage = function(feedbackId) {
     if (!preview.dataset.fullMessage) {
       preview.dataset.fullMessage = preview.textContent
     }
-    
+
     // Get full message from data
     const container = preview.closest('.p-4')
     const allFeedback = Array.from(document.querySelectorAll('.p-4'))
     const index = allFeedback.indexOf(container)
-    
+
     // Re-fetch to get full message
     supabase
       .from('feedback')
@@ -1007,11 +1028,11 @@ window.toggleFeedbackMessage = function(feedbackId) {
 }
 
 // Mark feedback as read
-window.markFeedbackAsRead = async function(feedbackId) {
+window.markFeedbackAsRead = async function (feedbackId) {
   try {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) throw new Error('Not authenticated')
-    
+
     const { error } = await supabase
       .from('feedback')
       .update({
@@ -1020,9 +1041,9 @@ window.markFeedbackAsRead = async function(feedbackId) {
         read_at: new Date().toISOString()
       })
       .eq('id', feedbackId)
-    
+
     if (error) throw error
-    
+
     showToast('Feedback marked as read', 'success')
     loadFeedback(currentFeedbackFilter)
     updateUnreadCount()
@@ -1047,9 +1068,9 @@ async function updateUnreadCount() {
       .from('feedback')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'unread')
-    
+
     if (error) throw error
-    
+
     const badge = document.getElementById('unread-feedback-count')
     if (badge) {
       if (count > 0) {
@@ -1071,10 +1092,10 @@ document.querySelectorAll('.feedback-filter-btn').forEach(btn => {
       b.classList.remove('active', 'bg-primary/20', 'text-primary')
       b.classList.add('text-slate-600', 'dark:text-slate-400')
     })
-    
+
     btn.classList.add('active', 'bg-primary/20', 'text-primary')
     btn.classList.remove('text-slate-600', 'dark:text-slate-400')
-    
+
     const filter = btn.dataset.filter
     loadFeedback(filter)
   })

@@ -1,6 +1,7 @@
 // Events page initialization
 import { getCurrentUser, isAdmin, supabase } from './supabase-client.js'
 import { handleLogout } from './auth.js'
+import { uploadImage } from './utils.js'
 
 let currentUser = null
 let currentEventId = null
@@ -234,16 +235,35 @@ function setupCreatePostModal() {
     if (!file) return
 
     try {
-      // Create object URL for preview
-      const imageUrl = URL.createObjectURL(file)
+      // Show loading message
+      const submitBtn = document.getElementById('submit-post')
+      const originalText = submitBtn?.textContent || ''
+      if (submitBtn) {
+        submitBtn.disabled = true
+        submitBtn.textContent = 'Đang upload ảnh...'
+      }
+
+      // Upload to Supabase storage
+      const imageUrl = await uploadImage(file, 'wishes-images', 'fan-events', supabase)
       currentPostImage = imageUrl
+      document.getElementById('post-image-url').value = imageUrl
       showPostImagePreview(imageUrl)
 
-      // Clear URL input
-      document.getElementById('post-image-url').value = ''
+      alert('Upload ảnh thành công!')
+
+      if (submitBtn) {
+        submitBtn.disabled = false
+        submitBtn.textContent = originalText
+      }
     } catch (error) {
-      console.error('Error processing image file:', error)
-      alert('Có lỗi khi xử lý tập tin hình ảnh!')
+      console.error('Error uploading image:', error)
+      alert('Upload ảnh thất bại: ' + error.message)
+
+      const submitBtn = document.getElementById('submit-post')
+      if (submitBtn) {
+        submitBtn.disabled = false
+        submitBtn.textContent = 'Đăng bài'
+      }
     }
   })
 
