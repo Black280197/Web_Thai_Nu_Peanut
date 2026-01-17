@@ -128,7 +128,7 @@ async function loadFanEvents() {
                 </span>
               </div>
               <button class="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold text-sm group/btn">
-                <span>Đọc thêm</span>
+                <span>Read more</span>
                 <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
               </button>
             </div>
@@ -437,7 +437,7 @@ async function loadEventComments(eventId) {
     const commentCountEl = document.getElementById('modal-comment-count')
 
     if (commentCountEl) {
-      commentCountEl.textContent = `${comments.length} bình luận`
+      commentCountEl.textContent = `${comments.length} comments`
     }
 
     if (!commentsList) return
@@ -446,7 +446,7 @@ async function loadEventComments(eventId) {
       commentsList.innerHTML = `
         <div class="text-center py-4 text-pink-100/50">
           <span class="material-symbols-outlined text-2xl mb-2 block">chat_bubble_outline</span>
-          <p>Chưa có bình luận nào. Hãy là người đầu tiên!</p>
+          <p>No comments yet. Be the first!</p>
         </div>
       `
       return

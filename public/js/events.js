@@ -119,7 +119,7 @@ async function loadEvents() {
                 </span>
               </div>
               <button onclick="window.viewEvent('${event.id}')" class="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold text-sm group/btn">
-                <span>Đọc thêm</span>
+                <span>Read more</span>
                 <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
               </button>
             </div>
