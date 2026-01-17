@@ -9,7 +9,7 @@ class ApprovedWishesManager {
         this.allWishes = [];
         this.filteredWishes = [];
         this.currentUser = null;
-        
+
         this.init();
     }
 
@@ -17,7 +17,7 @@ class ApprovedWishesManager {
         try {
             // Check authentication
             this.currentUser = await getCurrentUser();
-            
+
             this.setupEventListeners();
             await this.loadWishes();
         } catch (error) {
@@ -52,7 +52,7 @@ class ApprovedWishesManager {
             tab.classList.remove('active');
         });
         document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
-        
+
         this.currentFilter = filter;
         this.currentPage = 1;
     }
@@ -96,14 +96,14 @@ class ApprovedWishesManager {
         } else {
             this.filteredWishes = this.allWishes.filter(wish => wish.type === filter);
         }
-        
+
         this.renderWishes();
     }
 
     async renderWishes() {
         const container = document.getElementById('wishes-container');
         const loadMoreContainer = document.getElementById('load-more-container');
-        
+
         if (this.filteredWishes.length === 0) {
             container.innerHTML = `
                 <div class="no-wishes">
@@ -117,11 +117,11 @@ class ApprovedWishesManager {
         }
 
         const wishesToShow = this.filteredWishes.slice(0, this.currentPage * this.wishesPerPage);
-        
+
         // Create wish cards asynchronously
         const wishCards = await Promise.all(wishesToShow.map(wish => this.createWishCard(wish)));
         container.innerHTML = wishCards.join('');
-        
+
         // Show/hide load more button
         const hasMore = wishesToShow.length < this.filteredWishes.length;
         loadMoreContainer.style.display = hasMore ? 'block' : 'none';
@@ -133,7 +133,7 @@ class ApprovedWishesManager {
     async createWishCard(wish) {
         const user = wish.users || {};
         const avatar = user.avatar_url || this.getDefaultAvatar(user.username);
-        
+
         // Get like count separately
         let likeCount = 0;
         try {
@@ -142,22 +142,22 @@ class ApprovedWishesManager {
                 .select('*')
                 .eq('target_type', 'wish')
                 .eq('target_id', wish.id);
-            
+
             if (!error && likes) {
                 likeCount = likes.length;
             }
         } catch (error) {
             console.error('Error getting like count:', error);
         }
-        
+
         return `
             <div class="wish-card" data-wish-id="${wish.id}">
                 <div class="wish-header">
                     <div class="wish-avatar">
-                        ${avatar.startsWith('http') ? 
-                            `<img src="${avatar}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">` :
-                            avatar
-                        }
+                        ${avatar.startsWith('http') ?
+                `<img src="${avatar}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">` :
+                avatar
+            }
                     </div>
                     <div class="wish-meta">
                         <p class="wish-username">${user.username || 'Anonymous'}</p>
@@ -210,7 +210,7 @@ class ApprovedWishesManager {
 
         try {
             const wishIds = this.filteredWishes.slice(0, this.currentPage * this.wishesPerPage).map(w => w.id);
-            
+
             const { data, error } = await supabase
                 .from('likes')
                 .select('target_id')
@@ -221,7 +221,7 @@ class ApprovedWishesManager {
             if (error) throw error;
 
             const likedWishIds = data.map(like => like.target_id);
-            
+
             likedWishIds.forEach(wishId => {
                 const button = document.querySelector(`[data-wish-id="${wishId}"]`);
                 if (button) {
@@ -237,7 +237,7 @@ class ApprovedWishesManager {
 
     async toggleLike(button) {
         if (!this.currentUser) {
-            alert('Bạn cần đăng nhập để thả tim!');
+            alert('You need to log in to like a wish!');
             return;
         }
 
@@ -307,7 +307,7 @@ class ApprovedWishesManager {
         const colors = ['#FF69B4', '#9370DB', '#00CED1', '#FF6347', '#32CD32']
         const initial = username ? username.charAt(0).toUpperCase() : '?'
         const color = colors[username ? username.charCodeAt(0) % colors.length : 0]
-        
+
         return `
             <div style="
                 width: 100%; 
@@ -348,12 +348,12 @@ class ApprovedWishesManager {
         const now = new Date();
         const date = new Date(dateString);
         const diffInSeconds = Math.floor((now - date) / 1000);
-        
+
         if (diffInSeconds < 60) return 'Vừa xong';
         if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} phút trước`;
         if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} giờ trước`;
         if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} ngày trước`;
-        
+
         return this.formatDate(dateString);
     }
 

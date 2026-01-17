@@ -18,23 +18,23 @@ function initSlideshow() {
     '/assets/img_peanuts/b1dfe44bb3cbcf0921e6236a53ef6446.jpg',
     '/assets/img_peanuts/caf563a1020e1716156c4585e90d4b42.jpg'
   ]
-  
+
   const container = document.getElementById('slideshow-container')
   if (!container) return
-  
+
   let currentIndex = 0
-  
+
   // Create img element
   const img = document.createElement('img')
   img.src = images[0]
   img.alt = 'Peanut'
   img.className = 'w-full h-full object-cover transition-opacity duration-1000'
   container.appendChild(img)
-  
+
   // Rotate images every 5 seconds
   setInterval(() => {
     img.style.opacity = '0'
-    
+
     setTimeout(() => {
       currentIndex = (currentIndex + 1) % images.length
       img.src = images[currentIndex]
@@ -55,14 +55,14 @@ async function loadCountdownSettings() {
       .eq('event_type', 'return_date')
       .eq('is_active', true)
       .single()
-    
+
     if (error) {
       console.error('Error loading countdown settings:', error)
       // Fallback to birthday date (January 4th)
       TARGET_DATE = new Date(new Date().getFullYear(), 0, 4)
       return
     }
-    
+
     if (data && data.target_date) {
       TARGET_DATE = new Date(data.target_date)
     } else {
@@ -79,34 +79,34 @@ async function loadCountdownSettings() {
 // Calculate countdown to target date
 function calculateBirthdayCountdown() {
   if (!TARGET_DATE) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
-  
+
   const now = new Date().getTime()
   const target = TARGET_DATE.getTime()
-  
+
   const distance = target - now
-  
+
   // If countdown has passed
   if (distance < 0) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 }
   }
-  
+
   const days = Math.floor(distance / (1000 * 60 * 60 * 24))
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
   const seconds = Math.floor((distance % (1000 * 60)) / 1000)
-  
+
   return { days, hours, minutes, seconds }
 }
 
 // Update countdown display
 function updateCountdownDisplay() {
   const countdown = calculateBirthdayCountdown()
-  
+
   const daysEl = document.getElementById('birthday-days')
   const hoursEl = document.getElementById('birthday-hours')
   const minutesEl = document.getElementById('birthday-minutes')
   const secondsEl = document.getElementById('birthday-seconds')
-  
+
   if (daysEl) daysEl.textContent = String(countdown.days).padStart(2, '0')
   if (hoursEl) hoursEl.textContent = String(countdown.hours).padStart(2, '0')
   if (minutesEl) minutesEl.textContent = String(countdown.minutes).padStart(2, '0')
@@ -120,26 +120,26 @@ async function loadWishesStats() {
     .select('*', { count: 'exact', head: true })
     .eq('type', 'debut')
     .eq('status', 'approved')
-  
+
   if (error) {
     console.error('Error loading wishes count:', error)
     return { total: 0, percentage: 0 }
   }
-  
+
   const TARGET = 200
   const percentage = Math.round((count / TARGET) * 100)
-  
+
   return { total: count || 0, percentage, target: TARGET }
 }
 
 // Update progress bar
 async function updateProgressBar() {
   const stats = await loadWishesStats()
-  
+
   const totalEl = document.getElementById('wishes-total')
   const percentageEl = document.getElementById('wishes-percentage')
   const progressBar = document.getElementById('progress-bar')
-  
+
   if (totalEl) totalEl.textContent = stats.total
   if (percentageEl) percentageEl.textContent = `${stats.percentage}%`
   if (progressBar) progressBar.style.width = `${stats.percentage}%`
@@ -154,25 +154,25 @@ async function loadRecentWishes() {
     .eq('status', 'approved')
     .order('created_at', { ascending: false })
     .limit(5)
-  
+
   if (error) {
     console.error('Error loading wishes:', error)
     return
   }
-  
+
   const container = document.getElementById('recent-wishes')
   if (!container) return
-  
+
   if (!data || data.length === 0) {
     container.innerHTML = '<p class="text-slate-400 text-xs text-center py-4">Chưa có lời chúc nào</p>'
     return
   }
-  
+
   container.innerHTML = data.map(wish => {
     const initial = wish.users.username.charAt(0).toUpperCase()
     const colors = ['from-blue-400 to-pink-500', 'from-orange-400 to-red-500', 'from-green-400 to-teal-500', 'from-purple-400 to-pink-500']
     const color = colors[Math.floor(Math.random() * colors.length)]
-    
+
     return `
       <div class="flex items-center gap-3 bg-surface-dark/60 p-2 rounded-xl border border-white/5">
         <div class="size-8 rounded-full bg-gradient-to-br ${color} flex items-center justify-center text-xs font-bold text-white">${initial}</div>
@@ -195,7 +195,7 @@ if (contentInput && charCount) {
   contentInput.addEventListener('input', () => {
     const length = contentInput.value.length
     charCount.textContent = `${length}/2500 charactors`
-    
+
     if (length > 500) {
       charCount.classList.add('text-red-500')
     } else {
@@ -208,55 +208,55 @@ if (contentInput && charCount) {
 if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    
+
     const nickname = nicknameInput.value.trim()
     const content = contentInput.value.trim()
     const anniversaryYear = document.getElementById('anniversary-year').value
     const stickerInputs = document.querySelectorAll('input[name="sticker"]')
     let sticker = '🎉'
-    
+
     stickerInputs.forEach(input => {
       if (input.checked) {
         sticker = input.closest('label').querySelector('span').textContent
       }
     })
-    
+
     // Validation
     if (!nickname || !content || !anniversaryYear) {
       alert('Vui lòng nhập đầy đủ thông tin và chọn năm kỷ niệm')
       return
     }
-    
+
     if (content.length > 2500) {
       alert('Lời chúc không được vượt quá 2500 charactors')
       return
     }
-    
+
     // Validate image size if uploaded
     const imageFile = imageUpload?.files?.[0]
     if (imageFile && imageFile.size > 5 * 1024 * 1024) {
       alert('Ảnh không được vượt quá 5MB')
       return
     }
-    
+
     // Disable button
     submitButton.disabled = true
     submitButton.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Đang gửi...'
-    
+
     try {
       let imageUrl = null
-      
+
       // Upload image if provided
       if (imageFile) {
         try {
           const fileExt = imageFile.name.split('.').pop()
           const fileName = `${user.id}-${Date.now()}.${fileExt}`
           const filePath = `debut-wishes/${fileName}`
-          
+
           const { error: uploadError } = await supabase.storage
             .from('wishes-images')
             .upload(filePath, imageFile)
-          
+
           if (uploadError) {
             console.warn('Image upload failed:', uploadError)
             // Continue without image if bucket doesn't exist
@@ -270,7 +270,7 @@ if (form) {
             const { data: { publicUrl } } = supabase.storage
               .from('wishes-images')
               .getPublicUrl(filePath)
-            
+
             imageUrl = publicUrl
           }
         } catch (imgError) {
@@ -278,7 +278,7 @@ if (form) {
           // Continue without image
         }
       }
-      
+
       // Insert debut wish
       const { error } = await supabase
         .from('wishes')
@@ -291,19 +291,19 @@ if (form) {
           anniversary_year: anniversaryYear,
           status: 'pending'
         }])
-      
+
       if (error) throw error
-      
+
       // Success
       alert('Sended Successfully! Your debut anniversary message is pending approval.')
-      
+
       // Reset form
       form.reset()
       charCount.textContent = '0/2500 charactors'
-      
+
       // Reload stats
       await updateProgressBar()
-      
+
     } catch (error) {
       console.error('Error submitting debut wish:', error)
       alert('Có lỗi xảy ra. Vui lòng thử lại.')
@@ -326,13 +326,13 @@ async function init() {
   updateCountdownDisplay()
   updateProgressBar()
   loadRecentWishes()
-  
+
   // Handle user authentication state
   const currentUser = await getCurrentUser()
   const loginButton = document.getElementById('login-button')
   const userSection = document.getElementById('user-section')
   const logoutButton = document.getElementById('logout-button')
-  
+
   if (currentUser) {
     // Show user section
     userSection?.classList.remove('hidden')
@@ -342,27 +342,27 @@ async function init() {
     // Show login button
     loginButton?.classList.remove('hidden')
   }
-  
+
   // Handle login button
   loginButton?.addEventListener('click', () => {
     window.location.href = '/login.html'
   })
-  
+
   // Handle logout
   logoutButton?.addEventListener('click', async () => {
     await handleLogout()
     window.location.href = '/'
   })
-  
+
   // Update countdown every second
   setInterval(updateCountdownDisplay, 1000)
-  
+
   // Refresh wishes every 30 seconds
   setInterval(() => {
     updateProgressBar()
     loadRecentWishes()
   }, 30000)
-  
+
   // Load approved wishes preview
   loadWishesPreview()
 }
@@ -426,14 +426,14 @@ async function loadWishesPreview() {
         .eq('user_id', user.id)
         .eq('target_type', 'wish')
         .in('target_id', wishIds)
-      
+
       if (userLikesData) {
         userLikesData.forEach(like => userLikes.add(like.target_id))
       }
     }
 
     container.innerHTML = data.map(wish => createWishPreviewCard(wish, likeCounts[wish.id] || 0, userLikes.has(wish.id))).join('')
-    
+
     // Setup like button event listeners
     setupWishLikeButtons()
 
@@ -458,15 +458,15 @@ async function loadWishesPreview() {
 function createWishPreviewCard(wish, likeCount, isLiked) {
   const user = wish.users || {}
   const avatar = user.avatar_url || getDefaultAvatar(user.username)
-  
+
   return `
     <div class="wish-card">
       <div class="wish-header">
         <div class="wish-avatar">
-          ${avatar.startsWith('http') ? 
-            `<img src="${avatar}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">` :
-            avatar
-          }
+          ${avatar.startsWith('http') ?
+      `<img src="${avatar}" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">` :
+      avatar
+    }
         </div>
         <div class="flex-grow">
           <p class="text-white font-medium text-sm">${user.username || 'Anonymous'}</p>
@@ -511,7 +511,7 @@ function setupWishLikeButtons() {
 // Toggle like for wish
 async function toggleWishLike(button) {
   if (!user) {
-    alert('Bạn cần đăng nhập để thả tim!')
+    alert('You need to log in to like a wish!')
     return
   }
 
@@ -589,12 +589,12 @@ function getTimeAgo(dateString) {
   const now = new Date()
   const date = new Date(dateString)
   const diffInSeconds = Math.floor((now - date) / 1000)
-  
+
   if (diffInSeconds < 60) return 'Vừa xong'
   if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} phút trước`
   if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} giờ trước`
   if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} ngày trước`
-  
+
   return new Date(dateString).toLocaleDateString('vi-VN')
 }
 

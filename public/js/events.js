@@ -21,22 +21,22 @@ async function getEventCounts(eventIds) {
         .eq('status', 'active')
         .in('target_id', eventIds)
     ])
-    
+
     const likeCounts = {}
     const commentCounts = {}
-    
+
     if (likesResponse.data) {
       likesResponse.data.forEach(like => {
         likeCounts[like.target_id] = (likeCounts[like.target_id] || 0) + 1
       })
     }
-    
+
     if (commentsResponse.data) {
       commentsResponse.data.forEach(comment => {
         commentCounts[comment.target_id] = (commentCounts[comment.target_id] || 0) + 1
       })
     }
-    
+
     return { likeCounts, commentCounts }
   } catch (error) {
     console.error('Error loading counts:', error)
@@ -243,29 +243,29 @@ async function loadEventLikes(eventId) {
       .select('*')
       .eq('target_type', 'event')
       .eq('target_id', eventId)
-    
+
     if (error) throw error
-    
+
     const likeCount = likes ? likes.length : 0
     const userLiked = currentUser ? likes.some(like => like.user_id === currentUser.id) : false
-    
+
     // Update UI
     const likeBtn = document.getElementById('modal-like-btn')
     const likeCountEl = document.getElementById('modal-like-count')
-    
+
     if (likeBtn && likeCountEl) {
       likeBtn.dataset.eventId = eventId
       likeBtn.dataset.liked = userLiked.toString()
-      
+
       const heartIcon = likeBtn.querySelector('.material-symbols-outlined')
       if (heartIcon) {
         heartIcon.textContent = userLiked ? 'favorite' : 'favorite_border'
       }
-      
+
       likeBtn.classList.toggle('liked', userLiked)
       likeCountEl.textContent = likeCount.toString()
     }
-    
+
   } catch (error) {
     console.error('Error loading likes:', error)
   }
@@ -333,7 +333,7 @@ async function loadEventComments(eventId) {
       const username = comment.user?.username || comment.user?.email || 'Anonymous'
       const likeCount = commentLikeCounts[comment.id] || 0
       const isLiked = userCommentLikes.has(comment.id)
-      
+
       return `
         <div class="comment-item" data-comment-id="${comment.id}">
           <div class="flex gap-3">
@@ -375,41 +375,41 @@ async function deleteComment(commentId) {
     alert('Bạn không có quyền xóa bình luận này!')
     return
   }
-  
+
   if (!confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
     return
   }
-  
+
   try {
     const { error } = await supabase
       .from('comments')
       .update({ status: 'deleted' })
       .eq('id', commentId)
-    
+
     if (error) throw error
-    
+
     // Remove comment from DOM
     const commentElement = document.querySelector(`[data-comment-id="${commentId}"]`)
     if (commentElement) {
       commentElement.remove()
     }
-    
+
     // Reload comments to update count
     await loadEventComments(currentEventId)
-    
+
   } catch (error) {
     console.error('Error deleting comment:', error)
-    alert('Có lỗi xảy ra khi xóa bình luận. Vui lòng thử lại!')
+    alert('An error occurred while deleting the comment. Please try again!')
   }
 }
 
 // Toggle comment like
 async function toggleCommentLike(commentId) {
   if (!currentUser) {
-    alert('Bạn cần đăng nhập để thích bình luận!')
+    alert('You need to log in to like a comment!')
     return
   }
-  
+
   try {
     // Check if already liked
     const { data: existingLike } = await supabase
@@ -448,13 +448,13 @@ async function toggleCommentLike(commentId) {
 // Toggle event like
 async function toggleEventLike() {
   if (!currentUser) {
-    alert('Bạn cần đăng nhập để thích bài viết!')
+    alert('You need to log in to like the event!')
     return
   }
 
   const likeBtn = document.getElementById('modal-like-btn')
   if (!likeBtn) return
-  
+
   const eventId = likeBtn.dataset.eventId
   const isLiked = likeBtn.dataset.liked === 'true'
 
@@ -482,7 +482,7 @@ async function toggleEventLike() {
 
     // Reload likes to update count
     await loadEventLikes(eventId)
-    
+
     // Add heart animation
     const heartIcon = likeBtn.querySelector('.material-symbols-outlined')
     if (heartIcon && !isLiked) {
@@ -502,15 +502,15 @@ async function toggleEventLike() {
 // Submit comment
 async function submitComment() {
   if (!currentUser) {
-    alert('Bạn cần đăng nhập để bình luận!')
+    alert('You need to log in to comment!')
     return
   }
 
   const input = document.getElementById('comment-input')
   const submitBtn = document.getElementById('comment-submit')
-  
+
   if (!input || !submitBtn) return
-  
+
   const content = input.value.trim()
 
   if (!content) {
@@ -547,25 +547,25 @@ function setupModal() {
   const closeBtn = document.getElementById('close-modal')
   const likeBtn = document.getElementById('modal-like-btn')
   const submitBtn = document.getElementById('comment-submit')
-  
+
   // Close modal
   closeBtn?.addEventListener('click', () => {
     modal?.classList.add('hidden')
   })
-  
+
   // Click outside to close
   modal?.addEventListener('click', (e) => {
     if (e.target === modal) {
       modal?.classList.add('hidden')
     }
   })
-  
+
   // Like button
   likeBtn?.addEventListener('click', toggleEventLike)
-  
+
   // Submit comment
   submitBtn?.addEventListener('click', submitComment)
-  
+
   // Enter key to submit comment
   const commentInput = document.getElementById('comment-input')
   commentInput?.addEventListener('keydown', (e) => {
@@ -574,7 +574,7 @@ function setupModal() {
       submitComment()
     }
   })
-  
+
   // Setup comment like handlers (delegated event handling)
   const commentsContainer = document.getElementById('comments-list')
   commentsContainer?.addEventListener('click', (e) => {
@@ -590,7 +590,7 @@ function getDefaultAvatar(username) {
   const colors = ['#FF69B4', '#9370DB', '#00CED1', '#FF6347', '#32CD32']
   const initial = username ? username.charAt(0).toUpperCase() : '?'
   const color = colors[username ? username.charCodeAt(0) % colors.length : 0]
-  
+
   return `
     <div style="
       width: 100%; 
@@ -611,20 +611,20 @@ function getTimeAgo(dateString) {
   const now = new Date()
   const date = new Date(dateString)
   const diffInSeconds = Math.floor((now - date) / 1000)
-  
+
   if (diffInSeconds < 60) return `${diffInSeconds} giây trước`
   if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} phút trước`
   if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} giờ trước`
   if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} ngày trước`
-  
+
   return new Date(dateString).toLocaleDateString('vi-VN')
 }
 
 // Open image fullscreen
-window.openImageFullscreen = function(imageSrc) {
+window.openImageFullscreen = function (imageSrc) {
   const modal = document.getElementById('image-fullscreen-modal')
   const img = document.getElementById('fullscreen-img')
-  
+
   if (modal && img) {
     img.src = imageSrc
     modal.classList.remove('hidden')
@@ -632,7 +632,7 @@ window.openImageFullscreen = function(imageSrc) {
 }
 
 // Close image fullscreen
-window.closeImageFullscreen = function() {
+window.closeImageFullscreen = function () {
   const modal = document.getElementById('image-fullscreen-modal')
   if (modal) {
     modal.classList.add('hidden')
@@ -642,13 +642,13 @@ window.closeImageFullscreen = function() {
 // Initialize page
 async function init() {
   currentUser = await getCurrentUser()
-  
+
   const loginButton = document.getElementById('login-button')
   const userSection = document.getElementById('user-section')
   const logoutButton = document.getElementById('logout-button')
   const adminNavLink = document.getElementById('admin-nav-link')
   const adminNavLinkMobile = document.getElementById('admin-nav-link-mobile')
-  
+
   if (currentUser) {
     // Show user section
     userSection?.classList.remove('hidden')

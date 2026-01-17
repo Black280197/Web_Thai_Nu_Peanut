@@ -105,9 +105,9 @@ function setupLoginForm() {
         }
 
         // Show success message
-        showToast('Đăng nhập thành công! Đang chuyển hướng...', 'success')
+        showToast('Login successful! Redirecting...', 'success')
 
-        // Redirect sau 1 giây
+        // Redirect after 1 second
         setTimeout(() => {
           window.location.href = '/template/Countdown.html'
         }, 1000)
@@ -138,11 +138,11 @@ function setupLoginForm() {
 // Xử lý OAuth login
 function setupOAuthButtons() {
   const oauthButtons = document.querySelectorAll('.size-12.rounded-full')
-  
+
   oauthButtons.forEach((button, index) => {
     button.addEventListener('click', async (e) => {
       e.preventDefault()
-      
+
       let provider
       if (index === 0) provider = 'google'
       else if (index === 1) provider = 'twitter'
@@ -151,7 +151,7 @@ function setupOAuthButtons() {
       if (provider) {
         showToast(`Đang kết nối với ${provider}...`, 'info')
         const { error } = await authService.signInWithOAuth(provider)
-        
+
         if (error) {
           showToast(`Lỗi kết nối: ${error}`, 'error')
         }
@@ -166,19 +166,19 @@ function setupCountdownTimer() {
     // Target date: khoảng 180 ngày từ bây giờ (có thể thay đổi)
     const targetDate = new Date()
     targetDate.setDate(targetDate.getDate() + 180)
-    
+
     const now = new Date()
     const diff = targetDate - now
-    
+
     if (diff <= 0) {
       return
     }
-    
+
     const days = Math.floor(diff / (1000 * 60 * 60 * 24))
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
     const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-    
+
     // Update DOM
     const timeElements = document.querySelectorAll('.h-12.flex.items-center.justify-center span')
     if (timeElements.length >= 4) {
@@ -188,7 +188,7 @@ function setupCountdownTimer() {
       timeElements[3].textContent = seconds
     }
   }
-  
+
   // Update immediately and then every second
   updateCountdown()
   setInterval(updateCountdown, 1000)
@@ -197,7 +197,7 @@ function setupCountdownTimer() {
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('🚀 Login page initialized')
-  
+
   await checkAuthStatus()
   setupPasswordToggle()
   setupLoginForm()
