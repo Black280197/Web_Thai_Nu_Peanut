@@ -382,7 +382,7 @@ async function loadWishesPreview() {
         users!wishes_user_id_fkey(username, avatar_url)
       `)
       .eq('type', 'debut')
-      .eq('status', 'published')
+      .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .limit(3)
 
