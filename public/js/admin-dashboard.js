@@ -657,6 +657,7 @@ document.getElementById('event-form')?.addEventListener('submit', async (e) => {
     } else {
       // Create new event
       eventData.author_id = user.id
+      eventData.event_type = 'official'
       eventData.published_at = status === 'published' ? new Date().toISOString() : null
 
       const { error } = await supabase
