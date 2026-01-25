@@ -1,5 +1,8 @@
 // Supabase Client Configuration
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+// import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+import {supabase_custom} from "./supabase-custom.js"
+console.log(supabase_custom)
+const { createClient } = supabase_custom;
 
 const supabaseUrl = 'https://ueoidpcbanfojffhiani.supabase.co'
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlb2lkcGNiYW5mb2pmZmhpYW5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY5Mjc4MjAsImV4cCI6MjA4MjUwMzgyMH0.SPtuyxDnIaIyeEYu0LK_TDORnW7nSG4_LSgFMGFPiYY'
