@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Landing - Wangho's Flower Garden</title>
+    <link data-default-icon="/assets/img/peanut.png" rel="icon" sizes="192x192" href="/assets/img/peanut.png">
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#fb5da5",
+                        "primary-dark": "#e64a93",
+                        "primary-hover": "#f048a0",
+                        gold: "#fbbf24"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .shimmer-text {
+            background: linear-gradient(to right, #ffffff 20%, #fbcfe8 40%, #fbcfe8 60%, #ffffff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.open {
+            max-height: fit-content;
+        }
+
+        /* Landing page responsive backgrounds */
+        .landing-bg {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url('/assets/img/desktop.png');
+        }
+
+        @media (max-width: 768px) {
+            .landing-bg {
+                background-image: url('/assets/img/phone.png');
+            }
+        }
+
+        /* Bubble animations */
+        .bubble {
+            position: absolute;
+            background-image: url('/assets/img/soapbubbles.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            animation: float-up linear infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #2d1b69;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .bubble:hover {
+            transform: scale(1.1);
+            z-index: 100;
+        }
+
+        .bubble-content {
+            max-width: 80%;
+            padding: 10px;
+            font-size: 0.7em;
+            line-height: 1.2;
+            word-wrap: break-word;
+            text-overflow: ellipsis;
+        }
+
+        @keyframes float-up {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Different bubble sizes */
+        .bubble-small {
+            width: 60px;
+            height: 60px;
+            animation-duration: 15s;
+        }
+
+        .bubble-medium {
+            width: 80px;
+            height: 80px;
+            animation-duration: 18s;
+        }
+
+        .bubble-large {
+            width: 100px;
+            height: 100px;
+            animation-duration: 22s;
+        }
+
+        .bubble-xlarge {
+            width: 120px;
+            height: 120px;
+            animation-duration: 25s;
+        }
+
+        /* Custom cursors */
+        body,
+        html,
+        .cursorsDefault,
+        input[type="range"]::-webkit-slider-thumb,
+        input[type="range"]::-webkit-slider-runnable-track {
+            cursor: url("/assets/img/Key2.png") 16 4, default !important;
+        }
+
+        a,
+        button,
+        .cursorsHover,
+        [cursorshover] {
+            cursor: url("/assets/img/Key2.png") 16 8, auto !important;
+        }
+
+        /* Bubble tooltip */
+        .bubble-tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            max-width: 200px;
+            white-space: normal;
+        }
+
+        .bubble:hover .bubble-tooltip {
+            opacity: 1;
+        }
+
+        /* Glass effect for header */
+        header {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body class="text-slate-900 dark:text-white font-display min-h-screen flex flex-col relative overflow-hidden">
+    <!-- Landing page background -->
+    <div class="fixed inset-0 landing-bg"></div>
+
+    <!-- Banner with text.png -->
+    <div class="w-full bg-gradient-to-b from-black/50 to-transparent top-0 left-0 z-50 backdrop-blur-sm hidden"
+        style="max-height: 8.5rem;">
+        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
+            style="height: auto; max-height: 8.5rem; width: auto;">
+    </div>
+
+    <!-- Navbar below banner -->
+    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0 hidden"
+        style="margin-top: 0rem;">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;">
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn"
+                    class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+                <nav class="hidden md:flex items-center gap-8 mx-auto">
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/">Home</a>
+                    <a class="text-sm font-bold text-primary" href="/landing-page.html">Landing</a>
+                    <span class="text-sm font-medium text-pink-100/80 transition-colors">Birthday Message</span>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/debut-message.html">Debut Message</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/events.html">Eleven Out Of Ten</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/fan-events.html">Events</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors hidden"
+                        href="#">About</a>
+                    <a id="admin-nav-link"
+                        class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1"
+                        href="/admin-dashboard.html">
+                        <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                        <span>Admin</span>
+                    </a>
+                </nav>
+                <div class="flex items-center gap-4 ml-auto" style="position: absolute; right: 1rem;">
+                    <!-- Guest mode: Login button -->
+                    <button id="login-button"
+                        class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                        Login
+                    </button>
+
+                    <!-- Logged in user section -->
+                    <div id="user-section" class="flex items-center gap-4">
+                        <div class="hidden sm:block text-right">
+                            <p class="text-sm font-semibold text-white" id="username">Loading...</p>
+                        </div>
+                        <button id="logout-button" class="text-xs text-pink-200/60 hover:text-white transition-colors">
+                            Logout
+                        </button>
+                        <div id="avatar" hidden=""
+                            class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg">
+                                U</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu dropdown -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-black/50 backdrop-blur-md border-t border-pink-900/20">
+            <nav class="flex flex-col py-4 px-4 gap-2">
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/">Home</a>
+                <a class="text-sm font-bold text-primary py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/landing-page.html">Landing</a>
+                <span class="text-sm font-medium text-pink-100/80 transition-colors py-2 px-4 rounded-lg">Birthday Message</span>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/debut-message.html">Debut Message</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/events.html">Eleven Out Of Ten</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/fan-events.html">Events</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5 hidden"
+                    href="#">About</a>
+                <a id="admin-nav-link-mobile"
+                    class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1 py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/admin-dashboard.html">
+                    <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                    <span>Admin</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main content area for bubbles -->
+    <main class="flex-grow relative z-10" id="bubble-container">
+        <!-- Bubbles will be generated here by JavaScript -->
+    </main>
+
+    <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-2 md:py-1 relative z-20 hidden">
+        <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center"
+            style="font-size: 12px;">
+            <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                <div class="flex items-center gap-2">
+                    <img src="/assets/img/peanut.png" alt="Peanut" class="w-6 h-6">
+                    <span class="text-pink-200/80">Wangho's Flower Garden</span>
+                </div>
+                <div class="hidden md:block w-px h-4 bg-pink-900/30"></div>
+                <span class="text-pink-200/60">Vietnamese Fan Community</span>
+            </div>
+            <div class="flex items-center gap-4 text-pink-200/60">
+                <div class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">favorite</span>
+                    <span>Made with Love</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <span class="material-symbols-outlined text-sm">groups</span>
+                    <span>For Peanut</span>
+                </div>
+            </div>
+        </div>
+        <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans</p>
+    </footer>
+
+    <!-- Stats display -->
+    <div class="fixed bottom-4 left-4 z-30 bg-black/70 backdrop-blur-md rounded-lg px-4 py-2 text-white text-sm">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-lg">chat_bubble</span>
+            <span>Wishes: <span id="wishes-count">0</span></span>
+        </div>
+    </div>
+
+    <script type="module" src="/js/landing-page.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+        }
+    </script>
+</body>
+
+</html>
