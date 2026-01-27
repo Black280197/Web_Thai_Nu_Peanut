@@ -1,10 +1,41 @@
 // Events page initialization
-import { getCurrentUser, isAdmin, supabase } from './supabase-client.js'
+import { getCurrentUser, isAdmin, supabase, requireAuth } from './supabase-client.js'
 import { handleLogout } from './auth.js'
 import { uploadImage } from './utils.js'
 
 let currentUser = null
 let currentEventId = null
+const user = await requireAuth()
+
+// Load user profile
+async function loadUserProfile() {
+  if (!user) return
+
+  const { data, error } = await supabase
+    .from('users')
+    .select('username, avatar_url')
+    .eq('id', user.id)
+    .single()
+
+  if (data) {
+    const usernameElement = document.getElementById('username')
+    if (usernameElement) {
+      usernameElement.textContent = data.username || 'Fan Member'
+    }
+
+    const avatarElement = document.getElementById('avatar')
+    if (avatarElement) {
+      if (data.avatar_url && data.avatar_url.trim() !== '') {
+        avatarElement.style.backgroundImage = `url('${data.avatar_url}')`
+      } else {
+        // Show default avatar with first letter of username
+        const initial = (data.username || 'U')[0].toUpperCase()
+        avatarElement.style.backgroundImage = 'none'
+        avatarElement.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg">${initial}</div>`
+      }
+    }
+  }
+}
 
 // Load like and comment counts for events
 async function getEventCounts(eventIds) {
@@ -860,3 +891,4 @@ window.toggleCommentLike = toggleCommentLike
 window.deleteComment = deleteComment
 
 init()
+loadUserProfile()

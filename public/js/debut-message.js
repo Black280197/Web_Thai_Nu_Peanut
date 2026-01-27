@@ -113,6 +113,36 @@ function updateCountdownDisplay() {
   if (secondsEl) secondsEl.textContent = String(countdown.seconds).padStart(2, '0')
 }
 
+// Load user profile
+async function loadUserProfile() {
+  if (!user) return
+
+  const { data, error } = await supabase
+    .from('users')
+    .select('username, avatar_url')
+    .eq('id', user.id)
+    .single()
+
+  if (data) {
+    const usernameElement = document.getElementById('username')
+    if (usernameElement) {
+      usernameElement.textContent = data.username || 'Fan Member'
+    }
+
+    const avatarElement = document.getElementById('avatar')
+    if (avatarElement) {
+      if (data.avatar_url && data.avatar_url.trim() !== '') {
+        avatarElement.style.backgroundImage = `url('${data.avatar_url}')`
+      } else {
+        // Show default avatar with first letter of username
+        const initial = (data.username || 'U')[0].toUpperCase()
+        avatarElement.style.backgroundImage = 'none'
+        avatarElement.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg">${initial}</div>`
+      }
+    }
+  }
+}
+
 // Load wishes statistics
 async function loadWishesStats() {
   const { count, error } = await supabase
@@ -603,3 +633,4 @@ window.loadWishesPreview = loadWishesPreview
 
 // Start initialization
 init()
+loadUserProfile()
