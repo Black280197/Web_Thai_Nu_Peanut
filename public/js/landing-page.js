@@ -182,30 +182,31 @@ function showWishModal(wish, username) {
         modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden'
         modal.innerHTML = `
             <div class="frame-popup-container max-w-2xl w-full" style="min-height: 48rem;">
+                <div class="max-h-[70vh] p-8 relative w-full z-[1]" style="padding: 16rem 3rem 3rem; max-height: 70vh;width: 37.7rem;position: absolute; z-index: 11;top: -2rem; right: 2rem;">
+                            <!-- Close button -->
+                            <button id="close-wish-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm" style="display: none;">
+                                <span class="material-symbols-outlined text-white text-2xl">close</span>
+                            </button>
+                            <!-- Content -->
+                            <div id="wish-content-display" class="max-w-none overflow-y-auto text-white thin-scroll" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);max-height: 23rem;padding-bottom: 6rem;overflow-y: auto;scrollbar-width: none;" bis_skin_checked="1">
+                                <div class="flex items-center justify-center gap-2 mb-4">
+                                    <span id="modal-sticker" class="text-5xl"></span>
+                                </div>
+                                <div class="text-center mb-4">
+                                    <div class="text-red-500 text-sm font-semibold mb-2">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
+                                </div>
+                                <div id="modal-image-container" class="mb-4 hidden">
+                                    <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
+                                </div>
+                                <div class="text-center" style="text-align: justify;">
+                                    <div id="modal-content" class="text-black leading-relaxed text-lg" style="white-space: pre-wrap;"></div>
+                                </div>
+                            </div>
+                        </div>
                 <!-- Frame overlay -->
                 <div class="frame-overlay" style="display: flex;justify-content: center;">
                     <!-- Modal content -->
-                    <div class="max-h-[70vh] p-8 relative w-full z-[1]" style="padding: 16rem 3rem 3rem; max-height: 70vh;width: 37.7rem;">
-                        <!-- Close button -->
-                        <button id="close-wish-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm" style="display: none;">
-                            <span class="material-symbols-outlined text-white text-2xl">close</span>
-                        </button>
-                        <!-- Content -->
-                        <div id="wish-content-display" class="max-w-none overflow-y-auto text-white thin-scroll" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5); max-height: 30rem; padding-bottom: 6rem;">
-                            <div class="flex items-center justify-center gap-2 mb-4">
-                                <span id="modal-sticker" class="text-5xl"></span>
-                            </div>
-                            <div class="text-center mb-4">
-                                <div class="text-red-500 text-sm font-semibold mb-2">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
-                            </div>
-                            <div id="modal-image-container" class="mb-4 hidden">
-                                <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
-                            </div>
-                            <div class="text-center" style="text-align: justify;">
-                                <div id="modal-content" class="text-black leading-relaxed text-lg" style="white-space: pre-wrap;"></div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         `
