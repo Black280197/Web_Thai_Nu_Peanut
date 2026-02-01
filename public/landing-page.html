@@ -197,6 +197,42 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
+
+        /* Frame popup container for Wish Modal */
+        .frame-popup-container {
+            position: relative;
+        }
+
+        /* Frame overlay */
+        .frame-overlay {
+            position: absolute;
+            inset: -2rem;
+            background-image: url('/assets/img/khung-chuc.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .frame-overlay {
+                inset: -1rem;
+            }
+
+            #wish-modal .frame-popup-container {
+                max-height: 80vh;
+            }
+
+            #wish-modal .frame-popup-container>div:nth-child(2) {
+                padding: 8rem 2rem 2rem !important;
+                max-height: 75vh !important;
+            }
+
+            #wish-content-display {
+                max-height: 50vh !important;
+            }
+        }
     </style>
 </head>
 
@@ -325,7 +361,7 @@
     </footer>
 
     <!-- Stats display -->
-    <div class="fixed bottom-4 left-4 z-30 bg-black/70 backdrop-blur-md rounded-lg px-4 py-2 text-white text-sm">
+    <div class="fixed bottom-4 left-4 z-30 bg-black/70 backdrop-blur-md rounded-lg px-4 py-2 text-white text-sm hidden">
         <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-primary text-lg">chat_bubble</span>
             <span>Wishes: <span id="wishes-count">0</span></span>

@@ -123,24 +123,23 @@ function createBubble() {
     bubble.style.left = `${leftPosition}px`
     bubble.style.animationDelay = `${delay}ms`
     
-    // Bubble content
-    const username = randomWish.users?.username || 'Anonymous'
-    const content = truncateText(randomWish.content, 50)
-    
-    bubble.innerHTML = `
-        <div class="bubble-content">
-            <div style="font-size: 0.6em; font-weight: bold; margin-bottom: 2px;">${username}</div>
-            <div style="font-size: 0.5em; opacity: 0.8;">${content}</div>
-        </div>
-        <div class="bubble-tooltip">
-            <strong>${username}</strong><br>
-            ${randomWish.content}
-        </div>
-    `
+    // Store wish data in bubble element
+    bubble.dataset.wishId = randomWish.id
+    bubble.dataset.username = randomWish.users?.username || 'Anonymous'
+    bubble.dataset.content = randomWish.content
+    bubble.dataset.imageUrl = randomWish.image_url || ''
+    bubble.dataset.sticker = randomWish.sticker || '🎉'
     
     // Add click handler
     bubble.addEventListener('click', () => {
-        showWishModal(randomWish, username)
+        const wishData = {
+            id: bubble.dataset.wishId,
+            content: bubble.dataset.content,
+            image_url: bubble.dataset.imageUrl,
+            sticker: bubble.dataset.sticker,
+            users: { username: bubble.dataset.username }
+        }
+        showWishModal(wishData, bubble.dataset.username)
     })
     
     container.appendChild(bubble)
@@ -180,31 +179,32 @@ function showWishModal(wish, username) {
     if (!modal) {
         modal = document.createElement('div')
         modal.id = 'wish-modal'
-        modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm hidden'
+        modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden'
         modal.innerHTML = `
-            <div class="bg-gradient-to-br from-purple-900/90 to-pink-900/90 rounded-2xl border border-pink-500/30 p-6 max-w-md w-full mx-4 backdrop-blur-md">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                        <span class="material-symbols-outlined text-pink-400">chat_bubble</span>
-                        Wish Details
-                    </h3>
-                    <button id="close-wish-modal" class="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                        <span class="material-symbols-outlined text-white">close</span>
-                    </button>
-                </div>
-                <div class="space-y-4">
-                    <div class="bg-black/20 rounded-lg p-4">
-                        <div class="text-pink-300 text-sm font-semibold mb-2">From:</div>
-                        <div id="modal-username" class="text-white font-medium"></div>
-                    </div>
-                    <div class="bg-black/20 rounded-lg p-4">
-                        <div class="text-pink-300 text-sm font-semibold mb-2">Message:</div>
-                        <div id="modal-content" class="text-white leading-relaxed"></div>
-                    </div>
-                    <div class="flex justify-center">
-                        <button id="close-modal-btn" class="px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold transition-all">
-                            Close
+            <div class="frame-popup-container max-w-2xl w-full" style="min-height: 48rem;">
+                <!-- Frame overlay -->
+                <div class="frame-overlay" style="display: flex;justify-content: center;">
+                    <!-- Modal content -->
+                    <div class="max-h-[70vh] p-8 relative w-full z-[1]" style="padding: 16rem 3rem 3rem; max-height: 70vh;width: 37.7rem;">
+                        <!-- Close button -->
+                        <button id="close-wish-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm" style="display: none;">
+                            <span class="material-symbols-outlined text-white text-2xl">close</span>
                         </button>
+                        <!-- Content -->
+                        <div id="wish-content-display" class="max-w-none overflow-y-auto text-white thin-scroll" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5); max-height: 30rem; padding-bottom: 6rem;">
+                            <div class="flex items-center justify-center gap-2 mb-4">
+                                <span id="modal-sticker" class="text-5xl"></span>
+                            </div>
+                            <div class="text-center mb-4">
+                                <div class="text-red-500 text-sm font-semibold mb-2">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
+                            </div>
+                            <div id="modal-image-container" class="mb-4 hidden">
+                                <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
+                            </div>
+                            <div class="text-center" style="text-align: justify;">
+                                <div id="modal-content" class="text-black leading-relaxed text-lg" style="white-space: pre-wrap;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -221,15 +221,22 @@ function showWishModal(wish, username) {
         document.getElementById('close-wish-modal').addEventListener('click', () => {
             modal.classList.add('hidden')
         })
-        
-        document.getElementById('close-modal-btn').addEventListener('click', () => {
-            modal.classList.add('hidden')
-        })
     }
     
     // Populate modal content
     document.getElementById('modal-username').textContent = username
     document.getElementById('modal-content').textContent = wish.content
+    document.getElementById('modal-sticker').textContent = wish.sticker || '🎉'
+    
+    // Show image if available
+    const imageContainer = document.getElementById('modal-image-container')
+    const imageElement = document.getElementById('modal-image')
+    if (wish.image_url) {
+        imageElement.src = wish.image_url
+        imageContainer.classList.remove('hidden')
+    } else {
+        imageContainer.classList.add('hidden')
+    }
     
     // Show modal
     modal.classList.remove('hidden')
