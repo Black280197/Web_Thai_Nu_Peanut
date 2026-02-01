@@ -60,7 +60,7 @@ function initTabs() {
       if (targetId === 'users') {
         loadUsers()
       } else if (targetId === 'wishes') {
-        loadWishes()
+        window.loadWishes()
       } else if (targetId === 'events') {
         loadEvents()
       } else if (targetId === 'feedback') {
@@ -257,8 +257,12 @@ document.getElementById('filter-role')?.addEventListener('change', (e) => {
 
 // ============= WISHES MANAGEMENT =============
 
-async function loadWishes() {
+let currentWishesFilter = 'pending'
+
+window.loadWishes = async function loadWishes(statusFilter = 'pending') {
   try {
+    currentWishesFilter = statusFilter
+    
     // Load wishes with user info
     const { data: wishes, error } = await supabase
       .from('wishes')
@@ -285,8 +289,22 @@ async function loadWishes() {
       badge.classList.add('hidden')
     }
 
-    // Render pending wishes
-    renderWishesList(wishes.filter(w => w.status === 'pending'))
+    // Update filter card active states
+    updateWishesFilterUI(statusFilter)
+
+    // Update list title
+    const titleMap = {
+      pending: 'Pending Wishes',
+      approved: 'Approved Wishes',
+      rejected: 'Rejected Wishes'
+    }
+    const listTitle = document.getElementById('wishes-list-title')
+    if (listTitle) {
+      listTitle.textContent = titleMap[statusFilter] || 'Wishes'
+    }
+
+    // Render filtered wishes
+    renderWishesList(wishes.filter(w => w.status === statusFilter))
 
   } catch (error) {
     console.error('Error loading wishes:', error)
@@ -298,7 +316,12 @@ function renderWishesList(wishes) {
   const list = document.getElementById('wishes-list')
 
   if (wishes.length === 0) {
-    list.innerHTML = '<p class="text-center text-slate-400">Không có lời chúc nào cần duyệt</p>'
+    const emptyMessages = {
+      pending: 'Không có lời chúc nào đang chờ duyệt',
+      approved: 'Không có lời chúc nào đã được duyệt',
+      rejected: 'Không có lời chúc nào bị từ chối'
+    }
+    list.innerHTML = `<p class="text-center text-slate-400">${emptyMessages[currentWishesFilter] || 'Không có lời chúc nào'}</p>`
     return
   }
 
@@ -325,18 +348,43 @@ function renderWishesList(wishes) {
           <p class="text-sm text-slate-300 leading-relaxed">${wish.content}</p>
           ${imageHtml}
         </div>
-        <div class="flex flex-col gap-2">
-          <button onclick="moderateWish('${wish.id}', 'approved')" class="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg text-sm font-semibold hover:bg-green-500/30 transition-colors">
-            Duyệt
-          </button>
-          <button onclick="moderateWish('${wish.id}', 'rejected')" class="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg text-sm font-semibold hover:bg-red-500/30 transition-colors">
-            Từ chối
-          </button>
-        </div>
+        ${wish.status === 'pending' ? `
+          <div class="flex flex-col gap-2">
+            <button onclick="moderateWish('${wish.id}', 'approved')" class="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg text-sm font-semibold hover:bg-green-500/30 transition-colors">
+              Duyệt
+            </button>
+            <button onclick="moderateWish('${wish.id}', 'rejected')" class="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg text-sm font-semibold hover:bg-red-500/30 transition-colors">
+              Từ chối
+            </button>
+          </div>
+        ` : `
+          <div class="flex flex-col gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold ${
+              wish.status === 'approved' 
+                ? 'bg-green-500/20 text-green-400' 
+                : 'bg-red-500/20 text-red-400'
+            }">
+              ${wish.status === 'approved' ? '✓ Approved' : '✗ Rejected'}
+            </span>
+          </div>
+        `}
       </div>
     `
 
     list.appendChild(card)
+  })
+}
+
+// Update wishes filter UI
+function updateWishesFilterUI(activeStatus) {
+  const filterCards = document.querySelectorAll('.wishes-filter-card')
+  filterCards.forEach(card => {
+    const status = card.getAttribute('data-status')
+    if (status === activeStatus) {
+      card.classList.add('ring-2', 'ring-white/50', 'scale-105')
+    } else {
+      card.classList.remove('ring-2', 'ring-white/50', 'scale-105')
+    }
   })
 }
 
@@ -355,12 +403,22 @@ window.moderateWish = async function (wishId, status) {
     if (error) throw error
 
     showToast(status === 'approved' ? 'Wish approved!' : 'Wish rejected!', 'success')
-    loadWishes()
+    window.loadWishes(currentWishesFilter)
   } catch (error) {
     console.error('Error moderating wish:', error)
     showToast('Failed to update: ' + error.message, 'error')
   }
 }
+
+// Wishes filter click handlers
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.wishes-filter-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const status = card.getAttribute('data-status')
+      window.loadWishes(status)
+    })
+  })
+})
 
 // ============= SETTINGS MANAGEMENT =============
 
