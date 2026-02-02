@@ -117,7 +117,7 @@ function createBubble() {
     const leftPosition = Math.random() * (window.innerWidth - 120) // 120px buffer for bubble width
 
     // Random delay for staggered start
-    const delay = Math.random() * 2000 // 0-2 seconds delay
+    const delay = Math.random() * 1000 // 0-2 seconds delay
 
     bubble.className = `bubble ${sizeClass}`
     bubble.style.left = `${leftPosition}px`
@@ -195,7 +195,7 @@ function showWishModal(wish, username) {
                             </button>
                             <!-- Content -->
                             <div id="wish-content-display" class="max-w-none overflow-y-auto text-white thin-scroll" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);max-height: 23rem;padding-bottom: 6rem;overflow-y: auto;scrollbar-width: none;" bis_skin_checked="1">
-                                <div class="flex items-center justify-center gap-2 mb-4">
+                                <div class="flex items-center justify-center gap-2 mb-4 hidden">
                                     <span id="modal-sticker" class="text-5xl"></span>
                                 </div>
                                 <div class="text-center mb-4">

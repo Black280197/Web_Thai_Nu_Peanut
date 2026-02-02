@@ -187,6 +187,9 @@ async function startCountdown() {
   // Update every second
   setInterval(() => {
     const countdown = calculateCountdown(settings.target_date)
+    if (countdown.finished) {
+      window.location.href = "landing-page.html";
+    }
     updateCountdownDisplay(countdown, settings)
   }, 1000)
 }
