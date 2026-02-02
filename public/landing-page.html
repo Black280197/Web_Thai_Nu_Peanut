@@ -32,6 +32,46 @@
         }
     </script>
     <style>
+        @font-face {
+            font-family: 'Syakira Demo';
+            src: url('assets/fonts/SyakiraDemo.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'candy_cake';
+            src: url('assets/fonts/Candy_Cake.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Dongle';
+            src: url('assets/fonts/Dongle-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        .my-style {
+            font-family: 'Syakira Demo' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-candy-cake {
+            font-family: 'candy_cake' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-korea-font {
+            font-family: 'Dongle' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
         .shimmer-text {
             background: linear-gradient(to right, #ffffff 20%, #fbcfe8 40%, #fbcfe8 60%, #ffffff 80%);
             background-size: 200% auto;
@@ -207,8 +247,8 @@
         .frame-overlay {
             position: absolute;
             inset: -2rem;
-            background-image: url('/assets/img/khung-chuc.png');
-            background-size: 100% 100%;
+            background-image: url('/assets/img/new_new_frame.png');
+            background-size: 100% auto;
             background-repeat: no-repeat;
             background-position: center;
             pointer-events: none;

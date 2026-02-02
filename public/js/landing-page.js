@@ -16,18 +16,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Auth management
 async function initAuth() {
     const user = await getCurrentUser()
-    
+
     if (user) {
         document.getElementById('login-button').classList.add('hidden')
         document.getElementById('user-section').classList.remove('hidden')
         document.getElementById('username').textContent = user.email?.split('@')[0] || 'User'
-        
+
         // Show admin link if user is admin
         if (user.role === 'admin') {
             document.getElementById('admin-nav-link')?.classList.remove('hidden')
             document.getElementById('admin-nav-link-mobile')?.classList.remove('hidden')
         }
-        
+
         // Set avatar
         const avatar = document.getElementById('avatar')
         const avatarInner = avatar.querySelector('div')
@@ -42,12 +42,12 @@ async function initAuth() {
         document.getElementById('login-button').classList.remove('hidden')
         document.getElementById('user-section').classList.add('hidden')
     }
-    
+
     // Login button
     document.getElementById('login-button')?.addEventListener('click', () => {
         window.location.href = '/login.html'
     })
-    
+
     // Logout button
     document.getElementById('logout-button')?.addEventListener('click', async () => {
         await supabase.auth.signOut()
@@ -68,7 +68,7 @@ async function loadApprovedWishes() {
 
         wishes = wishesData || []
         updateWishesCount(wishes.length)
-        
+
         console.log(`Loaded ${wishes.length} approved wishes`)
     } catch (error) {
         console.error('Error loading wishes:', error)
@@ -87,10 +87,10 @@ function startBubbleAnimation() {
         console.log('No wishes available for bubbles')
         return
     }
-    
+
     // Create initial bubbles
     createBubble()
-    
+
     // Set interval to create new bubbles
     setInterval(() => {
         if (bubbleCount < maxBubbles && wishes.length > 0) {
@@ -102,34 +102,34 @@ function startBubbleAnimation() {
 // Create a single bubble
 function createBubble() {
     if (wishes.length === 0) return
-    
+
     const container = document.getElementById('bubble-container')
     const bubble = document.createElement('div')
-    
+
     // Random wish
     const randomWish = wishes[Math.floor(Math.random() * wishes.length)]
-    
+
     // Random size
     const sizes = ['bubble-small', 'bubble-medium', 'bubble-large', 'bubble-xlarge']
     const sizeClass = sizes[Math.floor(Math.random() * sizes.length)]
-    
+
     // Random horizontal position
     const leftPosition = Math.random() * (window.innerWidth - 120) // 120px buffer for bubble width
-    
+
     // Random delay for staggered start
     const delay = Math.random() * 2000 // 0-2 seconds delay
-    
+
     bubble.className = `bubble ${sizeClass}`
     bubble.style.left = `${leftPosition}px`
     bubble.style.animationDelay = `${delay}ms`
-    
+
     // Store wish data in bubble element
     bubble.dataset.wishId = randomWish.id
     bubble.dataset.username = randomWish.users?.username || 'Anonymous'
     bubble.dataset.content = randomWish.content
     bubble.dataset.imageUrl = randomWish.image_url || ''
     bubble.dataset.sticker = randomWish.sticker || '🎉'
-    
+
     // Add click handler
     bubble.addEventListener('click', () => {
         const wishData = {
@@ -141,10 +141,10 @@ function createBubble() {
         }
         showWishModal(wishData, bubble.dataset.username)
     })
-    
+
     container.appendChild(bubble)
     bubbleCount++
-    
+
     // Remove bubble when animation ends
     const animationDuration = getSizeAnimationDuration(sizeClass)
     setTimeout(() => {
@@ -170,6 +170,12 @@ function getSizeAnimationDuration(sizeClass) {
 function truncateText(text, maxLength) {
     if (text.length <= maxLength) return text
     return text.substring(0, maxLength) + '...'
+}
+
+function hasKorean(text) {
+    // Regex này cover hết Hangul syllables + jamo cơ bản + compatibility jamo
+    const koreanRegex = /[\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uD7B0-\uD7FF]/;
+    return koreanRegex.test(text);
 }
 
 // Show wish modal
@@ -199,7 +205,7 @@ function showWishModal(wish, username) {
                                     <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
                                 </div>
                                 <div class="text-center" style="text-align: justify;">
-                                    <div id="modal-content" class="text-black leading-relaxed text-lg" style="white-space: pre-wrap;"></div>
+                                    <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;"></div>
                                 </div>
                             </div>
                         </div>
@@ -211,24 +217,33 @@ function showWishModal(wish, username) {
             </div>
         `
         document.body.appendChild(modal)
-        
+
         // Add event listeners
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.add('hidden')
             }
         })
-        
+
         document.getElementById('close-wish-modal').addEventListener('click', () => {
             modal.classList.add('hidden')
         })
     }
-    
+
     // Populate modal content
     document.getElementById('modal-username').textContent = username
-    document.getElementById('modal-content').textContent = wish.content
+    document.getElementById('modal-content').textContent = wish.content.split(":").slice(1).join(":")
     document.getElementById('modal-sticker').textContent = wish.sticker || '🎉'
-    
+    if (hasKorean(wish.content)) {
+        // Có tiếng Hàn → đổi font sang font hỗ trợ Hàn ngon lành
+        document.querySelector('#modal-content').classList.remove("my-candy-cake")
+        document.querySelector('#modal-content').classList.add("my-korea-font") 
+    } else {
+        // Không có tiếng Hàn → dùng font mặc định hoặc font Việt/Anh
+        document.querySelector('#modal-content').classList.add("my-candy-cake")
+        document.querySelector('#modal-content').classList.remove("my-korea-font") 
+    }
+
     // Show image if available
     const imageContainer = document.getElementById('modal-image-container')
     const imageElement = document.getElementById('modal-image')
@@ -238,7 +253,7 @@ function showWishModal(wish, username) {
     } else {
         imageContainer.classList.add('hidden')
     }
-    
+
     // Show modal
     modal.classList.remove('hidden')
 }
