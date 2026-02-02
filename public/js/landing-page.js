@@ -188,7 +188,7 @@ function showWishModal(wish, username) {
         modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden'
         modal.innerHTML = `
             <div class="frame-popup-container max-w-2xl w-full" style="min-height: 48rem;">
-                <div class="max-h-[70vh] p-8 relative w-full z-[1]" style="padding: 16rem 3rem 3rem; max-height: 70vh;width: 37.7rem;position: absolute; z-index: 11;top: -2rem; right: 2rem;">
+                <div class="max-h-[70vh] p-8 relative w-full z-[1] child-of-container" style="padding: 16rem 3rem 3rem; max-height: 70vh;width: 37.7rem;position: absolute; z-index: 11;top: -2rem; right: 2rem;">
                             <!-- Close button -->
                             <button id="close-wish-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm" style="display: none;">
                                 <span class="material-symbols-outlined text-white text-2xl">close</span>

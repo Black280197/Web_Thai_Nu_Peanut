@@ -55,6 +55,7 @@
             font-style: normal;
             font-display: swap;
         }
+
         .my-style {
             font-family: 'Syakira Demo' !important;
             font-weight: normal;
@@ -72,6 +73,7 @@
             font-weight: normal;
             font-style: normal;
         }
+
         .shimmer-text {
             background: linear-gradient(to right, #ffffff 20%, #fbcfe8 40%, #fbcfe8 60%, #ffffff 80%);
             background-size: 200% auto;
@@ -261,7 +263,7 @@
             }
 
             #wish-modal .frame-popup-container {
-                max-height: 80vh;
+                min-height: 25rem !important;
             }
 
             #wish-modal .frame-popup-container>div:nth-child(2) {
@@ -270,12 +272,14 @@
             }
 
             #wish-content-display {
-                max-height: 20rem !important;
+                max-height: 16rem !important;
             }
-            .frame-popup-container > div:first-of-type {
-                width: 25.3rem !important;
-                top: -4rem !important;
+
+            .frame-popup-container>div:first-of-type {
+                width: 27rem !important;
+                top: 5rem !important;
                 right: 0.7rem !important;
+                padding: 1rem 3rem 1rem 3rem !important;
             }
         }
     </style>
