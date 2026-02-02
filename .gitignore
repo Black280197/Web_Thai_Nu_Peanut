@@ -54,3 +54,5 @@ temp/
 # Misc
 .vercel
 .netlify
+
+template/
