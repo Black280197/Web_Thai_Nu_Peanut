@@ -199,13 +199,13 @@ function showWishModal(wish, username) {
                                     <span id="modal-sticker" class="text-5xl"></span>
                                 </div>
                                 <div class="text-center mb-4">
-                                    <div class="text-red-500 text-xl font-semibold mb-2 my-candy-cake" style="text-align: left;">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
+                                    <div class="text-red-500 text-xl font-semibold mb-2 my-candy-cake" style="text-align: left;color: #e7dcff;">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
                                 </div>
                                 <div id="modal-image-container" class="mb-4 hidden">
                                     <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
                                 </div>
                                 <div class="text-center" style="text-align: justify;">
-                                    <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;"></div>
+                                    <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;color: #e7dcff;"></div>
                                 </div>
                             </div>
                         </div>
