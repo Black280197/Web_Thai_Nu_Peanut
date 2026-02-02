@@ -60,7 +60,7 @@ async function loadApprovedWishes() {
     try {
         const { data: wishesData, error } = await supabase
             .from('wishes')
-            .select('id, content, users!wishes_user_id_fkey(username)')
+            .select('id, content, image_url, users!wishes_user_id_fkey(username)')
             .eq('status', 'approved')
             .order('created_at', { ascending: false })
 
