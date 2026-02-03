@@ -585,7 +585,8 @@
 
 <body class="text-slate-900 dark:text-white font-display min-h-screen flex flex-col relative"
     style="overflow-x: hidden;">
-    <div class="fixed inset-0 bg-cover bg-center bg-no-repeat landing-bg" style="z-index: -1;"></div>
+    <div class="fixed inset-0 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
     <!-- Banner with text.png -->
     <div class="w-full bg-gradient-to-b from-black/50 to-transparent top-0 left-0 z-50 backdrop-blur-sm"
         style="max-height: 8.5rem;" bis_skin_checked="1">
@@ -682,7 +683,7 @@
         </div>
     </header>
 
-    <main class="flex-grow relative z-10" id="bubble-container" style="overflow: hidden;">
+    <main class="flex-grow relative z-10 landing-bg" id="bubble-container" style="overflow: hidden;">
         <!-- Bubbles will be generated here by JavaScript -->
     </main>
 

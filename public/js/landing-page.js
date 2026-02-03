@@ -3,8 +3,8 @@ import { supabase, getCurrentUser } from './supabase-client.js'
 
 let wishes = []
 let bubbleCount = 0
-const maxBubbles = 30 // Maximum bubbles on screen at once
-const bubbleInterval = 100 // 3 seconds between new bubbles
+const maxBubbles = 20 // Maximum bubbles on screen at once
+const bubbleInterval = 1000 // 3 seconds between new bubbles
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', async () => {
@@ -240,7 +240,7 @@ function showWishModal(wish, username) {
         // Có tiếng Hàn → đổi font sang font hỗ trợ Hàn ngon lành
         document.querySelector('#modal-content').classList.remove("my-candy-cake")
         document.querySelector('#modal-content').classList.add("my-korea-font")
-        document.querySelector('#modal-content').style.setProperty('font-size', '20px');
+        document.querySelector('#modal-content').style.setProperty('font-size', '2rem', 'important');
     } else {
         // Không có tiếng Hàn → dùng font mặc định hoặc font Việt/Anh
         document.querySelector('#modal-content').classList.remove("my-candy-cake")
