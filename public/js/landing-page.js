@@ -240,7 +240,7 @@ function showWishModal(wish, username) {
         document.querySelector('#modal-content').classList.add("my-korea-font")
     } else {
         // Không có tiếng Hàn → dùng font mặc định hoặc font Việt/Anh
-        document.querySelector('#modal-content').classList.add("my-candy-cake")
+        document.querySelector('#modal-content').classList.remove("my-candy-cake")
         document.querySelector('#modal-content').classList.remove("my-korea-font")
     }
     // Show image if available
