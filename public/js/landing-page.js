@@ -4,7 +4,7 @@ import { supabase, getCurrentUser } from './supabase-client.js'
 let wishes = []
 let bubbleCount = 0
 const maxBubbles = 15 // Maximum bubbles on screen at once
-const bubbleInterval = 3000 // 3 seconds between new bubbles
+const bubbleInterval = 1000 // 3 seconds between new bubbles
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', async () => {
@@ -117,7 +117,7 @@ function createBubble() {
     const leftPosition = Math.random() * (window.innerWidth - 120) // 120px buffer for bubble width
 
     // Random delay for staggered start
-    const delay = Math.random() * 1000 // 0-2 seconds delay
+    const delay = Math.random() * 2000 // 0-2 seconds delay
 
     bubble.className = `bubble ${sizeClass}`
     bubble.style.left = `${leftPosition}px`
@@ -199,18 +199,18 @@ function showWishModal(wish, username) {
                                     <span id="modal-sticker" class="text-5xl"></span>
                                 </div>
                                 <div class="text-center mb-4">
-                                    <div class="text-red-500 text-xl font-semibold mb-2 my-candy-cake" style="text-align: left;color: #e7dcff;">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
+                                    <div class="text-red-500 text-xl font-semibold mb-2 my-candy-cake" style="text-align: left;color: #e7dcff;font-size: 1.55rem;">From: <span id="modal-username" class="text-red font-bold text-xl" style="font-size: 1.55rem;"></span></div>
+                                </div>
+                                <div class="text-center" style="text-align: justify;">
+                                    <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;line-height: 2.1rem;"></div>
                                 </div>
                                 <div id="modal-image-container" class="mb-4 hidden">
                                     <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
                                 </div>
-                                <div class="text-center" style="text-align: justify;">
-                                    <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;color: #e7dcff;"></div>
-                                </div>
                             </div>
                         </div>
                 <!-- Frame overlay -->
-                <div class="frame-overlay" style="display: flex;justify-content: center;">
+                <div class="frame-overlay" style="display: flex;justify-content: center;z-index: 12;">
                     <!-- Modal content -->
                     
                 </div>
@@ -232,18 +232,17 @@ function showWishModal(wish, username) {
 
     // Populate modal content
     document.getElementById('modal-username').textContent = username
-    document.getElementById('modal-content').textContent = wish.content.split(":").slice(1).join(":")
+    document.getElementById('modal-content').textContent = wish.content.replaceAll("\n\n", "\n").split(":").slice(1).join(":")
     document.getElementById('modal-sticker').textContent = wish.sticker || '🎉'
     if (hasKorean(wish.content)) {
         // Có tiếng Hàn → đổi font sang font hỗ trợ Hàn ngon lành
         document.querySelector('#modal-content').classList.remove("my-candy-cake")
-        document.querySelector('#modal-content').classList.add("my-korea-font") 
+        document.querySelector('#modal-content').classList.add("my-korea-font")
     } else {
         // Không có tiếng Hàn → dùng font mặc định hoặc font Việt/Anh
         document.querySelector('#modal-content').classList.add("my-candy-cake")
-        document.querySelector('#modal-content').classList.remove("my-korea-font") 
+        document.querySelector('#modal-content').classList.remove("my-korea-font")
     }
-
     // Show image if available
     const imageContainer = document.getElementById('modal-image-container')
     const imageElement = document.getElementById('modal-image')
@@ -256,6 +255,7 @@ function showWishModal(wish, username) {
 
     // Show modal
     modal.classList.remove('hidden')
+    document.getElementById('wish-content-display').scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Handle window resize
