@@ -78,7 +78,7 @@ async function loadApprovedWishes() {
 
 // Update wishes counter
 function updateWishesCount(count) {
-    document.getElementById('wishes-count').textContent = count
+    // document.getElementById('wishes-count').textContent = count
 }
 
 // Start bubble animation

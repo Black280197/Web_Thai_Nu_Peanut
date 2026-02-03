@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Wangho's Flower Garden</title>
+    <link data-default-icon="/assets/img/peanut.png" rel="icon" sizes="192x192" href="/assets/img/peanut.png">
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Noto+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <!-- <link rel="preload" href="/assets/fonts/SyakiraDemo.woff2" as="font" type="font/woff2" crossorigin> -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec4899", "primary-dark": "#be185d", "primary-light": "#fbcfe8", "background-light": "#fff1f2", "background-dark": "#1f0f16", "gold": "#FFD700",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Syakira Demo';
+            src: url('assets/fonts/SyakiraDemo.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'candy_cake';
+            src: url('assets/fonts/Candy_Cake.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(to right, #ffffff 20%, #fbcfe8 40%, #fbcfe8 60%, #ffffff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .flower-spin {
+            animation: spin-flower 20s linear infinite;
+        }
+
+        @keyframes spin-flower {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .special-frame-active::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 1.5rem;
+            padding: 4px;
+            background: linear-gradient(45deg, #FFD700, #ec4899, #FFD700);
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: border-rotate 4s linear infinite;
+        }
+
+        .my-style {
+            font-family: 'Syakira Demo' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-candy-cake {
+            font-family: 'candy_cake' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.open {
+            max-height: fit-content;
+        }
+
+        /* Countdown cloud background */
+        .countdown-cloud {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .countdown-cloud::before {
+            content: '';
+            position: absolute;
+            inset: -30px;
+            background:
+                radial-gradient(ellipse 120% 80% at 50% 50%, rgb(182 114 246 / 50%) 0%, transparent 60%), radial-gradient(ellipse 100% 100% at 30% 70%, rgb(171 105 220 / 60%) 0%, transparent 50%), radial-gradient(ellipse 100% 100% at 70% 30%, rgb(119 56 146 / 50%) 0%, transparent 50%), radial-gradient(ellipse 80% 60% at 50% 80%, rgb(168 102 184 / 40%) 0%, transparent 40%);
+            filter: blur(25px);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Frame popup container for About Modal */
+        .frame-popup-container {
+            position: relative;
+        }
+
+        /* Frame overlay - không ảnh hưởng tới các phần tử bên trong */
+        .frame-overlay {
+            position: absolute;
+            inset: -2rem;
+            background-image: url('/assets/img/framee.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .frame-overlay {
+                inset: -0.5rem;
+            }
+
+            #about-modal {
+                padding: 0.5rem !important;
+            }
+
+            #about-modal .frame-popup-container {
+                min-height: 29rem !important;
+                max-height: 85vh;
+                max-width: calc(100vw - 1rem) !important;
+                overflow: hidden;
+            }
+
+            #about-modal .frame-popup-container>div:nth-child(2) {
+                padding: 7.1rem 2.3rem 2rem !important;
+                max-height: 53.7vh !important;
+            }
+
+            #about-modal #about-content-display {
+                max-height: 18rem !important;
+                padding-bottom: 5rem !important;
+                font-size: 0.85rem;
+                text-align: justify;
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            #birthday-wishes-link {
+                font-size: 12px;
+            }
+
+            #countdown-container {
+                max-width: 75% !important;
+            }
+
+            html,
+            body {
+                overflow-x: hidden !important;
+                max-width: 100vw !important;
+            }
+
+            .countdown-title-mobile {
+                font-size: 2.5rem !important;
+                height: auto !important;
+                line-height: 1.2 !important;
+                white-space: normal !important;
+            }
+
+            .countdown-subtitle-mobile {
+                font-size: 1rem !important;
+            }
+
+            .countdown-number-mobile {
+                font-size: 1.5rem !important;
+                letter-spacing: 0.1rem !important;
+            }
+
+            .countdown-label-mobile {
+                font-size: 0.7rem !important;
+            }
+
+            .countdown-separator-mobile {
+                font-size: 1.5rem !important;
+                padding-bottom: 0.8rem !important;
+            }
+
+            .countdown-cloud {
+                min-height: 5rem !important;
+                margin-bottom: 1rem !important;
+            }
+        }
+
+        /* Thanh scroll mỏng toàn trang */
+        ::-webkit-scrollbar {
+            width: 8px;
+            /* Thanh dọc mỏng */
+            height: 8px;
+            /* Thanh ngang mỏng */
+        }
+
+        /* Nền track (phần nền thanh scroll) */
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            /* Trong suốt nhẹ */
+            border-radius: 10px;
+        }
+
+        /* Thanh cuộn (thumb) */
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 105, 180, 0.6);
+            /* Màu hồng cho hợp với theme của mày */
+            border-radius: 10px;
+            border: 2px solid transparent;
+            /* Tạo khoảng trống để mỏng hơn nữa */
+            background-clip: content-box;
+        }
+
+        /* Hover vào thumb cho đậm hơn tí */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 105, 180, 0.9);
+            border-width: 1px;
+        }
+
+        /* Nếu mày chỉ muốn áp dụng cho một phần cụ thể (ví dụ div có scroll) */
+        .thin-scroll {
+            scrollbar-width: thin;
+            /* Firefox hỗ trợ */
+            scrollbar-color: rgba(255, 105, 180, 0.6) rgba(255, 255, 255, 0.1);
+        }
+
+        .thin-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        body,
+        html,
+        .cursorsDefault,
+        input[type="range"]::-webkit-slider-thumb,
+        input[type="range"]::-webkit-slider-runnable-track {
+            cursor: url("/assets/img/Key2.png") 16 4, default !important;
+        }
+
+        a,
+        button,
+        .cursorsHover,
+        [cursorshover] {
+            cursor: url("/assets/img/Key1.png") 16 8, auto !important;
+        }
+
+        a[href="/landing-page.html"] {
+            /* display: none !important; */
+            /* ẩn mẹ nó đi */
+        }
+    </style>
+    <style>
+        @font-face {
+            font-family: 'Syakira Demo';
+            src: url('assets/fonts/SyakiraDemo.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'candy_cake';
+            src: url('assets/fonts/Candy_Cake.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Dongle';
+            src: url('assets/fonts/Dongle-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .my-style {
+            font-family: 'Syakira Demo' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-candy-cake {
+            font-family: 'candy_cake' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-korea-font {
+            font-family: 'Dongle' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(to right, #ffffff 20%, #fbcfe8 40%, #fbcfe8 60%, #ffffff 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.open {
+            max-height: fit-content;
+        }
+
+        /* Landing page responsive backgrounds */
+        .landing-bg {
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url('/assets/img/desktop.png');
+        }
+
+        @media (max-width: 768px) {
+            .landing-bg {
+                background-image: url('/assets/img/phone.png');
+            }
+        }
+
+        /* Bubble animations */
+        .bubble {
+            position: absolute;
+            background-image: url('/assets/img/soapbubbles.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            animation: float-up linear infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #2d1b69;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .bubble:hover {
+            transform: scale(1.1);
+            z-index: 100;
+        }
+
+        .bubble-content {
+            max-width: 80%;
+            padding: 10px;
+            font-size: 0.7em;
+            line-height: 1.2;
+            word-wrap: break-word;
+            text-overflow: ellipsis;
+        }
+
+        @keyframes float-up {
+            from {
+                transform: translateY(110vh) rotate(0deg);
+                opacity: 0.8;
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            95% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-400px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Different bubble sizes */
+        .bubble-small {
+            width: 60px;
+            height: 60px;
+            animation-duration: 15s;
+        }
+
+        .bubble-medium {
+            width: 80px;
+            height: 80px;
+            animation-duration: 18s;
+        }
+
+        .bubble-large {
+            width: 100px;
+            height: 100px;
+            animation-duration: 22s;
+        }
+
+        .bubble-xlarge {
+            width: 120px;
+            height: 120px;
+            animation-duration: 25s;
+        }
+
+        /* Custom cursors */
+        body,
+        html,
+        .cursorsDefault,
+        input[type="range"]::-webkit-slider-thumb,
+        input[type="range"]::-webkit-slider-runnable-track {
+            cursor: url("/assets/img/Key2.png") 16 4, default !important;
+        }
+
+        a,
+        button,
+        .cursorsHover,
+        [cursorshover] {
+            cursor: url("/assets/img/Key2.png") 16 8, auto !important;
+        }
+
+        /* Bubble tooltip */
+        .bubble-tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            max-width: 200px;
+            white-space: normal;
+        }
+
+        .bubble:hover .bubble-tooltip {
+            opacity: 1;
+        }
+
+        /* Glass effect for header */
+        header {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Frame popup container for Wish Modal */
+        .frame-popup-container {
+            position: relative;
+        }
+
+        /* Frame overlay */
+        .frame-overlay {
+            position: absolute;
+            inset: -2rem;
+            background-image: url('/assets/img/new_new_frame.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .frame-overlay {
+                inset: -1rem;
+                background-size: 90% auto !important;
+            }
+
+            #wish-modal .frame-popup-container {
+                min-height: 25rem !important;
+            }
+
+            #wish-modal .frame-popup-container>div:nth-child(2) {
+                padding: 8rem 2rem 2rem !important;
+                max-height: 75vh !important;
+            }
+
+            #wish-content-display {
+                max-height: 13rem !important;
+            }
+
+            .frame-popup-container>div:first-of-type {
+                width: 25rem !important;
+                top: 5rem !important;
+                right: 0.3rem !important;
+                padding: 2.2rem 3rem 1rem 3rem !important;
+            }
+
+            #modal-content {
+                font-size: 2.025rem !important;
+            }
+
+            #modal-content.my-candy-cake {
+                font-size: 1.425rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-slate-900 dark:text-white font-display min-h-screen flex flex-col relative"
+    style="overflow-x: hidden;">
+    <div class="fixed inset-0 bg-cover bg-center bg-no-repeat"
+        style="background-image: url('/assets/img/background.png'); z-index: -1;"></div>
+    <!-- Banner with text.png -->
+    <div class="w-full bg-gradient-to-b from-black/50 to-transparent top-0 left-0 z-50 backdrop-blur-sm"
+        style="max-height: 8.5rem;" bis_skin_checked="1">
+        <img src="/assets/img/text.png" alt="Peanut Birthday" class="w-full max-w-2xl mx-auto"
+            style="height: 8rem;width: 17rem;">
+    </div>
+
+    <!-- Navbar below banner -->
+    <header class="w-full z-40 border-b border-pink-900/20 backdrop-blur-md bg-black/30 top-32 left-0"
+        style="margin-top: 0rem;">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8" style="margin-right: unset;" bis_skin_checked="1">
+            <div class="flex items-center justify-between h-16" style="height: 2rem; margin-left: unset;"
+                bis_skin_checked="1">
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn"
+                    class="md:hidden flex items-center justify-center p-2 text-pink-100/80 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+                <nav class="hidden md:flex items-center gap-8 mx-auto">
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/">Home</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/landing-page.html">Landing</a>
+                    <span class="text-sm font-medium text-pink-100/80 transition-colors" bis_skin_checked="1">Birthday
+                        Message</span>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/debut-message.html" bis_skin_checked="1">Debut Message</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/events.html" bis_skin_checked="1">Eleven Out Of Ten</a>
+                    <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors"
+                        href="/fan-events.html" bis_skin_checked="1">Events</a>
+                    <a id="about-link"
+                        class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer hidden"
+                        href="javascript:void(0)" bis_skin_checked="1">About</a>
+                    <a id="admin-nav-link"
+                        class="text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1 hidden"
+                        href="/admin-dashboard.html" bis_skin_checked="1">
+                        <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                        <span>Admin</span>
+                    </a>
+                </nav>
+                <div class="flex items-center gap-4 ml-auto" bis_skin_checked="1"
+                    style="position: absolute; right: 1rem;">
+                    <!-- Guest mode: Login button -->
+                    <button id="login-button"
+                        class="hidden px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-full text-sm font-semibold transition-all">
+                        Login
+                    </button>
+
+                    <!-- Logged in user section -->
+                    <div id="user-section" class="flex items-center gap-4" bis_skin_checked="1">
+                        <div class="hidden sm:block text-right" bis_skin_checked="1">
+                            <p class="text-sm font-semibold text-white" id="username"></p>
+                        </div>
+                        <button id="logout-button" class="text-xs text-pink-200/60 hover:text-white transition-colors">
+                            Logout
+                        </button>
+                        <div id="avatar" hidden=""
+                            class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/50"
+                            style="background-image: none;" bis_skin_checked="1">
+                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-pink-600 text-white font-bold text-lg"
+                                bis_skin_checked="1">C</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu dropdown -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-black/50 backdrop-blur-md border-t border-pink-900/20">
+            <nav class="flex flex-col py-4 px-4 gap-2">
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/">Home</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/landing-page.html">Landing</a>
+                <span disabled
+                    class="text-sm font-medium text-pink-100/80 transition-colors py-2 px-4 rounded-lg">Birthday
+                    Message</span>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/debut-message.html">Debut Message</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/events.html">Eleven Out Of Ten</a>
+                <a class="text-sm font-medium text-pink-100/80 hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/fan-events.html">Events</a>
+                <a id="about-link-mobile"
+                    class="hidden text-sm font-medium text-pink-100/80 hover:text-primary transition-colors cursor-pointer py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="javascript:void(0)">About</a>
+                <a id="admin-nav-link-mobile"
+                    class="hidden text-sm font-medium text-gold hover:text-yellow-200 transition-colors flex items-center gap-1 py-2 px-4 rounded-lg hover:bg-white/5"
+                    href="/admin-dashboard.html">
+                    <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                    <span>Admin</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow relative z-10 landing-bg" id="bubble-container" style="overflow: hidden;">
+        <!-- Bubbles will be generated here by JavaScript -->
+    </main>
+
+    <footer class="w-full border-t border-pink-900/30 bg-black/50 backdrop-blur-md py-2 md:py-1 relative z-20">
+        <div class="max-w-[960px] mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 md:gap-6 text-center justify-center"
+            bis_skin_checked="1">
+            <div class="flex flex-col gap-1 md:gap-2" bis_skin_checked="1">
+                <span class="text-white font-bold text-sm md:text-xl" style="font-size: 0.8rem;">Follow Peanut on</span>
+            </div>
+            <div class="flex gap-4 md:gap-8 items-center" bis_skin_checked="1">
+                <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
+                    href="https://youtube.com/@lolpeanuttv?si=V1kHJhWFrZ4Raw_c" target="_blank"
+                    rel="noopener noreferrer" bis_skin_checked="1" style="height: 1.2rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="yt-ringo2-svg_yt11" width="40" height="40"
+                        viewBox="0 0 30 30" focusable="false" aria-hidden="true"
+                        style="pointer-events: none;display: flex;width: 100%;height: 100%;align-items: center;align-content: center;justify-content: center;justify-items: center;">
+                        <g style="transform: translate(1px, 4px);">
+                            <path
+                                d="M14.4848 20C14.4848 20 23.5695 20 25.8229 19.4C27.0917 19.06 28.0459 18.08 28.3808 16.87C29 14.65 29 9.98 29 9.98C29 9.98 29 5.34 28.3808 3.14C28.0459 1.9 27.0917 0.94 25.8229 0.61C23.5695 0 14.4848 0 14.4848 0C14.4848 0 5.42037 0 3.17711 0.61C1.9286 0.94 0.954148 1.9 0.59888 3.14C0 5.34 0 9.98 0 9.98C0 9.98 0 14.65 0.59888 16.87C0.954148 18.08 1.9286 19.06 3.17711 19.4C5.42037 20 14.4848 20 14.4848 20Z"
+                                fill="#FF0033"></path>
+                            <path d="M19 10L11.5 5.75V14.25L19 10Z" fill="white"></path>
+                        </g>
+                    </svg>
+                    <!-- <span>YouTube</span> -->
+                </a>
+                <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
+                    href="https://www.sooplive.co.kr/station/kiss281004" target="_blank" rel="noopener noreferrer"
+                    bis_skin_checked="1" style="height: 1.2rem;">
+                    <img src="https://res.sooplive.co.kr/images/svg/soop_logo.svg" alt="SOOP"
+                        style="opacity: 1;height: 1.2rem;">
+                    <!-- <span>Soop</span> -->
+                </a>
+                <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
+                    href="https://www.instagram.com/wanghohan98/" target="_blank" rel="noopener noreferrer"
+                    bis_skin_checked="1" style="height: 1.2rem;">
+                    <svg aria-label="Instagram" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="35"
+                        role="img" viewBox="0 0 24 24" width="35" style="height: 1.2rem;">
+                        <title>Instagram</title>
+                        <path
+                            d="M12 2.982c2.937 0 3.285.011 4.445.064a6.087 6.087 0 0 1 2.042.379 3.408 3.408 0 0 1 1.265.823 3.408 3.408 0 0 1 .823 1.265 6.087 6.087 0 0 1 .379 2.042c.053 1.16.064 1.508.064 4.445s-.011 3.285-.064 4.445a6.087 6.087 0 0 1-.379 2.042 3.643 3.643 0 0 1-2.088 2.088 6.087 6.087 0 0 1-2.042.379c-1.16.053-1.508.064-4.445.064s-3.285-.011-4.445-.064a6.087 6.087 0 0 1-2.043-.379 3.408 3.408 0 0 1-1.264-.823 3.408 3.408 0 0 1-.823-1.265 6.087 6.087 0 0 1-.379-2.042c-.053-1.16-.064-1.508-.064-4.445s.011-3.285.064-4.445a6.087 6.087 0 0 1 .379-2.042 3.408 3.408 0 0 1 .823-1.265 3.408 3.408 0 0 1 1.265-.823 6.087 6.087 0 0 1 2.042-.379c1.16-.053 1.508-.064 4.445-.064M12 1c-2.987 0-3.362.013-4.535.066a8.074 8.074 0 0 0-2.67.511 5.392 5.392 0 0 0-1.949 1.27 5.392 5.392 0 0 0-1.269 1.948 8.074 8.074 0 0 0-.51 2.67C1.012 8.638 1 9.013 1 12s.013 3.362.066 4.535a8.074 8.074 0 0 0 .511 2.67 5.392 5.392 0 0 0 1.27 1.949 5.392 5.392 0 0 0 1.948 1.269 8.074 8.074 0 0 0 2.67.51C8.638 22.988 9.013 23 12 23s3.362-.013 4.535-.066a8.074 8.074 0 0 0 2.67-.511 5.625 5.625 0 0 0 3.218-3.218 8.074 8.074 0 0 0 .51-2.67C22.988 15.362 23 14.987 23 12s-.013-3.362-.066-4.535a8.074 8.074 0 0 0-.511-2.67 5.392 5.392 0 0 0-1.27-1.949 5.392 5.392 0 0 0-1.948-1.269 8.074 8.074 0 0 0-2.67-.51C15.362 1.012 14.987 1 12 1Zm0 5.351A5.649 5.649 0 1 0 17.649 12 5.649 5.649 0 0 0 12 6.351Zm0 9.316A3.667 3.667 0 1 1 15.667 12 3.667 3.667 0 0 1 12 15.667Zm5.872-10.859a1.32 1.32 0 1 0 1.32 1.32 1.32 1.32 0 0 0-1.32-1.32Z">
+                        </path>
+                    </svg>
+                    <!-- <span>Soop</span> -->
+                </a>
+                <a class="flex items-center gap-2 text-pink-200/80 hover:text-white transition-colors text-base font-medium group"
+                    href="https://x.com/lolPeanut98" target="_blank" rel="noopener noreferrer" bis_skin_checked="1"
+                    style="height: 1.2rem;">
+                    <img alt="x.svg"
+                        src="https://raw.githubusercontent.com/ant-design/ant-design-icons/05fa2ecef7d14382878b8639a4a260513f466c19/packages/icons-svg/svg/filled/x.svg"
+                        style="width: 1.2rem;">
+                    <!-- <span>Soop</span> -->
+                </a>
+            </div>
+        </div>
+        <p class="text-pink-200/40 text-[10px] md:text-xs text-center mt-1">© Wangho's Flower Garden by Vietnamese fans
+        </p>
+    </footer>
+
+    <!-- About Modal -->
+    <div id="about-modal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden"
+        bis_skin_checked="1">
+        <div class="frame-popup-container max-w-2xl w-full" bis_skin_checked="1" style="min-height: 48rem;">
+            <!-- Frame overlay - lớp phủ không chặn tương tác -->
+            <div class="frame-overlay" bis_skin_checked="1"></div>
+            <!-- Nội dung popup - nền trong suốt -->
+            <div class="max-h-[70vh] p-8 relative w-full z-[1]" bis_skin_checked="1" style="
+    padding: 10rem 3rem 1rem;
+    text-align: justify;
+    max-height: 70vh;
+">
+                <!-- Close button -->
+                <button id="close-about-modal"
+                    class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm"
+                    style="display: none;">
+                    <span class="material-symbols-outlined text-white text-2xl">close</span>
+                </button>
+                <!-- Nội dung -->
+                <div id="about-content-display"
+                    class="max-w-none overflow-y-auto prose prose-invert text-center text-white thin-scroll"
+                    style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);max-height: 30rem;padding-bottom: 6rem;"
+                    bis_skin_checked="1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedback-modal"
+        class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div
+            class="bg-white/10 dark:bg-[#2a1b2e]/95 backdrop-blur-xl border border-white/20 dark:border-pink-500/20 rounded-2xl shadow-2xl max-w-lg w-full">
+            <div
+                class="sticky top-0 bg-gradient-to-r from-primary/20 to-purple-500/20 backdrop-blur-md p-6 border-b border-white/10 flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <span class="material-symbols-outlined">mail</span>
+                    Send Feedback
+                </h2>
+                <button id="close-feedback-modal" class="p-2 hover:bg-white/10 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-white">close</span>
+                </button>
+            </div>
+            <form id="feedback-form" class="p-6 space-y-4">
+                <div id="feedback-error"
+                    class="hidden p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm"></div>
+                <div id="feedback-success"
+                    class="hidden p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-200 text-sm">
+                </div>
+
+                <div>
+                    <label for="feedback-subject" class="block text-sm font-semibold text-white mb-2">Subject</label>
+                    <input type="text" id="feedback-subject" required maxlength="100"
+                        placeholder="Brief topic of your feedback"
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all">
+                </div>
+
+                <div>
+                    <label for="feedback-message" class="block text-sm font-semibold text-white mb-2">Message</label>
+                    <textarea id="feedback-message" required rows="6" maxlength="1000"
+                        placeholder="Share your suggestions, ideas, or feedback..."
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all resize-none"></textarea>
+                    <p class="text-xs text-slate-400 mt-1"><span id="char-count">0</span>/1000 characters</p>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button type="button" id="cancel-feedback"
+                        class="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submit-feedback"
+                        class="flex-1 px-4 py-3 bg-gradient-to-r from-primary to-primary-hover text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-primary/30 transition-all">
+                        Send Feedback
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Feedback Button (Only for logged in users) -->
+    <button id="feedback-button"
+        class="hidden fixed bottom-6 right-6 z-40 size-14 bg-gradient-to-br from-primary to-pink-600 hover:from-primary-hover hover:to-pink-700 text-white rounded-full shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all hover:scale-110 active:scale-95 flex items-center justify-center group">
+        <span class="material-symbols-outlined text-2xl">mail</span>
+        <span
+            class="absolute -top-12 right-0 bg-black/80 text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            Send Feedback
+        </span>
+    </button>
+
+    <script type="module" src="/js/landing-page.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+        }
+    </script>
+</body>
+
+</html>
