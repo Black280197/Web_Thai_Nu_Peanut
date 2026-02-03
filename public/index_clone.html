@@ -392,15 +392,17 @@
 
         /* Landing page responsive backgrounds */
         .landing-bg {
-            background-size: contain;
+            /* background-size: contain; */
+            background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
-            background-image: url('/assets/img/test_peanut.jpeg');
+            background-image: url('/assets/img/test_peanut.png');
         }
 
         @media (max-width: 768px) {
             .landing-bg {
                 background-image: url('/assets/img/phone.png');
+                background-size: 100% !important;
             }
         }
 
