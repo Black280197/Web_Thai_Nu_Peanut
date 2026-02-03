@@ -3,8 +3,8 @@ import { supabase, getCurrentUser } from './supabase-client.js'
 
 let wishes = []
 let bubbleCount = 0
-const maxBubbles = 15 // Maximum bubbles on screen at once
-const bubbleInterval = 1000 // 3 seconds between new bubbles
+const maxBubbles = 30 // Maximum bubbles on screen at once
+const bubbleInterval = 100 // 3 seconds between new bubbles
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', async () => {
@@ -121,6 +121,7 @@ function createBubble() {
 
     bubble.className = `bubble ${sizeClass}`
     bubble.style.left = `${leftPosition}px`
+    bubble.style.top = `-100px`
     bubble.style.animationDelay = `${delay}ms`
 
     // Store wish data in bubble element
@@ -152,7 +153,8 @@ function createBubble() {
             bubble.parentNode.removeChild(bubble)
             bubbleCount--
         }
-    }, animationDuration + delay)
+    }, animationDuration + delay - 500)
+    // }, 5000 + delay)
 }
 
 // Get animation duration based on bubble size
