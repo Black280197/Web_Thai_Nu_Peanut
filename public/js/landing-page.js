@@ -193,6 +193,11 @@ function showWishModal(wish, username) {
                             <button id="close-wish-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm" style="display: none;">
                                 <span class="material-symbols-outlined text-white text-2xl">close</span>
                             </button>
+                            <!-- Frame overlay -->
+                            <div class="frame-overlay" style="display: flex;justify-content: center;">
+                                <!-- Modal content -->
+                                
+                            </div>
                             <!-- Content -->
                             <div id="wish-content-display" class="max-w-none overflow-y-auto text-white thin-scroll" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5);max-height: 23rem;padding-bottom: 6rem;overflow-y: auto;scrollbar-width: none;" bis_skin_checked="1">
                                 <div class="flex items-center justify-center gap-2 mb-4 hidden">
@@ -201,19 +206,14 @@ function showWishModal(wish, username) {
                                 <div class="text-center mb-4">
                                     <div class="text-red-500 text-xl font-semibold mb-2 my-candy-cake" style="text-align: left;color: #e7dcff;">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
                                 </div>
-                                <div id="modal-image-container" class="mb-4 hidden">
-                                    <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
-                                </div>
                                 <div class="text-center" style="text-align: justify;">
                                     <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;color: #e7dcff;"></div>
                                 </div>
+                                <div id="modal-image-container" class="mb-4 hidden">
+                                    <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
+                                </div>
                             </div>
                         </div>
-                <!-- Frame overlay -->
-                <div class="frame-overlay" style="display: flex;justify-content: center;">
-                    <!-- Modal content -->
-                    
-                </div>
             </div>
         `
         document.body.appendChild(modal)
