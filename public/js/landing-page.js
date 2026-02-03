@@ -3,8 +3,8 @@ import { supabase, getCurrentUser } from './supabase-client.js'
 
 let wishes = []
 let bubbleCount = 0
-const maxBubbles = 15 // Maximum bubbles on screen at once
-const bubbleInterval = 3000 // 3 seconds between new bubbles
+const maxBubbles = 20 // Maximum bubbles on screen at once
+const bubbleInterval = 1000 // 3 seconds between new bubbles
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', async () => {
@@ -78,7 +78,7 @@ async function loadApprovedWishes() {
 
 // Update wishes counter
 function updateWishesCount(count) {
-    document.getElementById('wishes-count').textContent = count
+    // document.getElementById('wishes-count').textContent = count
 }
 
 // Start bubble animation
@@ -117,10 +117,11 @@ function createBubble() {
     const leftPosition = Math.random() * (window.innerWidth - 120) // 120px buffer for bubble width
 
     // Random delay for staggered start
-    const delay = Math.random() * 1000 // 0-2 seconds delay
+    const delay = Math.random() * 2000 // 0-2 seconds delay
 
     bubble.className = `bubble ${sizeClass}`
     bubble.style.left = `${leftPosition}px`
+    bubble.style.top = `-100px`
     bubble.style.animationDelay = `${delay}ms`
 
     // Store wish data in bubble element
@@ -152,7 +153,8 @@ function createBubble() {
             bubble.parentNode.removeChild(bubble)
             bubbleCount--
         }
-    }, animationDuration + delay)
+    }, animationDuration + delay - 500)
+    // }, 5000 + delay)
 }
 
 // Get animation duration based on bubble size
@@ -188,7 +190,7 @@ function showWishModal(wish, username) {
         modal.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-sm hidden'
         modal.innerHTML = `
             <div class="frame-popup-container max-w-2xl w-full" style="min-height: 48rem;">
-                <div class="max-h-[70vh] p-8 relative w-full z-[1] child-of-container" style="padding: 16rem 3rem 3rem; max-height: 70vh;width: 37.7rem;position: absolute; z-index: 11;top: -2rem; right: 2rem;">
+                <div class="max-h-[70vh] p-8 relative w-full z-[1] child-of-container" style="padding: 16rem 3rem 3rem; max-height: 70vh;width: 37.7rem;position: absolute; z-index: 11;top: -2rem;">
                             <!-- Close button -->
                             <button id="close-wish-modal" class="absolute top-2 right-2 p-2 hover:bg-white/20 rounded-full transition-colors z-20 bg-black/30 backdrop-blur-sm" style="display: none;">
                                 <span class="material-symbols-outlined text-white text-2xl">close</span>
@@ -204,16 +206,30 @@ function showWishModal(wish, username) {
                                     <span id="modal-sticker" class="text-5xl"></span>
                                 </div>
                                 <div class="text-center mb-4">
-                                    <div class="text-red-500 text-xl font-semibold mb-2 my-candy-cake" style="text-align: left;color: #e7dcff;">From:<span id="modal-username" class="text-red font-bold text-xl"></span></div>
+                                    <div class="text-red-500 text-xl font-semibold mb-2 my-candy-cake" style="text-align: left;color: #e7dcff;font-size: 1.55rem;">From: <span id="modal-username" class="text-red font-bold text-xl" style="font-size: 1.55rem;"></span></div>
                                 </div>
+                                <div class="text-center" style="text-align: justify;">
+                                    <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;line-height: 2.1rem;"></div>
+                                </div>
+<<<<<<< HEAD
                                 <div class="text-center" style="text-align: justify;">
                                     <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;color: #e7dcff;"></div>
                                 </div>
+=======
+>>>>>>> 3ab993f837504ebbb38254e9446d305ee29c8414
                                 <div id="modal-image-container" class="mb-4 hidden">
                                     <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+                <!-- Frame overlay -->
+                <div class="frame-overlay" style="display: flex;justify-content: center;z-index: 12;">
+                    <!-- Modal content -->
+                    
+                </div>
+>>>>>>> 3ab993f837504ebbb38254e9446d305ee29c8414
             </div>
         `
         document.body.appendChild(modal)
@@ -232,18 +248,19 @@ function showWishModal(wish, username) {
 
     // Populate modal content
     document.getElementById('modal-username').textContent = username
-    document.getElementById('modal-content').textContent = wish.content.split(":").slice(1).join(":")
+    document.getElementById('modal-content').textContent = wish.content.replaceAll("\n\n", "\n").split(":").slice(1).join(":")
     document.getElementById('modal-sticker').textContent = wish.sticker || '🎉'
     if (hasKorean(wish.content)) {
         // Có tiếng Hàn → đổi font sang font hỗ trợ Hàn ngon lành
         document.querySelector('#modal-content').classList.remove("my-candy-cake")
-        document.querySelector('#modal-content').classList.add("my-korea-font") 
+        document.querySelector('#modal-content').classList.add("my-korea-font")
+        document.querySelector('#modal-content').style.setProperty('font-size', '2rem', 'important');
     } else {
         // Không có tiếng Hàn → dùng font mặc định hoặc font Việt/Anh
-        document.querySelector('#modal-content').classList.add("my-candy-cake")
-        document.querySelector('#modal-content').classList.remove("my-korea-font") 
+        document.querySelector('#modal-content').classList.remove("my-candy-cake")
+        document.querySelector('#modal-content').classList.remove("my-korea-font")
+        document.querySelector('#modal-content').style.setProperty('font-size', '20px', 'important');
     }
-
     // Show image if available
     const imageContainer = document.getElementById('modal-image-container')
     const imageElement = document.getElementById('modal-image')
@@ -256,6 +273,7 @@ function showWishModal(wish, username) {
 
     // Show modal
     modal.classList.remove('hidden')
+    document.getElementById('wish-content-display').scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Handle window resize
