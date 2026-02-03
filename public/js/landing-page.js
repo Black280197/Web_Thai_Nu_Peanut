@@ -238,10 +238,12 @@ function showWishModal(wish, username) {
         // Có tiếng Hàn → đổi font sang font hỗ trợ Hàn ngon lành
         document.querySelector('#modal-content').classList.remove("my-candy-cake")
         document.querySelector('#modal-content').classList.add("my-korea-font")
+        document.querySelector('#modal-content').style.setProperty('font-size', '20px');
     } else {
         // Không có tiếng Hàn → dùng font mặc định hoặc font Việt/Anh
         document.querySelector('#modal-content').classList.remove("my-candy-cake")
         document.querySelector('#modal-content').classList.remove("my-korea-font")
+        document.querySelector('#modal-content').style.setProperty('font-size', '20px', 'important');
     }
     // Show image if available
     const imageContainer = document.getElementById('modal-image-container')
