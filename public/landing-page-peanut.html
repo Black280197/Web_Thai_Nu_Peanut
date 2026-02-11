@@ -5,7 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Roll - Chúc Tết</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <style>
+        @font-face {
+            font-family: 'candy_cake';
+            src: url('assets/fonts/Candy_Cake.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Dongle';
+            src: url('assets/fonts/Dongle-Bold.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .my-candy-cake {
+            font-family: 'candy_cake' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .my-korea-font {
+            font-family: 'Dongle' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,12 +47,25 @@
         body {
             font-family: 'Arial', sans-serif;
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-image: url('background.jpg');
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Landing page responsive backgrounds */
+        .landing-bg {
+            position: fixed;
+            inset: 0;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            height: 100vh;
+            background-repeat: no-repeat;
+            background-image: url('/assets/img/desktop.png');
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .landing-bg {
+                background-image: url('/assets/img/phone.png');
+            }
         }
 
         .container {
@@ -39,6 +84,14 @@
             width: 100%;
             height: 300px;
             perspective: 1000px;
+            z-index: 5;
+        }
+
+        @media (max-width: 768px) {
+            .film-roll-wrapper {
+                height: 200px;
+                perspective: 600px;
+            }
         }
 
         .film-roll {
@@ -58,6 +111,13 @@
             animation: rotateFilm 20s linear infinite;
         }
 
+        @media (max-width: 768px) {
+            .film-strip {
+                width: 75px;
+                height: 100px;
+            }
+        }
+
         @keyframes rotateFilm {
             from {
                 transform: translate(-50%, -50%) rotateY(0deg) translateZ(400px);
@@ -65,6 +125,16 @@
 
             to {
                 transform: translate(-50%, -50%) rotateY(360deg) translateZ(400px);
+            }
+        }
+
+        @keyframes rotateFilmMobile {
+            from {
+                transform: translate(-50%, -50%) rotateY(0deg) translateZ(180px);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotateY(360deg) translateZ(180px);
             }
         }
 
@@ -80,6 +150,25 @@
             backface-visibility: visible;
         }
 
+        @media (max-width: 768px) {
+            .film-frame {
+                width: 75px;
+                height: 100px;
+                border: 4px solid #333;
+                border-radius: 5px;
+            }
+
+            .film-frame img {
+                width: 60px !important;
+                height: 80px !important;
+                border-radius: 3px;
+            }
+
+            /* .film-strip {
+                animation: rotateFilmMobile !important;
+            } */
+        }
+
         /* Film holes effect */
         .film-frame::before,
         .film-frame::after {
@@ -89,6 +178,7 @@
             height: 15px;
             background: #666;
             border-radius: 50%;
+            display: none;
         }
 
         .film-frame::before {
@@ -128,6 +218,12 @@
             display: none;
         }
 
+        @media (max-width: 768px) {
+            .center-line {
+                height: 200px;
+            }
+        }
+
         /* Peanut character */
         .peanut {
             position: absolute;
@@ -139,6 +235,14 @@
             cursor: pointer;
             transition: bottom 0.3s ease-out;
             z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .peanut {
+                width: 80px;
+                height: 80px;
+                bottom: 30px;
+            }
         }
 
         .peanut img {
@@ -166,7 +270,23 @@
             }
         }
 
-        /* Popup modal */
+        @media (max-width: 768px) {
+            @keyframes jump {
+                0% {
+                    bottom: 30px;
+                }
+
+                50% {
+                    bottom: 300px;
+                }
+
+                100% {
+                    bottom: 30px;
+                }
+            }
+        }
+
+        /* Popup modal with frame */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -175,6 +295,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -195,16 +316,33 @@
             }
         }
 
-        .popup-content {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: slideUp 0.5s ease;
+        /* Frame popup container */
+        .frame-popup-container {
             position: relative;
+            max-width: 37.7rem;
+            width: 90%;
+            min-height: 48rem;
+        }
+
+        /* Frame overlay */
+        .frame-overlay {
+            position: absolute;
+            inset: -2rem;
+            background-image: url('/assets/img/new_new_frame.png');
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+            z-index: 11;
+        }
+
+        .popup-content {
+            position: relative;
+            width: 100%;
+            z-index: 11;
+            padding: 16rem 3rem 3rem;
+            max-height: 70vh;
+            animation: slideUp 0.5s ease;
         }
 
         @keyframes slideUp {
@@ -219,57 +357,99 @@
             }
         }
 
-        .popup-content img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        #wish-content-display {
+            max-height: 21.5rem;
+            padding-bottom: 6rem;
+            overflow-y: auto;
+            scrollbar-width: none;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #wish-content-display::-webkit-scrollbar {
+            display: none;
         }
 
         .popup-content h2 {
-            color: #d32f2f;
-            font-size: 28px;
-            margin-bottom: 15px;
-            font-weight: bold;
+            color: #e7dcff;
+            font-size: 1.55rem;
+            margin-bottom: 1rem;
+            text-align: left;
         }
 
-        .popup-content p {
-            color: #333;
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .popup-content .sender {
-            color: #666;
-            font-style: italic;
-            margin-top: 20px;
-            font-size: 16px;
+        #modal-content {
+            color: white;
+            font-size: 1.625rem;
+            line-height: 2.1rem;
+            white-space: pre-wrap;
+            text-align: justify;
         }
 
         .close-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 35px;
-            height: 35px;
-            background: #f44336;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
             color: white;
             border: none;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            z-index: 20;
+            display: none;
         }
 
         .close-btn:hover {
-            background: #d32f2f;
-            transform: rotate(90deg);
+            background: rgba(0, 0, 0, 0.6);
+            transform: scale(1.1);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .frame-popup-container {
+                min-height: 25rem !important;
+                width: 95%;
+            }
+
+            .frame-overlay {
+                inset: -1rem;
+                background-size: 90% auto !important;
+            }
+
+            .popup-content {
+                padding: 8rem 2rem 2rem !important;
+                max-height: 75vh !important;
+            }
+
+            #wish-content-display {
+                max-height: 11.8rem !important;
+            }
+
+            .popup-content h2 {
+                font-size: 1.25rem !important;
+            }
+
+            #modal-content {
+                font-size: 1.125rem !important;
+                line-height: 1.6rem !important;
+            }
+
+            #modal-content.my-candy-cake {
+                font-size: 1rem !important;
+            }
+
+            .close-btn {
+                top: 1rem;
+                right: 1rem;
+                width: 35px;
+                height: 35px;
+            }
         }
 
         /* Instructions */
@@ -285,6 +465,14 @@
             font-size: 16px;
             z-index: 50;
             animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .instructions {
+                font-size: 14px;
+                padding: 10px 20px;
+                bottom: 10px;
+            }
         }
 
         @keyframes pulse {
@@ -311,12 +499,45 @@
             text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
             z-index: 50;
         }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 24px;
+                top: 20px;
+                width: 90%;
+                text-align: center;
+            }
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .text-red {
+            color: #ef4444;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Landing page background -->
+    <div class="landing-bg"></div>
+
     <div class="container">
-        <h1 class="title">🎊 Chúc Mừng Năm Mới 2026 🎊</h1>
+        <h1 class="title" hidden>🎊 Chúc Mừng Năm Mới 2026 🎊</h1>
 
         <div class="film-roll-wrapper">
             <div class="center-line" hiddens></div>
@@ -324,171 +545,42 @@
         </div>
 
         <div class="peanut" id="peanut">
-            <img src="peanut.png" alt="Peanut">
+            <img src="/assets/img/peanut.png" alt="Peanut">
         </div>
 
-        <div class="instructions">
+        <div class="instructions" hidden>
             🥜 Nhấn SPACE hoặc Click củ lạc để nhảy lên! 🥜
         </div>
     </div>
 
-    <!-- Popup -->
+    <!-- Popup with Frame -->
     <div class="popup-overlay" id="popupOverlay">
-        <div class="popup-content">
-            <button class="close-btn" id="closeBtn">×</button>
-            <img id="popupImage" src="" alt="Greeting Image">
-            <h2 id="popupTitle">Lời chúc</h2>
-            <p id="popupMessage"></p>
-            <p class="sender">Từ: <span id="popupSender"></span></p>
+        <div class="frame-popup-container">
+            <div class="popup-content">
+                <button class="close-btn" id="closeBtn">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+
+                <div id="wish-content-display">
+                    <div class="text-center mb-4">
+                        <h2 class="my-candy-cake">Từ: <span id="modal-username" class="text-red font-bold"></span></h2>
+                    </div>
+                    <div class="text-center">
+                        <div id="modal-content"></div>
+                    </div>
+                    <div id="modal-image-container" class="hidden" style="margin-top: 1rem;">
+                        <img id="modal-image" src="" alt="Wish image"
+                            style="width: 100%; max-width: 400px; margin: 0 auto; display: block; border-radius: 10px; border: 2px solid rgba(255,255,255,0.2);" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame overlay -->
+            <div class="frame-overlay"></div>
         </div>
     </div>
 
-    <script>
-        // Data structure for greetings
-        const greetings = [
-            {
-                image: 'image1.jpg',
-                message: 'Chúc bạn một năm mới tràn đầy sức khỏe, hạnh phúc và thành công!',
-                sender: 'Nguyễn Văn A'
-            },
-            {
-                image: 'image2.jpg',
-                message: 'An khang thịnh vượng, vạn sự như ý!',
-                sender: 'Trần Thị B'
-            },
-            {
-                image: 'image3.jpg',
-                message: 'Năm mới phát tài, phát lộc, tiền vào như nước!',
-                sender: 'Lê Văn C'
-            },
-            {
-                image: 'image4.jpg',
-                message: 'Sức khỏe dồi dào, công việc thuận lợi!',
-                sender: 'Phạm Thị D'
-            },
-            {
-                image: 'image5.jpg',
-                message: 'Chúc gia đình luôn ấm no, hạnh phúc, sum vầy!',
-                sender: 'Hoàng Văn E'
-            },
-            {
-                image: 'image6.jpg',
-                message: 'Năm mới vui vẻ, tiếng cười không ngớt!',
-                sender: 'Võ Thị F'
-            },
-            {
-                image: 'image7.jpg',
-                message: 'Tài lộc ùn ùn kéo đến, may mắn tràn trề!',
-                sender: 'Đặng Văn G'
-            },
-            {
-                image: 'image8.jpg',
-                message: 'Học tập tiến bộ, sự nghiệp thăng tiến!',
-                sender: 'Bùi Thị H'
-            }
-        ];
-
-        // Create film roll with frames
-        const filmRoll = document.getElementById('filmRoll');
-        const numFrames = greetings.length;
-        const angleStep = 360 / numFrames;
-
-        greetings.forEach((greeting, index) => {
-            const filmStrip = document.createElement('div');
-            filmStrip.className = 'film-strip';
-            filmStrip.style.animation = `rotateFilm 20s linear infinite`;
-            filmStrip.style.animationDelay = `-${(index * 20) / numFrames}s`;
-
-            const filmFrame = document.createElement('div');
-            filmFrame.className = 'film-frame';
-            filmFrame.dataset.index = index;
-
-            const img = document.createElement('img');
-            img.src = greeting.image;
-            img.alt = `Greeting ${index + 1}`;
-
-            filmFrame.appendChild(img);
-            filmStrip.appendChild(filmFrame);
-            filmRoll.appendChild(filmStrip);
-        });
-
-        // Peanut jump functionality
-        const peanut = document.getElementById('peanut');
-        const popupOverlay = document.getElementById('popupOverlay');
-        const closeBtn = document.getElementById('closeBtn');
-        let isJumping = false;
-
-        function jump() {
-            if (isJumping) return;
-
-            isJumping = true;
-            peanut.classList.add('jumping');
-
-            // Check which frame is at center after 300ms (peak of jump)
-            setTimeout(() => {
-                checkCenterFrame();
-            }, 300);
-
-            // Reset jump state
-            setTimeout(() => {
-                peanut.classList.remove('jumping');
-                isJumping = false;
-            }, 600);
-        }
-
-        function checkCenterFrame() {
-            const filmStrips = document.querySelectorAll('.film-strip');
-            let centerIndex = -1;
-            let minDistance = Infinity;
-
-            filmStrips.forEach((strip, index) => {
-                const rect = strip.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const screenCenter = window.innerWidth / 2;
-                const distance = Math.abs(centerX - screenCenter);
-
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    centerIndex = index;
-                }
-            });
-
-            // Check if the frame is close enough to center (within 100px)
-            if (minDistance < 100 && centerIndex !== -1) {
-                showPopup(centerIndex);
-            }
-        }
-
-        function showPopup(index) {
-            const greeting = greetings[index];
-            document.getElementById('popupImage').src = greeting.image;
-            document.getElementById('popupMessage').textContent = greeting.message;
-            document.getElementById('popupSender').textContent = greeting.sender;
-            popupOverlay.classList.add('active');
-        }
-
-        function closePopup() {
-            popupOverlay.classList.remove('active');
-        }
-
-        // Event listeners
-        peanut.addEventListener('click', jump);
-
-        document.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                jump();
-            }
-        });
-
-        closeBtn.addEventListener('click', closePopup);
-
-        popupOverlay.addEventListener('click', (e) => {
-            if (e.target === popupOverlay) {
-                closePopup();
-            }
-        });
-    </script>
+    <script type="module" src="/js/landing-page-peanut.js"></script>
 </body>
 
 </html>

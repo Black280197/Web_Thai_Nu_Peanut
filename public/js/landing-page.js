@@ -211,25 +211,16 @@ function showWishModal(wish, username) {
                                 <div class="text-center" style="text-align: justify;">
                                     <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;line-height: 2.1rem;"></div>
                                 </div>
-<<<<<<< HEAD
-                                <div class="text-center" style="text-align: justify;">
-                                    <div id="modal-content" class="text-white leading-relaxed text-lg" style="white-space: pre-wrap;font-size: 1.625rem;color: #e7dcff;"></div>
-                                </div>
-=======
->>>>>>> 3ab993f837504ebbb38254e9446d305ee29c8414
                                 <div id="modal-image-container" class="mb-4 hidden">
                                     <img id="modal-image" src="" alt="Wish image" class="w-full max-w-md mx-auto rounded-lg border border-white/20" />
                                 </div>
                             </div>
                         </div>
-<<<<<<< HEAD
-=======
                 <!-- Frame overlay -->
                 <div class="frame-overlay" style="display: flex;justify-content: center;z-index: 12;">
                     <!-- Modal content -->
                     
                 </div>
->>>>>>> 3ab993f837504ebbb38254e9446d305ee29c8414
             </div>
         `
         document.body.appendChild(modal)
