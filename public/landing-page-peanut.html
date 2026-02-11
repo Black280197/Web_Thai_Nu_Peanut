@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Roll - Chúc Tết</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Film roll container */
+        .film-roll-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 300px;
+            perspective: 1000px;
+        }
+
+        .film-roll {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .film-strip {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            left: 50%;
+            top: 50%;
+            transform-style: preserve-3d;
+            animation: rotateFilm 20s linear infinite;
+        }
+
+        @keyframes rotateFilm {
+            from {
+                transform: translate(-50%, -50%) rotateY(0deg) translateZ(400px);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotateY(360deg) translateZ(400px);
+            }
+        }
+
+        .film-frame {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            background: #000;
+            border: 10px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            backface-visibility: visible;
+        }
+
+        /* Film holes effect */
+        .film-frame::before,
+        .film-frame::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #666;
+            border-radius: 50%;
+        }
+
+        .film-frame::before {
+            top: 10px;
+            left: 10px;
+            box-shadow: 0 40px 0 #666, 0 80px 0 #666, 0 120px 0 #666, 0 160px 0 #666, 0 200px 0 #666;
+        }
+
+        .film-frame::after {
+            top: 10px;
+            right: 10px;
+            box-shadow: 0 40px 0 #666, 0 80px 0 #666, 0 120px 0 #666, 0 160px 0 #666, 0 200px 0 #666;
+        }
+
+        .film-frame img {
+            width: 160px;
+            height: 210px;
+            object-fit: cover;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+        }
+
+        /* Center indicator line */
+        .center-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.5);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            display: none;
+        }
+
+        /* Peanut character */
+        .peanut {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            transition: bottom 0.3s ease-out;
+            z-index: 100;
+        }
+
+        .peanut img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        .peanut.jumping {
+            animation: jump 0.6s ease-in-out;
+        }
+
+        @keyframes jump {
+            0% {
+                bottom: 50px;
+            }
+
+            50% {
+                bottom: 400px;
+            }
+
+            100% {
+                bottom: 50px;
+            }
+        }
+
+        /* Popup modal */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.5s ease;
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .popup-content img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-content h2 {
+            color: #d32f2f;
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .popup-content p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .popup-content .sender {
+            color: #666;
+            font-style: italic;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #d32f2f;
+            transform: rotate(90deg);
+        }
+
+        /* Instructions */
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            z-index: 50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Title */
+        .title {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">🎊 Chúc Mừng Năm Mới 2026 🎊</h1>
+
+        <div class="film-roll-wrapper">
+            <div class="center-line" hiddens></div>
+            <div class="film-roll" id="filmRoll"></div>
+        </div>
+
+        <div class="peanut" id="peanut">
+            <img src="peanut.png" alt="Peanut">
+        </div>
+
+        <div class="instructions">
+            🥜 Nhấn SPACE hoặc Click củ lạc để nhảy lên! 🥜
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <button class="close-btn" id="closeBtn">×</button>
+            <img id="popupImage" src="" alt="Greeting Image">
+            <h2 id="popupTitle">Lời chúc</h2>
+            <p id="popupMessage"></p>
+            <p class="sender">Từ: <span id="popupSender"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Data structure for greetings
+        const greetings = [
+            {
+                image: 'image1.jpg',
+                message: 'Chúc bạn một năm mới tràn đầy sức khỏe, hạnh phúc và thành công!',
+                sender: 'Nguyễn Văn A'
+            },
+            {
+                image: 'image2.jpg',
+                message: 'An khang thịnh vượng, vạn sự như ý!',
+                sender: 'Trần Thị B'
+            },
+            {
+                image: 'image3.jpg',
+                message: 'Năm mới phát tài, phát lộc, tiền vào như nước!',
+                sender: 'Lê Văn C'
+            },
+            {
+                image: 'image4.jpg',
+                message: 'Sức khỏe dồi dào, công việc thuận lợi!',
+                sender: 'Phạm Thị D'
+            },
+            {
+                image: 'image5.jpg',
+                message: 'Chúc gia đình luôn ấm no, hạnh phúc, sum vầy!',
+                sender: 'Hoàng Văn E'
+            },
+            {
+                image: 'image6.jpg',
+                message: 'Năm mới vui vẻ, tiếng cười không ngớt!',
+                sender: 'Võ Thị F'
+            },
+            {
+                image: 'image7.jpg',
+                message: 'Tài lộc ùn ùn kéo đến, may mắn tràn trề!',
+                sender: 'Đặng Văn G'
+            },
+            {
+                image: 'image8.jpg',
+                message: 'Học tập tiến bộ, sự nghiệp thăng tiến!',
+                sender: 'Bùi Thị H'
+            }
+        ];
+
+        // Create film roll with frames
+        const filmRoll = document.getElementById('filmRoll');
+        const numFrames = greetings.length;
+        const angleStep = 360 / numFrames;
+
+        greetings.forEach((greeting, index) => {
+            const filmStrip = document.createElement('div');
+            filmStrip.className = 'film-strip';
+            filmStrip.style.animation = `rotateFilm 20s linear infinite`;
+            filmStrip.style.animationDelay = `-${(index * 20) / numFrames}s`;
+
+            const filmFrame = document.createElement('div');
+            filmFrame.className = 'film-frame';
+            filmFrame.dataset.index = index;
+
+            const img = document.createElement('img');
+            img.src = greeting.image;
+            img.alt = `Greeting ${index + 1}`;
+
+            filmFrame.appendChild(img);
+            filmStrip.appendChild(filmFrame);
+            filmRoll.appendChild(filmStrip);
+        });
+
+        // Peanut jump functionality
+        const peanut = document.getElementById('peanut');
+        const popupOverlay = document.getElementById('popupOverlay');
+        const closeBtn = document.getElementById('closeBtn');
+        let isJumping = false;
+
+        function jump() {
+            if (isJumping) return;
+
+            isJumping = true;
+            peanut.classList.add('jumping');
+
+            // Check which frame is at center after 300ms (peak of jump)
+            setTimeout(() => {
+                checkCenterFrame();
+            }, 300);
+
+            // Reset jump state
+            setTimeout(() => {
+                peanut.classList.remove('jumping');
+                isJumping = false;
+            }, 600);
+        }
+
+        function checkCenterFrame() {
+            const filmStrips = document.querySelectorAll('.film-strip');
+            let centerIndex = -1;
+            let minDistance = Infinity;
+
+            filmStrips.forEach((strip, index) => {
+                const rect = strip.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const screenCenter = window.innerWidth / 2;
+                const distance = Math.abs(centerX - screenCenter);
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    centerIndex = index;
+                }
+            });
+
+            // Check if the frame is close enough to center (within 100px)
+            if (minDistance < 100 && centerIndex !== -1) {
+                showPopup(centerIndex);
+            }
+        }
+
+        function showPopup(index) {
+            const greeting = greetings[index];
+            document.getElementById('popupImage').src = greeting.image;
+            document.getElementById('popupMessage').textContent = greeting.message;
+            document.getElementById('popupSender').textContent = greeting.sender;
+            popupOverlay.classList.add('active');
+        }
+
+        function closePopup() {
+            popupOverlay.classList.remove('active');
+        }
+
+        // Event listeners
+        peanut.addEventListener('click', jump);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                jump();
+            }
+        });
+
+        closeBtn.addEventListener('click', closePopup);
+
+        popupOverlay.addEventListener('click', (e) => {
+            if (e.target === popupOverlay) {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+
+</html>
