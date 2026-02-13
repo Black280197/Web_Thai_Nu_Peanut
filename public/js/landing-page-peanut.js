@@ -15,13 +15,37 @@ const filmImages = [
     '/assets/img_round/10.jpg'
 ]
 
+// Peanut animation frames
+const runFrames = [
+    '/assets/img_run/run 1.png',
+    '/assets/img_run/run 2.png',
+    '/assets/img_run/run 3.png',
+    '/assets/img_run/run 4.png',
+    '/assets/img_run/run 5.png',
+    '/assets/img_run/run 6.png',
+    '/assets/img_run/run 7.png',
+    '/assets/img_run/run 8.png'
+]
+
+const jumpFrames = [
+    '/assets/img_run/jump1.png',
+    '/assets/img_run/jump2.png',
+    '/assets/img_run/jump3.png',
+    '/assets/img_run/jump4.png',
+    '/assets/img_run/jump5.png'
+]
+
 // Wishes data (loaded from Supabase)
 let wishes = []
+let currentFrame = 0
+let runAnimationInterval = null
+let isJumping = false
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', async () => {
     await loadApprovedWishes()
     createFilmRoll()
+    startRunningAnimation()
     initEventListeners()
 })
 
@@ -51,30 +75,38 @@ function hasKorean(text) {
     return koreanRegex.test(text)
 }
 
+// Start peanut running animation
+function startRunningAnimation() {
+    const peanutImg = document.querySelector('.peanut img')
+    let frameIndex = 0
+
+    runAnimationInterval = setInterval(() => {
+        if (!isJumping) {
+            peanutImg.src = runFrames[frameIndex]
+            frameIndex = (frameIndex + 1) % runFrames.length
+        }
+    }, 100) // Change frame every 100ms
+}
+
 // Create film roll with 10 static images
 function createFilmRoll() {
     const filmRoll = document.getElementById('filmRoll')
     const numFrames = filmImages.length
 
-    // Check if mobile
-    const isMobile = window.innerWidth <= 768
+    // Create images twice for seamless scrolling
+    const allImages = [...filmImages, ...filmImages]
 
-    filmImages.forEach((imageSrc, index) => {
+    allImages.forEach((imageSrc, index) => {
         const filmStrip = document.createElement('div')
         filmStrip.className = 'film-strip'
 
-        // Use different animation for mobile
-        const animationName = isMobile ? 'rotateFilmMobile' : 'rotateFilm'
-        filmStrip.style.animation = `${animationName} 20s linear infinite`
-        filmStrip.style.animationDelay = `-${(index * 20) / numFrames}s`
-
         const filmFrame = document.createElement('div')
         filmFrame.className = 'film-frame'
-        filmFrame.dataset.index = index
+        filmFrame.dataset.index = index % numFrames
 
         const img = document.createElement('img')
         img.src = imageSrc
-        img.alt = `Image ${index + 1}`
+        img.alt = `Image ${(index % numFrames) + 1}`
         img.onerror = function () {
             this.src = '/assets/img/peanut.png'
         }
@@ -84,27 +116,40 @@ function createFilmRoll() {
         filmRoll.appendChild(filmStrip)
     })
 
-    console.log(`Created film roll with ${numFrames} frames`)
+    console.log(`Created film roll with ${allImages.length} frames for seamless scrolling`)
 }
 
 // Peanut jump functionality
 const peanut = document.getElementById('peanut')
 const popupOverlay = document.getElementById('popupOverlay')
 const closeBtn = document.getElementById('closeBtn')
-let isJumping = false
 
 function jump() {
     if (isJumping) return
 
     isJumping = true
+    const peanutImg = document.querySelector('.peanut img')
     peanut.classList.add('jumping')
+
+    // Animate through jump frames
+    let frameIndex = 0
+    const jumpFrameDuration = 120 // Duration for each frame in ms
+
+    const jumpAnimationInterval = setInterval(() => {
+        if (frameIndex < jumpFrames.length) {
+            peanutImg.src = jumpFrames[frameIndex]
+            frameIndex++
+        } else {
+            clearInterval(jumpAnimationInterval)
+        }
+    }, jumpFrameDuration)
 
     // Check which frame is at center after 300ms (peak of jump)
     setTimeout(() => {
         checkCenterFrame()
     }, 300)
 
-    // Reset jump state
+    // Reset jump state and return to running animation
     setTimeout(() => {
         peanut.classList.remove('jumping')
         isJumping = false
@@ -124,14 +169,16 @@ function checkCenterFrame() {
 
         if (distance < minDistance) {
             minDistance = distance
-            centerIndex = index
+            // Get the actual image index (handle duplicated images)
+            const frame = strip.querySelector('.film-frame')
+            centerIndex = parseInt(frame.dataset.index)
         }
     })
 
     // Check if the frame is close enough to center
     // Use smaller tolerance on mobile due to smaller frame size
     const isMobile = window.innerWidth <= 768
-    const tolerance = isMobile ? 60 : 100
+    const tolerance = isMobile ? 60 : 150
 
     if (minDistance < tolerance && centerIndex !== -1) {
         // Show a random wish instead of specific one
