@@ -3,16 +3,16 @@ import { supabase } from './supabase-client.js'
 
 // Static images for film roll (10 images from img_round folder)
 const filmImages = [
-    '/assets/img_round/01.jpg',
-    '/assets/img_round/02.jpg',
-    '/assets/img_round/03.jpg',
-    '/assets/img_round/04.jpg',
-    '/assets/img_round/05.jpg',
-    '/assets/img_round/06.jpg',
-    '/assets/img_round/07.jpg',
-    '/assets/img_round/08.jpg',
-    '/assets/img_round/09.jpg',
-    '/assets/img_round/10.jpg'
+    '/assets/img_round/01.png',
+    '/assets/img_round/02.png',
+    '/assets/img_round/03.png',
+    '/assets/img_round/04.png',
+    '/assets/img_round/05.png',
+    '/assets/img_round/06.png',
+    '/assets/img_round/07.png',
+    '/assets/img_round/08.png',
+    '/assets/img_round/09.png',
+    '/assets/img_round/10.png'
 ]
 
 // Peanut animation frames
@@ -45,6 +45,7 @@ let isJumping = false
 document.addEventListener('DOMContentLoaded', async () => {
     await loadApprovedWishes()
     createFilmRoll()
+    createFlowerStrip()
     startRunningAnimation()
     initEventListeners()
 })
@@ -119,6 +120,69 @@ function createFilmRoll() {
     console.log(`Created film roll with ${allImages.length} frames for seamless scrolling`)
 }
 
+// Create infinite scrolling flower strip with random spacing
+function createFlowerStrip() {
+    const strip = document.getElementById('flowerStrip')
+    strip.innerHTML = ''
+
+    const isMobile = window.innerWidth <= 768
+    const numFlowers = 25
+
+    // Generate random gap/size data once, then duplicate for seamless loop
+    const flowerData = Array.from({ length: numFlowers }, () => ({
+        gap: 115 + Math.random() * 160,   // 75–235 px random gap
+        size: isMobile
+            ? 30 + Math.random() * 14   // 30–44 px on mobile
+            : 42 + Math.random() * 20   // 42–62 px on desktop
+    }))
+
+    // Render twice (identical seed) so translateX(-50%) loops seamlessly
+    for (let pass = 0; pass < 2; pass++) {
+        flowerData.forEach(({ gap, size }) => {
+            const item = document.createElement('div')
+            item.className = 'flower-item'
+            item.style.marginLeft = gap + 'px'
+
+            const img = document.createElement('img')
+            img.src = '/assets/img/flower.png'
+            img.alt = 'flower'
+            img.style.width = size + 'px'
+            img.style.height = size + 'px'
+            img.onerror = function () { this.style.display = 'none' }
+
+            item.appendChild(img)
+            strip.appendChild(item)
+        })
+    }
+}
+
+// Check if peanut bounding box overlaps any flower image element
+function checkFlowerCollision() {
+    const peanutEl = document.getElementById('peanut')
+    const peanutRect = peanutEl.getBoundingClientRect()
+
+    // Shrink hitbox slightly for a felt-fair collision
+    const hitbox = {
+        left: peanutRect.left + peanutRect.width * 0.2,
+        right: peanutRect.right - peanutRect.width * 0.2,
+        top: peanutRect.top + peanutRect.height * 0.1,
+        bottom: peanutRect.bottom
+    }
+
+    const flowers = document.querySelectorAll('.flower-item img')
+    for (const flower of flowers) {
+        const r = flower.getBoundingClientRect()
+        if (r.width === 0) continue // hidden/errored image
+        const overlap =
+            hitbox.right > r.left &&
+            hitbox.left < r.right &&
+            hitbox.bottom > r.top &&
+            hitbox.top < r.bottom
+        if (overlap) return true
+    }
+    return false
+}
+
 // Peanut jump functionality
 const peanut = document.getElementById('peanut')
 const popupOverlay = document.getElementById('popupOverlay')
@@ -133,7 +197,7 @@ function jump() {
 
     // Animate through jump frames
     let frameIndex = 0
-    const jumpFrameDuration = 120 // Duration for each frame in ms
+    const jumpFrameDuration = 120
 
     const jumpAnimationInterval = setInterval(() => {
         if (frameIndex < jumpFrames.length) {
@@ -144,46 +208,23 @@ function jump() {
         }
     }, jumpFrameDuration)
 
-    // Check which frame is at center after 300ms (peak of jump)
-    setTimeout(() => {
-        checkCenterFrame()
-    }, 300)
+    // Poll for flower collision during the jump (every 40 ms)
+    let collisionFired = false
+    const collisionChecker = setInterval(() => {
+        if (collisionFired) return
+        if (checkFlowerCollision()) {
+            collisionFired = true
+            clearInterval(collisionChecker)
+            showRandomWish()
+        }
+    }, 40)
 
-    // Reset jump state and return to running animation
+    // Reset jump state after animation completes
     setTimeout(() => {
         peanut.classList.remove('jumping')
         isJumping = false
-    }, 600)
-}
-
-function checkCenterFrame() {
-    const filmStrips = document.querySelectorAll('.film-strip')
-    let centerIndex = -1
-    let minDistance = Infinity
-
-    filmStrips.forEach((strip, index) => {
-        const rect = strip.getBoundingClientRect()
-        const centerX = rect.left + rect.width / 2
-        const screenCenter = window.innerWidth / 2
-        const distance = Math.abs(centerX - screenCenter)
-
-        if (distance < minDistance) {
-            minDistance = distance
-            // Get the actual image index (handle duplicated images)
-            const frame = strip.querySelector('.film-frame')
-            centerIndex = parseInt(frame.dataset.index)
-        }
-    })
-
-    // Check if the frame is close enough to center
-    // Use smaller tolerance on mobile due to smaller frame size
-    const isMobile = window.innerWidth <= 768
-    const tolerance = isMobile ? 60 : 150
-
-    if (minDistance < tolerance && centerIndex !== -1) {
-        // Show a random wish instead of specific one
-        showRandomWish()
-    }
+        clearInterval(collisionChecker)
+    }, 620)
 }
 
 // Show a random wish from the database
@@ -282,15 +323,15 @@ function initEventListeners() {
         }
     })
 
-    // Handle window resize to update film roll animation
+    // Handle window resize to update film roll and flower strip
     let resizeTimer
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer)
         resizeTimer = setTimeout(() => {
-            // Recreate film roll with appropriate animation for current screen size
             const filmRoll = document.getElementById('filmRoll')
             filmRoll.innerHTML = ''
             createFilmRoll()
+            createFlowerStrip()
         }, 250)
     })
 }
