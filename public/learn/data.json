@@ -1,146 +1,322 @@
 [
   {
-    "hanzi": "吃",
-    "pinyin": "chī",
-    "meaning": "ăn",
-    "memory_hint": "Miệng (口) + cái gì đó — hình ảnh mở miệng ăn he he ho ho ho ",
-    "radical": "口",
-    "extra": "Động từ, HSK1"
-  },
-  {
-    "hanzi": "喝",
-    "pinyin": "hē",
-    "meaning": "uống",
-    "memory_hint": "Bên trái là miệng (口), bên phải gợi âm thanh khi uống",
-    "radical": "口",
-    "extra": "Động từ, HSK1"
-  },
-  {
-    "hanzi": "看",
-    "pinyin": "kàn",
-    "meaning": "nhìn, xem",
-    "memory_hint": "Tay (手) che trên mắt (目) để nhìn xa — như che mắt nhìn trời",
-    "radical": "目",
-    "extra": "Động từ, HSK1"
-  },
-  {
-    "hanzi": "说",
-    "pinyin": "shuō",
-    "meaning": "nói",
-    "memory_hint": "Bên trái là bộ lời nói (讠), bên phải là âm thanh phát ra",
-    "radical": "讠",
-    "extra": "Động từ, HSK1"
-  },
-  {
-    "hanzi": "走",
-    "pinyin": "zǒu",
-    "meaning": "đi bộ",
-    "memory_hint": "Hình người đang bước chân — dáng người đang đi",
-    "radical": "走",
-    "extra": "Động từ, HSK1"
-  },
-  {
-    "hanzi": "来",
-    "pinyin": "lái",
-    "meaning": "đến, lại",
-    "memory_hint": "Hình cây lúa mì — người từ xa đến như gặt lúa về",
-    "radical": "木",
-    "extra": "Động từ, HSK1"
-  },
-  {
-    "hanzi": "去",
-    "pinyin": "qù",
-    "meaning": "đi, rời đi",
-    "memory_hint": "Hình người quay lưng đi khuất — đi mất rồi",
-    "radical": "厶",
-    "extra": "Động từ, HSK1"
+    "hanzi": "你",
+    "pinyin": "nǐ",
+    "meaning": "bạn, cậu, mày",
+    "memory_hint": "Chữ gồm bộ Nhân đứng (亻) và chữ Nhĩ (尔) để chỉ người đối diện",
+    "radical": "亻",
+    "extra": "Đại từ nhân xưng, HSK1"
   },
   {
     "hanzi": "好",
     "pinyin": "hǎo",
-    "meaning": "tốt, tốt lành",
-    "memory_hint": "Phụ nữ (女) + con cái (子) = gia đình hạnh phúc, tốt đẹp",
+    "meaning": "tốt, được, khỏe",
+    "memory_hint": "Phụ nữ (女) và trẻ em (子) ở bên nhau là tốt đẹp",
     "radical": "女",
     "extra": "Tính từ, HSK1"
   },
   {
+    "hanzi": "一",
+    "pinyin": "yī",
+    "meaning": "một",
+    "memory_hint": "Một gạch ngang là số một",
+    "radical": "一",
+    "extra": "Số đếm, HSK1"
+  },
+  {
+    "hanzi": "五",
+    "pinyin": "wǔ",
+    "meaning": "năm",
+    "memory_hint": "Giống hình người đứng giữa, trên dưới có gạch ngang",
+    "radical": "二",
+    "extra": "Số đếm, HSK1"
+  },
+  {
+    "hanzi": "八",
+    "pinyin": "bā",
+    "meaning": "tám",
+    "memory_hint": "Hai nét tách ra như hình số 8",
+    "radical": "八",
+    "extra": "Số đếm, HSK1"
+  },
+  {
     "hanzi": "大",
     "pinyin": "dà",
-    "meaning": "lớn, to",
-    "memory_hint": "Hình người giang rộng hai tay — thứ gì đó to lớn",
+    "meaning": "to, lớn",
+    "memory_hint": "Người giang tay (大) để chỉ kích thước lớn",
     "radical": "大",
     "extra": "Tính từ, HSK1"
   },
   {
-    "hanzi": "小",
-    "pinyin": "xiǎo",
-    "meaning": "nhỏ, bé",
-    "memory_hint": "Ba chấm nhỏ li ti đứng cạnh nhau — bé xíu",
-    "radical": "小",
-    "extra": "Tính từ, HSK1"
+    "hanzi": "不",
+    "pinyin": "bù",
+    "meaning": "không, chẳng",
+    "memory_hint": "Hình chim bay lên trời không quay lại, chỉ sự phủ định",
+    "radical": "一",
+    "extra": "Phó từ phủ định, HSK1"
   },
   {
-    "hanzi": "水",
-    "pinyin": "shuǐ",
-    "meaning": "nước",
-    "memory_hint": "Hình dòng nước chảy uốn lượn — sóng nước",
-    "radical": "水",
+    "hanzi": "口",
+    "pinyin": "kǒu",
+    "meaning": "miệng",
+    "memory_hint": "Hình cái miệng đang mở",
+    "radical": "口",
     "extra": "Danh từ, HSK1"
   },
   {
-    "hanzi": "爱",
-    "pinyin": "ài",
-    "meaning": "yêu, tình yêu",
-    "memory_hint": "Bên trong có trái tim (心) — tình yêu phát ra từ con tim",
-    "radical": "心",
-    "extra": "Động từ / Danh từ, HSK2"
+    "hanzi": "白",
+    "pinyin": "bái",
+    "meaning": "trắng",
+    "memory_hint": "Màu trắng của ánh mặt trời (日) nhưng có nét nhọn trên đầu",
+    "radical": "白",
+    "extra": "Tính từ, HSK1"
+  },
+  {
+    "hanzi": "女",
+    "pinyin": "nǚ",
+    "meaning": "nữ, con gái, phụ nữ",
+    "memory_hint": "Hình người phụ nữ ngồi khoanh tay dịu dàng",
+    "radical": "女",
+    "extra": "Danh từ, HSK1"
+  },
+  {
+    "hanzi": "马",
+    "pinyin": "mǎ",
+    "meaning": "ngựa",
+    "memory_hint": "Hình con ngựa có bờm và đuôi",
+    "radical": "马",
+    "extra": "Danh từ, HSK1"
+  },
+  {
+    "hanzi": "吗",
+    "pinyin": "ma",
+    "meaning": "trợ từ nghi vấn",
+    "memory_hint": "Miệng (口) hỏi về con ngựa (马) — dùng để hỏi",
+    "radical": "口",
+    "extra": "Trợ từ, HSK1"
+  },
+  {
+    "hanzi": "很",
+    "pinyin": "hěn",
+    "meaning": "rất",
+    "memory_hint": "Bước đi (彳) và cắn răng (艮) — rất vất vả để đi",
+    "radical": "彳",
+    "extra": "Phó từ chỉ mức độ, HSK1"
+  },
+  {
+    "hanzi": "忙",
+    "pinyin": "máng",
+    "meaning": "bận rộn",
+    "memory_hint": "Tâm (忄) và mất (亡) — tâm hồn mất đi vì bận rộn",
+    "radical": "忄",
+    "extra": "Tính từ, HSK1"
+  },
+  {
+    "hanzi": "难",
+    "pinyin": "nán",
+    "meaning": "khó",
+    "memory_hint": "Con chim (隹) bị mất chân — khó khăn",
+    "radical": "隹",
+    "extra": "Tính từ, HSK1"
+  },
+  {
+    "hanzi": "太",
+    "pinyin": "tài",
+    "meaning": "quá, lắm",
+    "memory_hint": "To (大) thêm một chấm (丶) là quá to",
+    "radical": "大",
+    "extra": "Phó từ chỉ mức độ, HSK1"
+  },
+  {
+    "hanzi": "爸爸",
+    "pinyin": "bàba",
+    "meaning": "bố, cha",
+    "memory_hint": "Bố là người cầm búa (父) đục đẽo — lặp lại hai lần",
+    "radical": "父",
+    "extra": "Danh từ gia đình, HSK1"
+  },
+  {
+    "hanzi": "妈妈",
+    "pinyin": "māma",
+    "meaning": "mẹ",
+    "memory_hint": "Người phụ nữ (女) như ngựa (马) cần cù — lặp lại hai lần",
+    "radical": "女",
+    "extra": "Danh từ gia đình, HSK1"
+  },
+  {
+    "hanzi": "他",
+    "pinyin": "tā",
+    "meaning": "anh ấy, ông ấy",
+    "memory_hint": "Người (亻) cũng (也) — chỉ người nam",
+    "radical": "亻",
+    "extra": "Đại từ nhân xưng, HSK1"
+  },
+  {
+    "hanzi": "她",
+    "pinyin": "tā",
+    "meaning": "cô ấy, bà ấy",
+    "memory_hint": "Người nữ (女) cũng (也) — chỉ người nữ",
+    "radical": "女",
+    "extra": "Đại từ nhân xưng, HSK1"
+  },
+  {
+    "hanzi": "男",
+    "pinyin": "nán",
+    "meaning": "nam, con trai",
+    "memory_hint": "Ruộng (田) và sức (力) — đàn ông làm ruộng bằng sức lực",
+    "radical": "田",
+    "extra": "Danh từ, HSK1"
+  },
+  {
+    "hanzi": "哥哥",
+    "pinyin": "gēge",
+    "meaning": "anh trai",
+    "memory_hint": "Hai chữ Khả (可) đứng cạnh nhau — tiếng gọi anh",
+    "radical": "口",
+    "extra": "Danh từ gia đình, HSK1"
+  },
+  {
+    "hanzi": "弟弟",
+    "pinyin": "dìdi",
+    "meaning": "em trai",
+    "memory_hint": "Cung (弓) và đế (弟) — em trai thường ở dưới",
+    "radical": "弓",
+    "extra": "Danh từ gia đình, HSK1"
+  },
+  {
+    "hanzi": "妹妹",
+    "pinyin": "mèimei",
+    "meaning": "em gái",
+    "memory_hint": "Chưa (未) phải là nữ (女) — em gái chưa trưởng thành",
+    "radical": "女",
+    "extra": "Danh từ gia đình, HSK1"
   },
   {
     "hanzi": "学",
     "pinyin": "xué",
     "meaning": "học",
-    "memory_hint": "Phần trên là mái trường, phần dưới là đứa trẻ (子) đang học bài",
+    "memory_hint": "Trên là mái trường, dưới là trẻ em (子) đang học",
     "radical": "子",
     "extra": "Động từ, HSK1"
   },
   {
-    "hanzi": "书",
-    "pinyin": "shū",
-    "meaning": "sách",
-    "memory_hint": "Hình quyển sách đang mở ra với các trang giấy",
-    "radical": "乙",
+    "hanzi": "英语",
+    "pinyin": "Yīngyǔ",
+    "meaning": "tiếng Anh",
+    "memory_hint": "Anh (英) là nước Anh, ngữ (语) là lời nói",
+    "radical": "艹, 讠",
+    "extra": "Danh từ ngôn ngữ, HSK1"
+  },
+  {
+    "hanzi": "对",
+    "pinyin": "duì",
+    "meaning": "đúng",
+    "memory_hint": "Tay (又) cầm thước đo (寸) để kiểm tra cho đúng",
+    "radical": "寸",
+    "extra": "Tính từ, HSK1"
+  },
+  {
+    "hanzi": "明天",
+    "pinyin": "míngtiān",
+    "meaning": "ngày mai",
+    "memory_hint": "Mặt trời (日) và mặt trăng (月) sáng — ngày mai trời lại sáng",
+    "radical": "日",
+    "extra": "Danh từ thời gian, HSK1"
+  },
+  {
+    "hanzi": "见",
+    "pinyin": "jiàn",
+    "meaning": "gặp, thấy",
+    "memory_hint": "Mắt (目) nhìn người (儿) — gặp mặt",
+    "radical": "见",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "去",
+    "pinyin": "qù",
+    "meaning": "đi, đến",
+    "memory_hint": "Đất (土) bỏ đi (厶) — rời khỏi nơi nào đó",
+    "radical": "厶",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "邮局",
+    "pinyin": "yóujú",
+    "meaning": "bưu điện",
+    "memory_hint": "Do (由) và ấn (阝) — nơi gửi thư từ",
+    "radical": "阝",
+    "extra": "Danh từ địa điểm, HSK1"
+  },
+  {
+    "hanzi": "寄",
+    "pinyin": "jì",
+    "meaning": "gửi",
+    "memory_hint": "Nhà (宀) và kỳ (奇) — gửi đồ ở nhà",
+    "radical": "宀",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "信",
+    "pinyin": "xìn",
+    "meaning": "thư tín",
+    "memory_hint": "Người (亻) và lời nói (言) — thư là lời nói của con người",
+    "radical": "亻",
     "extra": "Danh từ, HSK1"
   },
   {
-    "hanzi": "人",
-    "pinyin": "rén",
-    "meaning": "người",
-    "memory_hint": "Hai nét như hai chân người đang đứng chống đỡ nhau",
-    "radical": "人",
+    "hanzi": "银行",
+    "pinyin": "yínháng",
+    "meaning": "ngân hàng",
+    "memory_hint": "Kim loại (钅) và đi (行) — nơi tiền bạc lưu thông",
+    "radical": "钅",
+    "extra": "Danh từ địa điểm, HSK1"
+  },
+  {
+    "hanzi": "取",
+    "pinyin": "qǔ",
+    "meaning": "lấy, rút",
+    "memory_hint": "Tai (耳) và tay (又) — lấy bằng tay",
+    "radical": "又",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "钱",
+    "pinyin": "qián",
+    "meaning": "tiền",
+    "memory_hint": "Kim loại (钅) và hai cây gươm (戋) — tiền thời xưa bằng kim loại",
+    "radical": "钅",
     "extra": "Danh từ, HSK1"
   },
   {
-    "hanzi": "朋友",
-    "pinyin": "péngyǒu",
-    "meaning": "bạn bè",
-    "memory_hint": "Hai chữ 月 (trăng) cùng nhau — bạn bè sánh vai như trăng đôi",
-    "radical": "月",
-    "extra": "Danh từ, HSK1"
+    "hanzi": "六",
+    "pinyin": "liù",
+    "meaning": "sáu",
+    "memory_hint": "Đầu (亠) và chân (八) — số sáu",
+    "radical": "八",
+    "extra": "Số đếm, HSK1"
   },
   {
-    "hanzi": "谢谢",
-    "pinyin": "xièxiè",
-    "meaning": "cảm ơn",
-    "memory_hint": "Bộ lời nói (讠) lặp lại — nói lời biết ơn nhiều lần",
-    "radical": "讠",
-    "extra": "Cụm từ lịch sự, HSK1"
+    "hanzi": "七",
+    "pinyin": "qī",
+    "meaning": "bảy",
+    "memory_hint": "Một gạch ngang cắt qua gạch dọc — số 7",
+    "radical": "一",
+    "extra": "Số đếm, HSK1"
   },
   {
-    "hanzi": "工作",
-    "pinyin": "gōngzuò",
-    "meaning": "công việc, làm việc",
-    "memory_hint": "工 là thợ thủ công + 作 là làm — người thợ đang làm việc",
-    "radical": "工",
-    "extra": "Danh từ / Động từ, HSK1"
+    "hanzi": "九",
+    "pinyin": "jiǔ",
+    "meaning": "chín",
+    "memory_hint": "Hình cái móc câu — số 9",
+    "radical": "丿",
+    "extra": "Số đếm, HSK1"
+  },
+  {
+    "hanzi": "北京",
+    "pinyin": "Běijīng",
+    "meaning": "Bắc Kinh",
+    "memory_hint": "Bắc (北) là phương bắc, kinh (京) là thủ đô",
+    "radical": "匕, 亠",
+    "extra": "Danh từ địa danh, HSK1"
   }
 ]
