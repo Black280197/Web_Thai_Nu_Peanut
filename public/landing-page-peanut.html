@@ -100,7 +100,7 @@
             display: flex;
             gap: 30px;
             height: 100%;
-            animation: scrollFilm 60s linear infinite;
+            animation: scrollFilm 720s linear infinite;
         }
 
         .film-strip {
@@ -121,6 +121,20 @@
                 width: 250px;
                 height: 200px;
             }
+        }
+
+        .my-candy-cake {
+            font-family: 'candy_cake' !important;
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'candy_cake';
+            src: url('assets/fonts/Candy_Cake.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
         }
 
         @keyframes scrollFilm {
@@ -545,11 +559,11 @@
         /* Title */
         .title {
             position: absolute;
-            top: 30px;
+            top: 15px;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            font-size: 36px;
+            font-size: 5rem;
             font-weight: bold;
             text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
             z-index: 50;
@@ -557,8 +571,8 @@
 
         @media (max-width: 768px) {
             .title {
-                font-size: 24px;
-                top: 20px;
+                font-size: 2rem;
+                top: 220px;
                 width: 90%;
                 text-align: center;
             }
@@ -592,7 +606,7 @@
     <div class="landing-bg"></div>
 
     <div class="container">
-        <h1 class="title" hidden>🎊 Chúc Mừng Năm Mới 2026 🎊</h1>
+        <h1 class="title my-candy-cake">Happy 11th Debut Anniversary</h1>
 
         <div class="film-roll-wrapper">
             <div class="center-line" hiddens></div>

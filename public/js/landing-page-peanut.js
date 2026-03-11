@@ -4,7 +4,7 @@ import { supabase } from './supabase-client.js'
 // Static images for film roll (10 images from img_round folder)
 const filmImages = [
     '/assets/img_round/01.png',
-    '/assets/img_round/02.png',
+    // '/assets/img_round/02.png',
     '/assets/img_round/03.png',
     '/assets/img_round/04.png',
     '/assets/img_round/05.png',
@@ -12,7 +12,46 @@ const filmImages = [
     '/assets/img_round/07.png',
     '/assets/img_round/08.png',
     '/assets/img_round/09.png',
-    '/assets/img_round/10.png'
+    '/assets/img_round/10.png',
+    '/assets/img_round/11.png',
+    '/assets/img_round/12.png',
+    '/assets/img_round/13.png',
+    '/assets/img_round/14.png',
+    '/assets/img_round/15.png',
+    '/assets/img_round/16.png',
+    '/assets/img_round/17.png',
+    '/assets/img_round/18.png',
+    '/assets/img_round/19.png',
+    '/assets/img_round/20.png',
+    '/assets/img_round/21.png',
+    '/assets/img_round/22.png',
+    '/assets/img_round/23.png',
+    '/assets/img_round/24.png',
+    '/assets/img_round/25.png',
+    '/assets/img_round/26.png',
+    '/assets/img_round/27.png',
+    '/assets/img_round/28.png',
+    '/assets/img_round/29.png',
+    '/assets/img_round/30.png',
+    '/assets/img_round/31.png',
+    '/assets/img_round/32.png',
+    '/assets/img_round/33.png',
+    '/assets/img_round/34.png',
+    '/assets/img_round/35.png',
+    '/assets/img_round/36.png',
+    '/assets/img_round/37.png',
+    '/assets/img_round/38.png',
+    '/assets/img_round/39.png',
+    '/assets/img_round/40.png',
+    // '/assets/img_round/41.png',
+    // '/assets/img_round/42.png',
+    // '/assets/img_round/43.png',
+    // '/assets/img_round/44.png',
+    // '/assets/img_round/45.png',
+    // '/assets/img_round/46.png',
+    // '/assets/img_round/47.png',
+    // '/assets/img_round/48.png',
+    // '/assets/img_round/49.png',
 ]
 
 // Peanut animation frames
@@ -95,7 +134,7 @@ function createFilmRoll() {
     const numFrames = filmImages.length
 
     // Create images twice for seamless scrolling
-    const allImages = [...filmImages, ...filmImages]
+    const allImages = [...filmImages, ...filmImages, ...filmImages, ...filmImages, ...filmImages, ...filmImages, ...filmImages, ...filmImages, ...filmImages, ...filmImages]
 
     allImages.forEach((imageSrc, index) => {
         const filmStrip = document.createElement('div')
