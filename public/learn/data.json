@@ -1,0 +1,146 @@
+[
+  {
+    "hanzi": "吃",
+    "pinyin": "chī",
+    "meaning": "ăn",
+    "memory_hint": "Miệng (口) + cái gì đó — hình ảnh mở miệng ăn he he",
+    "radical": "口",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "喝",
+    "pinyin": "hē",
+    "meaning": "uống",
+    "memory_hint": "Bên trái là miệng (口), bên phải gợi âm thanh khi uống",
+    "radical": "口",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "看",
+    "pinyin": "kàn",
+    "meaning": "nhìn, xem",
+    "memory_hint": "Tay (手) che trên mắt (目) để nhìn xa — như che mắt nhìn trời",
+    "radical": "目",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "说",
+    "pinyin": "shuō",
+    "meaning": "nói",
+    "memory_hint": "Bên trái là bộ lời nói (讠), bên phải là âm thanh phát ra",
+    "radical": "讠",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "走",
+    "pinyin": "zǒu",
+    "meaning": "đi bộ",
+    "memory_hint": "Hình người đang bước chân — dáng người đang đi",
+    "radical": "走",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "来",
+    "pinyin": "lái",
+    "meaning": "đến, lại",
+    "memory_hint": "Hình cây lúa mì — người từ xa đến như gặt lúa về",
+    "radical": "木",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "去",
+    "pinyin": "qù",
+    "meaning": "đi, rời đi",
+    "memory_hint": "Hình người quay lưng đi khuất — đi mất rồi",
+    "radical": "厶",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "好",
+    "pinyin": "hǎo",
+    "meaning": "tốt, tốt lành",
+    "memory_hint": "Phụ nữ (女) + con cái (子) = gia đình hạnh phúc, tốt đẹp",
+    "radical": "女",
+    "extra": "Tính từ, HSK1"
+  },
+  {
+    "hanzi": "大",
+    "pinyin": "dà",
+    "meaning": "lớn, to",
+    "memory_hint": "Hình người giang rộng hai tay — thứ gì đó to lớn",
+    "radical": "大",
+    "extra": "Tính từ, HSK1"
+  },
+  {
+    "hanzi": "小",
+    "pinyin": "xiǎo",
+    "meaning": "nhỏ, bé",
+    "memory_hint": "Ba chấm nhỏ li ti đứng cạnh nhau — bé xíu",
+    "radical": "小",
+    "extra": "Tính từ, HSK1"
+  },
+  {
+    "hanzi": "水",
+    "pinyin": "shuǐ",
+    "meaning": "nước",
+    "memory_hint": "Hình dòng nước chảy uốn lượn — sóng nước",
+    "radical": "水",
+    "extra": "Danh từ, HSK1"
+  },
+  {
+    "hanzi": "爱",
+    "pinyin": "ài",
+    "meaning": "yêu, tình yêu",
+    "memory_hint": "Bên trong có trái tim (心) — tình yêu phát ra từ con tim",
+    "radical": "心",
+    "extra": "Động từ / Danh từ, HSK2"
+  },
+  {
+    "hanzi": "学",
+    "pinyin": "xué",
+    "meaning": "học",
+    "memory_hint": "Phần trên là mái trường, phần dưới là đứa trẻ (子) đang học bài",
+    "radical": "子",
+    "extra": "Động từ, HSK1"
+  },
+  {
+    "hanzi": "书",
+    "pinyin": "shū",
+    "meaning": "sách",
+    "memory_hint": "Hình quyển sách đang mở ra với các trang giấy",
+    "radical": "乙",
+    "extra": "Danh từ, HSK1"
+  },
+  {
+    "hanzi": "人",
+    "pinyin": "rén",
+    "meaning": "người",
+    "memory_hint": "Hai nét như hai chân người đang đứng chống đỡ nhau",
+    "radical": "人",
+    "extra": "Danh từ, HSK1"
+  },
+  {
+    "hanzi": "朋友",
+    "pinyin": "péngyǒu",
+    "meaning": "bạn bè",
+    "memory_hint": "Hai chữ 月 (trăng) cùng nhau — bạn bè sánh vai như trăng đôi",
+    "radical": "月",
+    "extra": "Danh từ, HSK1"
+  },
+  {
+    "hanzi": "谢谢",
+    "pinyin": "xièxiè",
+    "meaning": "cảm ơn",
+    "memory_hint": "Bộ lời nói (讠) lặp lại — nói lời biết ơn nhiều lần",
+    "radical": "讠",
+    "extra": "Cụm từ lịch sự, HSK1"
+  },
+  {
+    "hanzi": "工作",
+    "pinyin": "gōngzuò",
+    "meaning": "công việc, làm việc",
+    "memory_hint": "工 là thợ thủ công + 作 là làm — người thợ đang làm việc",
+    "radical": "工",
+    "extra": "Danh từ / Động từ, HSK1"
+  }
+]

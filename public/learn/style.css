@@ -1,0 +1,779 @@
+﻿/* ============================================================
+   Chinese Flashcards — style.css
+   ============================================================ */
+
+/* ── Reset & base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Design tokens ────────────────────────────────────────── */
+:root {
+  --grad-a: #667eea;
+  --grad-b: #764ba2;
+
+  /* Flashcard faces */
+  --front-bg-a: #1e1b4b;
+  --front-bg-b: #4c1d95;
+  --back-bg-a: #fffbeb;
+  --back-bg-b: #fef3c7;
+  --back-border: #f59e0b;
+
+  --primary: #5a67d8;
+  --primary-lt: #ebedfc;
+  --success: #10b981;
+  --danger: #ef4444;
+  --accent: #e07b54;
+
+  --text-dark: #1a202c;
+  --text-mid: #4a5568;
+  --text-light: #718096;
+  --border: rgba(90, 103, 216, 0.15);
+
+  --shadow-card: 0 24px 64px rgba(0, 0, 0, 0.18),
+    0 6px 20px rgba(90, 103, 216, 0.12);
+  --radius: 22px;
+  --flip-dur: 0.65s;
+  --flip-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --card-h: 460px;
+  --hanzi-front: 6rem;
+  --hanzi-back: 3.4rem;
+}
+
+/* ── Page layout ──────────────────────────────────────────── */
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, var(--grad-a) 0%, var(--grad-b) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 16px 48px;
+}
+
+.app {
+  width: 100%;
+  max-width: 660px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.app-header {
+  text-align: center;
+  color: #fff;
+  width: 100%;
+}
+
+.app-header h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+
+.stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.82);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stats-dot {
+  opacity: 0.45;
+}
+
+/* ── Mode tabs ────────────────────────────────────────────── */
+.mode-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mode-tab {
+  padding: 9px 22px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.mode-tab:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.mode-tab.active {
+  background: #fff;
+  border-color: #fff;
+  color: var(--primary);
+}
+
+/* ── Main ─────────────────────────────────────────────────── */
+.app-main {
+  width: 100%;
+}
+
+.mode-section {
+  display: none;
+}
+
+.mode-section.active {
+  display: block;
+}
+
+/* ── Card scene ───────────────────────────────────────────── */
+.card-scene {
+  width: 100%;
+  perspective: 1200px;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  height: var(--card-h);
+  cursor: pointer;
+  outline: none;
+  border-radius: var(--radius);
+}
+
+.card:focus-visible {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.65);
+}
+
+/* ── Card inner (rotates on flip) ─────────────────────────── */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--flip-dur) var(--flip-ease);
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* ── Shared face styles ───────────────────────────────────── */
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  padding: 36px 44px;
+  box-shadow: var(--shadow-card);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ══ FRONT FACE — Question (dark indigo) ═══════════════════════ */
+.card-front {
+  background: linear-gradient(160deg, var(--front-bg-a) 0%, var(--front-bg-b) 100%);
+  color: #fff;
+}
+
+/* Decorative background circles */
+.card-front::before,
+.card-front::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.card-front::before {
+  top: -70px;
+  right: -70px;
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.card-front::after {
+  bottom: -50px;
+  left: -50px;
+  width: 180px;
+  height: 180px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Badge at top of front */
+.hint-badge {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Large hanzi on front */
+.hanzi-display {
+  font-size: var(--hanzi-front);
+  line-height: 1.1;
+  color: #fff;
+  font-family: 'Noto Serif CJK SC', 'Source Han Serif CN', 'SimSun', 'STSong', serif;
+  user-select: none;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Other field values on front */
+.field-display {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 100%;
+}
+
+.field-display.is-pinyin {
+  font-size: 2.8rem;
+  font-style: italic;
+  color: #c4b5fd;
+  letter-spacing: 0.5px;
+}
+
+.field-display.is-meaning {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fde68a;
+}
+
+/* Sub-prompt below the main value */
+.hint-sub {
+  position: absolute;
+  bottom: 22px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  padding: 0 44px;
+}
+
+/* ══ BACK FACE — Answer (warm amber/cream) ══════════════════════ */
+.card-back {
+  background: linear-gradient(160deg, var(--back-bg-a) 0%, var(--back-bg-b) 100%);
+  transform: rotateY(180deg);
+  justify-content: flex-start;
+  padding-top: 28px;
+  border-left: 5px solid var(--back-border);
+}
+
+/* Hanzi headline on back */
+.back-hanzi {
+  font-size: var(--hanzi-back);
+  font-family: 'Noto Serif CJK SC', 'Source Han Serif CN', 'SimSun', 'STSong', serif;
+  color: #78350f;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 2px solid #fde68a;
+  flex-shrink: 0;
+}
+
+/* Field list on back */
+.fields-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.93rem;
+  line-height: 1.4;
+}
+
+/* Highlighted row = field shown on front */
+.field-row.is-highlighted {
+  background: rgba(245, 158, 11, 0.15);
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 0 -10px;
+}
+
+.field-row.is-highlighted .field-val {
+  color: #92400e;
+  font-weight: 700;
+}
+
+.field-key {
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #a16207;
+  min-width: 90px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.field-val {
+  color: #78350f;
+  flex: 1;
+}
+
+.field-val.hanzi-val {
+  font-family: 'Noto Serif CJK SC', 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 1.1rem;
+}
+
+.field-val.pinyin-val {
+  font-style: italic;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+/* ── Action hint below card ───────────────────────────────── */
+.action-hint {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.88rem;
+  text-align: center;
+  min-height: 1.4em;
+  transition: opacity 0.3s;
+  margin-top: 14px;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.app-footer {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.75rem;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.app-footer kbd {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.72rem;
+  font-family: inherit;
+}
+
+/* ── Loading / Error states ───────────────────────────────── */
+.state-card {
+  width: 100%;
+  height: var(--card-h);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1rem;
+  color: var(--text-mid);
+  padding: 32px;
+  text-align: center;
+}
+
+.state-card .state-icon {
+  font-size: 2.5rem;
+}
+
+.state-card.error {
+  color: #c53030;
+}
+
+.state-card .error-note {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MULTIPLE CHOICE
+   ════════════════════════════════════════════════════════════ */
+.mc-question-card {
+  width: 100%;
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, var(--front-bg-a) 0%, var(--front-bg-b) 100%);
+  box-shadow: var(--shadow-card);
+  padding: 32px 44px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.mc-question-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.mc-question-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+.mc-hanzi {
+  font-size: 5.5rem;
+  line-height: 1.1;
+  font-family: 'Noto Serif CJK SC', 'Source Han Serif CN', 'SimSun', serif;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+  user-select: none;
+}
+
+.mc-pinyin {
+  font-size: 3.2rem;
+  font-style: italic;
+  color: #c4b5fd;
+}
+
+.mc-meaning {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fde68a;
+  text-align: center;
+}
+
+.mc-question-prompt {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+/* Options grid */
+.mc-options {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mc-option {
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.93);
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.15s, transform 0.1s, border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.4;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-option:hover:not(:disabled) {
+  background: #fff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(90, 103, 216, 0.25);
+}
+
+.mc-option.correct {
+  background: #d1fae5;
+  border-color: var(--success);
+  color: #065f46;
+  font-weight: 700;
+}
+
+.mc-option.wrong {
+  background: #fee2e2;
+  border-color: var(--danger);
+  color: #991b1b;
+}
+
+.mc-option:disabled {
+  cursor: default;
+}
+
+/* Larger font when answer options are hanzi */
+.mc-options.answer-hanzi .mc-option {
+  font-size: 1.8rem;
+  font-family: 'Noto Serif CJK SC', 'Source Han Serif CN', 'SimSun', serif;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MATCHING
+   ════════════════════════════════════════════════════════════ */
+.matching-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.matching-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+
+.matching-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.matching-item {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.93);
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+  min-height: 64px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.matching-item:hover:not(.matched-correct) {
+  background: #fff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(90, 103, 216, 0.2);
+}
+
+.match-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--primary);
+  min-width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.match-text {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.match-text.is-hanzi {
+  font-size: 1.6rem;
+  font-family: 'Noto Serif CJK SC', 'Source Han Serif CN', 'SimSun', serif;
+}
+
+.matching-item.selected {
+  background: #ede9fe;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.matching-item.matched-correct {
+  background: #d1fae5;
+  border-color: var(--success);
+  cursor: default;
+  transform: none;
+}
+
+.matching-item.matched-correct .match-label {
+  color: #065f46;
+}
+
+.matching-item.matched-wrong {
+  background: #fee2e2;
+  border-color: var(--danger);
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-7px);
+  }
+
+  60% {
+    transform: translateX(7px);
+  }
+
+  80% {
+    transform: translateX(-3px);
+  }
+}
+
+.matching-footer {
+  margin-top: 18px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.matching-result {
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  min-height: 1.4em;
+}
+
+.btn-next {
+  padding: 11px 32px;
+  border-radius: 999px;
+  border: none;
+  background: #fff;
+  color: var(--primary);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.btn-next.hidden {
+  display: none;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 520px) {
+  :root {
+    --card-h: 370px;
+    --hanzi-front: 4.5rem;
+    --hanzi-back: 2.8rem;
+  }
+
+  .app {
+    max-width: 100%;
+  }
+
+  .card-face {
+    padding: 28px 26px;
+  }
+
+  .card-back {
+    padding-top: 22px;
+  }
+
+  .field-display.is-pinyin {
+    font-size: 2.2rem;
+  }
+
+  .field-display.is-meaning {
+    font-size: 1.7rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .mc-options {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-hanzi {
+    font-size: 4rem;
+  }
+
+  .mc-pinyin {
+    font-size: 2.4rem;
+  }
+
+  .mc-meaning {
+    font-size: 1.8rem;
+  }
+
+  .mc-question-card {
+    padding: 24px 26px 20px;
+    min-height: 160px;
+  }
+
+  .matching-item {
+    min-height: 54px;
+  }
+
+  .match-text {
+    font-size: 0.88rem;
+  }
+
+  .match-text.is-hanzi {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-height: 580px) {
+  :root {
+    --card-h: 300px;
+    --hanzi-front: 3.5rem;
+    --hanzi-back: 2.4rem;
+  }
+
+  .card-face {
+    padding: 24px 28px;
+  }
+
+  .fields-list {
+    gap: 6px;
+  }
+}

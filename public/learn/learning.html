@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chinese Flashcards · 汉字卡片</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- ── Header ─────────────────────────────────────────── -->
+    <header class="app-header">
+      <h1>🀄 Chinese Flashcards</h1>
+      <div class="stats">
+        <span id="total-words">— từ</span>
+        <span class="stats-dot">•</span>
+        <span id="reviewed-count">0 đã học</span>
+        <span id="mc-score-wrap" style="display:none">
+          <span class="stats-dot">•</span>
+          <span id="mc-score">0/0 đúng</span>
+        </span>
+      </div>
+
+      <!-- Mode tabs -->
+      <nav class="mode-tabs" role="tablist" aria-label="Chọn chế độ học">
+        <button class="mode-tab active" data-mode="flashcard" role="tab">🃏 Flashcard</button>
+        <button class="mode-tab" data-mode="multiple-choice" role="tab">📝 Trắc nghiệm</button>
+        <button class="mode-tab" data-mode="matching" role="tab">🔗 Nối từ</button>
+      </nav>
+    </header>
+
+    <!-- ── Main ───────────────────────────────────────────── -->
+    <main class="app-main">
+
+      <!-- ── Flashcard section ─────────────────────────────── -->
+      <section id="mode-flashcard" class="mode-section active">
+        <div class="card-scene">
+          <div class="card" id="flashcard" role="button" tabindex="0" aria-label="Flashcard — nhấp để lật">
+            <div class="card-inner">
+              <div class="card-face card-front" id="card-front"></div>
+              <div class="card-face card-back" id="card-back"></div>
+            </div>
+          </div>
+        </div>
+        <p class="action-hint" id="action-hint" aria-live="polite">Nhấp thẻ để lật</p>
+      </section>
+
+      <!-- ── Multiple Choice section ───────────────────────── -->
+      <section id="mode-multiple-choice" class="mode-section">
+        <div class="mc-question-card">
+          <div class="mc-question-badge" id="mc-question-badge"></div>
+          <div class="mc-question-value" id="mc-question-value"></div>
+          <div class="mc-question-prompt" id="mc-question-prompt"></div>
+        </div>
+        <div class="mc-options" id="mc-options"></div>
+        <p class="action-hint" id="mc-hint" aria-live="polite">Chọn đáp án đúng</p>
+      </section>
+
+      <!-- ── Matching section ───────────────────────────────── -->
+      <section id="mode-matching" class="mode-section">
+        <p class="matching-subtitle" id="matching-subtitle"></p>
+        <div class="matching-grid">
+          <div class="matching-col" id="matching-left"></div>
+          <div class="matching-col" id="matching-right"></div>
+        </div>
+        <div class="matching-footer">
+          <p class="matching-result" id="matching-result" aria-live="polite"></p>
+          <button class="btn-next hidden" id="matching-next">Vòng tiếp theo →</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────── -->
+    <footer class="app-footer">
+      <p id="footer-hint">Nhấp để lật · Nhấp lại để sang thẻ mới &nbsp;|&nbsp; Phím <kbd>Space</kbd> / <kbd>Enter</kbd>
+        cũng hoạt động</p>
+    </footer>
+
+  </div><!-- /.app -->
+
+  <script src="app.js"></script>
+</body>
+
+</html>
