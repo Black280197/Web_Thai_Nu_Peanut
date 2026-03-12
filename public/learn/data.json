@@ -318,5 +318,77 @@
     "memory_hint": "Bắc (北) là phương bắc, kinh (京) là thủ đô",
     "radical": "匕, 亠",
     "extra": "Danh từ địa danh, HSK1"
+  },
+  {
+    "hanzi": "她",
+    "pinyin": "tā",
+    "meaning": "cô ấy, chị ấy, bà ấy",
+    "memory_hint": "Chữ kết hợp giữa bộ Nữ (女) - chỉ phụ nữ và chữ Cũng (也). Dùng để chỉ người nữ đã được nhắc đến.",
+    "radical": "女",
+    "extra": "Đại từ nhân xưng ngôi thứ ba số ít, chỉ nữ giới. HSK1"
+  },
+  {
+    "hanzi": "谁",
+    "pinyin": "shéi / shuí",
+    "meaning": "ai",
+    "memory_hint": "Bộ Ngôn (讠) bên trái chỉ lời nói, kết hợp với chữ Chuẩn (隹) - nghĩa gốc là con chim. Hình ảnh hỏi 'ai đó' đang nói chuyện.",
+    "radical": "讠",
+    "extra": "Đại từ nghi vấn, dùng để hỏi về người. HSK1"
+  },
+  {
+    "hanzi": "的",
+    "pinyin": "de",
+    "meaning": "của (trợ từ sở hữu)",
+    "memory_hint": "Nhìn giống một cái đĩa tròn (白) với một cái thìa (勺) ở bên phải. Dùng để kết nối, chỉ mối quan hệ sở hữu.",
+    "radical": "白",
+    "extra": "Trợ từ kết cấu, dùng sau định ngữ. Là một trong những từ thông dụng nhất trong tiếng Trung. HSK1"
+  },
+  {
+    "hanzi": "汉语",
+    "pinyin": "Hànyǔ",
+    "meaning": "tiếng Hán, tiếng Trung",
+    "memory_hint": "Hán (汉) chỉ dân tộc Hán, Ngữ (语) chỉ lời nói. Ghép lại thành ngôn ngữ của người Hán.",
+    "radical": "氵, 讠",
+    "extra": "Danh từ, chỉ ngôn ngữ Trung Quốc nói chung. HSK1"
+  },
+  {
+    "hanzi": "老师",
+    "pinyin": "lǎoshī",
+    "meaning": "giáo viên, thầy cô giáo",
+    "memory_hint": "Lão (老) là già, có kinh nghiệm; Sư (师) chỉ người truyền dạy kiến thức. Người lớn tuổi truyền dạy.",
+    "radical": "老, 巾",
+    "extra": "Danh từ. Cách xưng hô tôn trọng đối với người dạy học. HSK1"
+  },
+  {
+    "hanzi": "学生",
+    "pinyin": "xuésheng",
+    "meaning": "học sinh, sinh viên",
+    "memory_hint": "Học (学) là việc học; Sinh (生) là người, cuộc sống. Ghép lại là người đi học.",
+    "radical": "子, 生",
+    "extra": "Danh từ. HSK1"
+  },
+  {
+    "hanzi": "同学",
+    "pinyin": "tóngxué",
+    "meaning": "bạn học, cùng học",
+    "memory_hint": "Đồng (同) là cùng nhau; Học (学) là học. Những người cùng nhau học tập.",
+    "radical": "冂, 子",
+    "extra": "Danh từ, vừa chỉ những người học chung lớp trường, vừa có thể dùng làm động từ (cùng học). HSK1"
+  },
+  {
+    "hanzi": "朋友",
+    "pinyin": "péngyou",
+    "meaning": "bạn bè",
+    "memory_hint": "Hai chữ 'trăng' (月) song song chỉ sự gắn bó, sánh đôi như bạn bè.",
+    "radical": "月, 月",
+    "extra": "Danh từ. HSK1"
+  },
+  {
+    "hanzi": "呢",
+    "pinyin": "ne",
+    "meaning": "trợ từ nghi vấn (thì, còn...?)",
+    "memory_hint": "Bộ Khẩu (口) chỉ cái miệng, miệng hỏi về điều gì đang diễn ra.",
+    "radical": "口",
+    "extra": "Trợ từ dùng cuối câu để hỏi ngược lại hoặc nhấn mạnh. HSK1"
   }
 ]
