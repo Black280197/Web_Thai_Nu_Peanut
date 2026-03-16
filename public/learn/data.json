@@ -390,5 +390,261 @@
     "memory_hint": "Bộ Khẩu (口) chỉ cái miệng, miệng hỏi về điều gì đang diễn ra.",
     "radical": "口",
     "extra": "Trợ từ dùng cuối câu để hỏi ngược lại hoặc nhấn mạnh. HSK1"
+  },
+  {
+    "hanzi": "名词",
+    "pinyin": "míngcí",
+    "meaning": "danh từ",
+    "memory_hint": "'名' (tên gọi) + '词' (từ) => từ dùng để gọi tên sự vật, hiện tượng.",
+    "radical": "口, 讠",
+    "extra": "Từ loại. Viết tắt: 名"
+  },
+  {
+    "hanzi": "代词",
+    "pinyin": "dàicí",
+    "meaning": "đại từ",
+    "memory_hint": "'代' (thay thế) + '词' (từ) => từ thay thế cho danh từ.",
+    "radical": "亻, 讠",
+    "extra": "Từ loại. Viết tắt: 代"
+  },
+  {
+    "hanzi": "动词",
+    "pinyin": "dòngcí",
+    "meaning": "động từ",
+    "memory_hint": "'动' (hành động) + '词' (từ) => từ chỉ hành động.",
+    "radical": "力, 讠",
+    "extra": "Từ loại. Viết tắt: 动"
+  },
+  {
+    "hanzi": "离合词",
+    "pinyin": "lìhécí",
+    "meaning": "từ ly hợp",
+    "memory_hint": "'离' (tách) + '合' (hợp) => từ có thể tách ra để thêm thành phần khác.",
+    "radical": "亠, 口, 讠",
+    "extra": "Loại động từ đặc biệt. Ví dụ: 洗澡 (tắm) -> 洗了一个澡 (tắm một lần)"
+  },
+  {
+    "hanzi": "形容词",
+    "pinyin": "xíngróngcí",
+    "meaning": "tính từ",
+    "memory_hint": "'形容' (miêu tả) + '词' (từ) => từ dùng để miêu tả đặc điểm.",
+    "radical": "彡, 宀, 讠",
+    "extra": "Từ loại. Viết tắt: 形"
+  },
+  {
+    "hanzi": "数词",
+    "pinyin": "shùcí",
+    "meaning": "số từ",
+    "memory_hint": "'数' (số) + '词' (từ) => từ chỉ số lượng hoặc thứ tự.",
+    "radical": "攵, 讠",
+    "extra": "Từ loại. Viết tắt: 数"
+  },
+  {
+    "hanzi": "量词",
+    "pinyin": "liàngcí",
+    "meaning": "lượng từ",
+    "memory_hint": "'量' (đo lường) + '词' (từ) => từ đi kèm với số từ để chỉ đơn vị.",
+    "radical": "日, 讠",
+    "extra": "Từ loại. Viết tắt: 量"
+  },
+  {
+    "hanzi": "数量词",
+    "pinyin": "shùliàngcí",
+    "meaning": "số lượng từ",
+    "memory_hint": "Kết hợp của số từ và lượng từ, chỉ một số lượng cụ thể.",
+    "radical": "攵, 日, 讠",
+    "extra": "Cụm từ. Viết tắt: 数量"
+  },
+  {
+    "hanzi": "副词",
+    "pinyin": "fùcí",
+    "meaning": "phó từ",
+    "memory_hint": "'副' (phụ trợ) + '词' (từ) => từ bổ nghĩa cho động từ, tính từ.",
+    "radical": "刂, 讠",
+    "extra": "Từ loại. Viết tắt: 副"
+  },
+  {
+    "hanzi": "介词",
+    "pinyin": "jiècí",
+    "meaning": "giới từ",
+    "memory_hint": "'介' (giới thiệu, trung gian) + '词' (từ) => từ giới thiệu quan hệ giữa các từ.",
+    "radical": "人, 讠",
+    "extra": "Từ loại. Viết tắt: 介"
+  },
+  {
+    "hanzi": "连词",
+    "pinyin": "liáncí",
+    "meaning": "liên từ",
+    "memory_hint": "'连' (kết nối) + '词' (từ) => từ nối các từ, cụm từ, câu.",
+    "radical": "辶, 讠",
+    "extra": "Từ loại. Viết tắt: 连"
+  },
+  {
+    "hanzi": "助词",
+    "pinyin": "zhùcí",
+    "meaning": "trợ từ",
+    "memory_hint": "'助' (giúp đỡ) + '词' (từ) => từ phụ trợ, thêm ý nghĩa cho câu.",
+    "radical": "且, 讠",
+    "extra": "Từ loại. Viết tắt: 助"
+  },
+  {
+    "hanzi": "动态助词",
+    "pinyin": "dòngtài zhùcí",
+    "meaning": "trợ từ động thái",
+    "memory_hint": "Trợ từ chỉ trạng thái, diễn biến của hành động (着, 了, 过).",
+    "radical": "力, 氵, 且, 讠",
+    "extra": "Phân loại trợ từ"
+  },
+  {
+    "hanzi": "结构助词",
+    "pinyin": "jiégòu zhùcí",
+    "meaning": "trợ từ kết cấu",
+    "memory_hint": "Trợ từ chỉ quan hệ cấu trúc giữa các thành phần (的, 地, 得).",
+    "radical": "纟, 木, 且, 讠",
+    "extra": "Phân loại trợ từ"
+  },
+  {
+    "hanzi": "语气助词",
+    "pinyin": "yǔqì zhùcí",
+    "meaning": "trợ từ ngữ khí",
+    "memory_hint": "Trợ từ cuối câu biểu thị ngữ điệu, thái độ (吗, 呢, 吧).",
+    "radical": "讠, 气, 且, 讠",
+    "extra": "Phân loại trợ từ"
+  },
+  {
+    "hanzi": "叹词",
+    "pinyin": "tàncí",
+    "meaning": "thán từ",
+    "memory_hint": "'叹' (than thở) + '词' (từ) => từ bộc lộ cảm xúc (啊, 哦).",
+    "radical": "口, 讠",
+    "extra": "Từ loại. Viết tắt: 叹"
+  },
+  {
+    "hanzi": "象声词",
+    "pinyin": "xiàngshēngcí",
+    "meaning": "từ tượng thanh",
+    "memory_hint": "'象声' (mô phỏng âm thanh) + '词' (từ) => từ mô phỏng tiếng động.",
+    "radical": "⺈, 士, 讠",
+    "extra": "Từ loại. Viết tắt: 象"
+  },
+  {
+    "hanzi": "词头",
+    "pinyin": "cítóu",
+    "meaning": "tiền tố",
+    "memory_hint": "'词' (từ) + '头' (đầu) => phần ở đầu từ, thường là phụ tố.",
+    "radical": "讠, 大",
+    "extra": "Viết tắt: 头. Ví dụ: 第 (thứ), 老 (già/lão)"
+  },
+  {
+    "hanzi": "词尾",
+    "pinyin": "cíwěi",
+    "meaning": "hậu tố",
+    "memory_hint": "'词' (từ) + '尾' (đuôi) => phần ở cuối từ, thường là phụ tố.",
+    "radical": "讠, 尸",
+    "extra": "Viết tắt: 尾. Ví dụ: 们 (chỉ số nhiều), 子 (đuôi danh từ)"
+  },
+  {
+    "hanzi": "上唇",
+    "pinyin": "shàngchún",
+    "meaning": "môi trên",
+    "memory_hint": "'上' (trên) + '唇' (môi) => môi phía trên.",
+    "radical": "一, 口",
+    "extra": "Bộ phận phát âm. Hình ảnh 1"
+  },
+  {
+    "hanzi": "上齿",
+    "pinyin": "shàngchǐ",
+    "meaning": "răng trên",
+    "memory_hint": "'上' (trên) + '齿' (răng) => răng hàm trên.",
+    "radical": "一, 齿",
+    "extra": "Bộ phận phát âm. Hình ảnh 2"
+  },
+  {
+    "hanzi": "牙床",
+    "pinyin": "yáchuáng",
+    "meaning": "lợi",
+    "memory_hint": "'牙' (răng) + '床' (giường) => nơi răng 'nằm' trên đó.",
+    "radical": "牙, 广",
+    "extra": "Bộ phận phát âm. Hình ảnh 3"
+  },
+  {
+    "hanzi": "硬颚",
+    "pinyin": "yìng'è",
+    "meaning": "ngạc cứng",
+    "memory_hint": "'硬' (cứng) + '颚' (hàm/vòm miệng) => phần vòm miệng cứng.",
+    "radical": "石, 页",
+    "extra": "Bộ phận phát âm. Hình ảnh 4"
+  },
+  {
+    "hanzi": "软颚",
+    "pinyin": "ruǎn'è",
+    "meaning": "ngạc mềm",
+    "memory_hint": "'软' (mềm) + '颚' (hàm/vòm miệng) => phần vòm miệng mềm.",
+    "radical": "车, 页",
+    "extra": "Bộ phận phát âm. Hình ảnh 5"
+  },
+  {
+    "hanzi": "小舌",
+    "pinyin": "xiǎoshé",
+    "meaning": "tiểu thiệt, lưỡi con",
+    "memory_hint": "'小' (nhỏ) + '舌' (lưỡi) => cái lưỡi nhỏ, thực chất là lưỡi gà.",
+    "radical": "小, 舌",
+    "extra": "Bộ phận phát âm. Hình ảnh 6"
+  },
+  {
+    "hanzi": "下唇",
+    "pinyin": "xiàchún",
+    "meaning": "môi dưới",
+    "memory_hint": "'下' (dưới) + '唇' (môi) => môi phía dưới.",
+    "radical": "一, 口",
+    "extra": "Bộ phận phát âm. Hình ảnh 7"
+  },
+  {
+    "hanzi": "下齿",
+    "pinyin": "xiàchǐ",
+    "meaning": "răng dưới",
+    "memory_hint": "'下' (dưới) + '齿' (răng) => răng hàm dưới.",
+    "radical": "一, 齿",
+    "extra": "Bộ phận phát âm. Hình ảnh 8"
+  },
+  {
+    "hanzi": "舌尖",
+    "pinyin": "shéjiān",
+    "meaning": "đầu lưỡi",
+    "memory_hint": "'舌' (lưỡi) + '尖' (nhọn, đầu nhọn) => phần đầu nhọn của lưỡi.",
+    "radical": "舌, 小",
+    "extra": "Bộ phận phát âm. Hình ảnh 9"
+  },
+  {
+    "hanzi": "舌面",
+    "pinyin": "shémiàn",
+    "meaning": "mặt lưỡi",
+    "memory_hint": "'舌' (lưỡi) + '面' (mặt) => bề mặt của lưỡi.",
+    "radical": "舌, 面",
+    "extra": "Bộ phận phát âm. Hình ảnh 10"
+  },
+  {
+    "hanzi": "舌根",
+    "pinyin": "shégēn",
+    "meaning": "gốc lưỡi",
+    "memory_hint": "'舌' (lưỡi) + '根' (gốc rễ) => phần gốc của lưỡi.",
+    "radical": "舌, 木",
+    "extra": "Bộ phận phát âm. Hình ảnh 11"
+  },
+  {
+    "hanzi": "声带",
+    "pinyin": "shēngdài",
+    "meaning": "dây thanh",
+    "memory_hint": "'声' (âm thanh) + '带' (dải, dây) => dải tạo ra âm thanh trong cổ họng.",
+    "radical": "士, 巾",
+    "extra": "Bộ phận phát âm. Hình ảnh 12"
+  },
+  {
+    "hanzi": "鼻腔",
+    "pinyin": "bíqiāng",
+    "meaning": "khoang mũi",
+    "memory_hint": "'鼻' (mũi) + '腔' (khoang) => khoang bên trong mũi.",
+    "radical": "自, 月",
+    "extra": "Bộ phận phát âm. Hình ảnh 13"
   }
 ]
